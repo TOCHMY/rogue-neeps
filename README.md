@@ -10,9 +10,9 @@ Förslag:
 
 ## Spelare: 
 Färdigheter: 
-Strength
-Dexterity
-Intelligence
+- Strength
+- Dexterity
+- Intelligence
 
 Klasser:
 Fighter
@@ -55,8 +55,10 @@ Mage
  - Förslag 1: Level på items påverkar magi-gemstone-krat
  
 
-
-
+## FIGHT: 
+- Pig is in x=50, y=50; 
+- player.strike(x=50, y=50);
+- Pig.die(); // give xp osv kanske i dont know 
 
 
 
