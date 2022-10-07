@@ -23,5 +23,5 @@ Förslag:
  - Kan hittas i typ kistor
  - Kan droppas från fiender
  - Styrka baserad på spelarens level? 
- - Olika datasets? I don't know 
+ - Olika datasets? I don't know List1(levelOneItems) List2(levelTwoItems) Svärd1 -> List1, MycketStarkareSvärd2 -> List2
  
