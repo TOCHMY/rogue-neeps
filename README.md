@@ -15,3 +15,13 @@ Förslag:
 - Olika färgade gemstones har olika typer av magier
 - Tex: Röd gemstone har offensiva magier, Gul gemstone har defensiva magier, Blå gemstones har passiva eller nåt 
  
+
+## Utrustning: 
+ - Items har sockets, olika mängd (random?)
+ - Sockets kan ha olika färger (random?)
+ - Kan ges som belöning
+ - Kan hittas i typ kistor
+ - Kan droppas från fiender
+ - Styrka baserad på spelarens level? 
+ - Olika datasets? I don't know 
+ 
