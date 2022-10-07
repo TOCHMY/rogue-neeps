@@ -8,6 +8,24 @@ Förslag:
 
 # Idéer 
 
+## Spelare: 
+Färdigheter: 
+Strength
+Dexterity
+Intelligence
+
+Klasser:
+Fighter
+Archer
+Mage
+
+
+## NPCer:
+
+### Snälla NPC
+
+### Elaka NPC
+
 ## Magi: 
 - Items har sockets
 - Olika färg på sockets
@@ -36,3 +54,16 @@ Förslag:
  - Olika datasets? I don't know List1(levelOneItems) List2(levelTwoItems) Svärd1 -> List1, MycketStarkareSvärd2 -> List2
  - Förslag 1: Level på items påverkar magi-gemstone-krat
  
+
+
+
+
+
+
+## LEONS TANKAR: 
+
+Jag tänker att klasser som i wow annars kan skapa ganska mycket olika testfall
+t.ex. att man har en klass som ärver nå interface, t.ex. One-hand, dual wield, staff, alltså, vilket vapen man får hålla. 
+Sen har vissa klasser mana för de ärver från nå mage interface. 
+Sen nå combat system där man slår på varandra och det dras HP baserat på attackstyrka, rng.nr 1.05% dmg etc.
+Det jag menar är att jag tänker på förhand att uppgiften skulle kretsa mycket kring ärvning av klasser för att skapa olika ingame klasser. Och typ combat systemet
