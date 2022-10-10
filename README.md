@@ -21,7 +21,7 @@ Mage
 
 
 ## NPCer:
-
+Comment för att komma ihåg senare: interface för movement?
 ### Snälla NPC
 
 ### Elaka NPC
