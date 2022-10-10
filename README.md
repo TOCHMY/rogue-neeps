@@ -60,6 +60,10 @@ Mage
 - player.strike(x=50, y=50);
 - Pig.die(); // give xp osv kanske i dont know 
 
+## KARTA: 
+- Förslag: Kartan är 100x100 pixlar. Spelare och NPCer rör sig genom att hålla koll på position med hjälp av arrayer. 
+ - Så om NPC Randy skapas på position x=50 y=50 och sedan rör sig upp ett steg så är Randys nya position x=50, y=51. 
+
 
 
 ## LEONS TANKAR: 
