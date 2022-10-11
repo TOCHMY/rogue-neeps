@@ -1,7 +1,7 @@
 class Pig extends Enemy implements Killable {
 
     private final int xp;
-    private final int health;
+    private int health;
 
     private boolean isDead;
 
