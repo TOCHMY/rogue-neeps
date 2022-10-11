@@ -10,4 +10,6 @@ public class MagicSocketTest {
         assertEquals(MagicColor.BLUE, socket.getColor());
     }
 
+
+
 }
