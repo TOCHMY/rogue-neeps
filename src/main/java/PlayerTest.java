@@ -1,9 +1,9 @@
 import org.junit.Test;
 
+
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 public class PlayerTest {
 
     @Test
@@ -14,10 +14,10 @@ public class PlayerTest {
     @Test
     public void TestGetPlayerAttributes(){
         Player p = new Player();
-        HashMap<String, Integer> attrs = p.getAttributes();
-        assertEquals(0, attrs.get("strength"));
-        assertEquals(0, attrs.get("dexterity"));
-        assertEquals(0, attrs.get("intelligence"));
+        HashMap<Attributes, Integer> attrs = p.getAttributes();
+        assertEquals(1, attrs.get(Attributes.STRENGTH));
+        assertEquals(1, attrs.get(Attributes.DEXTERITY));
+        assertEquals(1, attrs.get(Attributes.INTELLIGENCE));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class PlayerTest {
         p.addXp(110);
 
         assertEquals(2, p.getLvl());
-        assertEquals(p.getRemainingXp(), 190);
+        assertEquals(190, p.getRemainingXp());
     }
 
     @Test
@@ -73,6 +73,28 @@ public class PlayerTest {
         }
         assertEquals(2, p.getLvl());
         assertEquals(200, p.getRemainingXp());
+    }
+
+    @Test
+    public void TestPlayerMovement(){
+        Player p = new Player();
+        assertEquals(0, p.getCurrentX());
+        assertEquals(0, p.getCurrentY());
+
+        p.moveUp();
+
+        assertEquals(5, p.getCurrentY());
+    }
+
+    @Test public void voidTestPlayerMovementWithDexterity(){
+        Player p = new Player();
+
+        p.addDexterity(10);
+
+
+        p.moveUp();
+
+        assertEquals(6, p.getCurrentY());
     }
 
 
