@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +27,14 @@ public class WeaponTest {
     @Test
     public void testWeaponCreationTooManySockets(){
         List<MagicSocket> magicSockets = List.of(new MagicSocket(MagicColor.BLUE), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED));
+        assertThrows(IllegalArgumentException.class, () ->{
+            new Weapon(50, magicSockets);
+        });
+    }
+
+    @Test
+    public void testWeaponCreationWithNoSockets(){
+        List<MagicSocket> magicSockets = new ArrayList<>();
         assertThrows(IllegalArgumentException.class, () ->{
             new Weapon(50, magicSockets);
         });

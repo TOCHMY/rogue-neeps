@@ -7,9 +7,9 @@ public abstract class Item {
 
     public Item(double strength, List<MagicSocket> sockets) {
         if(strength < 1 || strength > 100)
-            throw new IllegalArgumentException("Strength must be between 1 and 100");
-        if(sockets.size() > 5)
-            throw new IllegalArgumentException("Strength must be between 1 and 100");
+            throw new IllegalArgumentException("Strength must be between 1 to 100");
+        if(sockets.isEmpty() || sockets.size() > 5)
+            throw new IllegalArgumentException("Number of sockets must be between 1 to 5");
         this.strength = strength;
         this.sockets = sockets;
     }
