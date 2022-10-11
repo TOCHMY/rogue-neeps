@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class NPC {
+public class NPC implements Movement {
 
     //Set NPC movement range? <- så typ en specifik NPC kan inte röra sig längre än 2 pixlar
     // från sin initialPosition.
@@ -29,10 +29,11 @@ public class NPC {
     }
 
     private int generateRandomMovementNumber() {
-        Random rand = new Random();
+        Random rand = new Random(4);
         return rand.nextInt(4) + 1;
     }
 
+    //Testa alla move-metoder så att NPC inte kolliderar med terrain
     public void moveUp() {
         yPosition++;
         setCurrentPosition(xPosition, yPosition);
