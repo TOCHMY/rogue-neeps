@@ -29,7 +29,7 @@ public class NPC implements Movement {
     }
 
     private int generateRandomMovementNumber() {
-        Random rand = new Random(4);
+        Random rand = new Random();
         return rand.nextInt(4) + 1;
     }
 
