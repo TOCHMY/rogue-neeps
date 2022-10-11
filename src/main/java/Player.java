@@ -1,14 +1,25 @@
 import java.util.HashMap;
 
-public class Player {
-
-    private int strength;
-    private int dexterity;
-    private int intelligence;
+public class Player implements Movement, Positionable{
+    private static int STEPS = 5;
 
     private Player.Experience xp;
 
-    private HashMap<String, Integer> attributes;
+    private HashMap<Attributes, Integer> attributes;
+
+    private int currentX;
+    private int currentY;
+
+    Player(){
+        this.currentX = 0;
+        this.currentY = 0;
+        generateAttributeList();
+        this.xp = new Experience();
+    }
+
+    public void addDexterity(int amount){
+        attributes.merge(Attributes.DEXTERITY, amount, Integer::sum);
+    }
 
     static class Experience{
         private int lvl;
@@ -34,23 +45,16 @@ public class Player {
             }
         }
     }
-    Player(){
-        this.strength = 0;
-        this.dexterity = 0;
-        this.intelligence = 0;
-        generateAttributeList();
-        this.xp = new Experience();
-    }
 
-    public HashMap<String, Integer> getAttributes(){
+    public HashMap<Attributes, Integer> getAttributes(){
         return attributes;
     }
 
     private void generateAttributeList(){
         attributes = new HashMap<>();
-        attributes.put("strength", 0);
-        attributes.put("dexterity", 0);
-        attributes.put("intelligence", 0);
+        attributes.put(Attributes.STRENGTH, 1);
+        attributes.put(Attributes.DEXTERITY, 1);
+        attributes.put(Attributes.INTELLIGENCE, 1);
     }
     public int getLvl() {
        return xp.lvl;
@@ -62,6 +66,33 @@ public class Player {
         xp.updateXp(amount);
     }
 
+    @Override
+    public void moveUp() {
+        currentY += (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+    }
 
+    @Override
+    public void moveDown() {
+        currentY -= (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+    }
 
+    @Override
+    public void moveRight() {
+        currentX += (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+    }
+
+    @Override
+    public void moveLeft() {
+        currentX -= (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+    }
+
+    @Override
+    public int getCurrentX() {
+        return currentX;
+    }
+
+    @Override
+    public int getCurrentY() {
+        return currentY;
+    }
 }
