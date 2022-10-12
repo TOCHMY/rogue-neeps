@@ -83,9 +83,22 @@ public class WeaponTest {
         assertThrows(IllegalArgumentException.class, () -> {
             weapon.addStone(new GemStone(MagicColor.RED, 5, 5));
         });
-
-
     }
+
+    @Test
+    public void testAddTooManyGemStonesOfSameColor() {
+        List<MagicSocket> sockets = List.of
+                (new MagicSocket(MagicColor.BLUE));
+
+        Weapon weapon = new Weapon(50, sockets);
+        weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
+
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
+        });
+    }
+
 
 
 }

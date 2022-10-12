@@ -35,6 +35,5 @@ public abstract class Item {
                         () -> {
                             throw new IllegalArgumentException("There is no empty socket of the right color");
                         });
-
     }
 }
