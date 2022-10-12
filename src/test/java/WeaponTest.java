@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,5 +46,7 @@ public class WeaponTest {
             new Weapon(101, List.of(new MagicSocket(MagicColor.BLUE)));
         });
     }
+
+
 
 }
