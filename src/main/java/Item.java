@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Optional;
 
 public abstract class Item {
 
@@ -7,15 +6,15 @@ public abstract class Item {
     private List<MagicSocket> sockets;
 
     public Item(double strength, List<MagicSocket> sockets) {
-        if(strength < 1 || strength > 100)
+        if (strength < 1 || strength > 100)
             throw new IllegalArgumentException("Strength must be between 1 to 100");
-        if(sockets.isEmpty() || sockets.size() > 5)
+        if (sockets.isEmpty() || sockets.size() > 5)
             throw new IllegalArgumentException("Number of sockets must be between 1 to 5");
         this.strength = strength;
         this.sockets = sockets;
     }
 
-    double getStrength(){
+    double getStrength() {
         return this.strength;
     }
 
@@ -23,13 +22,19 @@ public abstract class Item {
         return sockets;
     }
 
-    void die(){}
+    void die() {
+    }
 
 
     public void addStone(GemStone gemStone) {
-        sockets.stream().filter(socket -> socket.getGemStone() == null)
-                .filter(socket -> socket.getColor() == gemStone.getColor())
-                .findFirst().ifPresent(socket -> socket.addStone(gemStone));
+        sockets.stream()
+                .filter(socket -> socket.getGemStone() == null && socket.getColor() == gemStone.getColor())
+                .findFirst()
+                .ifPresentOrElse(
+                        socket -> socket.addStone(gemStone),
+                        () -> {
+                            throw new IllegalArgumentException("There is no empty socket of the right color");
+                        });
 
     }
 }
