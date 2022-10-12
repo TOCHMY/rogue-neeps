@@ -2,6 +2,7 @@ import java.util.List;
 
 public abstract class Item {
 
+    private static final double DEFAULT_COST_OF_USE = 0.5;
     private double strength;
     private List<MagicSocket> sockets;
 
@@ -13,6 +14,13 @@ public abstract class Item {
         this.strength = strength;
         this.sockets = sockets;
     }
+
+    public double use(){
+        double power = this.strength;
+        this.strength -= DEFAULT_COST_OF_USE;
+        return power;
+    }
+
 
     double getStrength() {
         return this.strength;

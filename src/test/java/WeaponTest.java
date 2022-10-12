@@ -99,6 +99,24 @@ public class WeaponTest {
         });
     }
 
+    @Test
+    public void testResultOfStrike(){
+
+        List<MagicSocket> sockets = List.of
+                (new MagicSocket(MagicColor.BLUE),
+                        new MagicSocket(MagicColor.RED),
+                        new MagicSocket(MagicColor.GREEN));
+
+        Weapon weapon = new Weapon(50, sockets);
+
+        assertEquals(50, weapon.use());
+        assertEquals(49.5, weapon.getStrength());
+        assertEquals(49.5, weapon.use());
+        assertEquals(49, weapon.getStrength());
+
+    }
+
+
 
 
 }
