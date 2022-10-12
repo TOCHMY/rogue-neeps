@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Optional;
 
 public abstract class Item {
 
@@ -25,4 +26,10 @@ public abstract class Item {
     void die(){}
 
 
+    public void addStone(GemStone gemStone) {
+        sockets.stream().filter(socket -> socket.getGemStone() == null)
+                .filter(socket -> socket.getColor() == gemStone.getColor())
+                .findFirst().ifPresent(socket -> socket.addStone(gemStone));
+
+    }
 }
