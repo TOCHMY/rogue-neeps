@@ -41,24 +41,18 @@ public class WeaponTest {
     @Test
     public void testWeaponCreationTooManySockets() {
         List<MagicSocket> magicSockets = List.of(new MagicSocket(MagicColor.BLUE), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED), new MagicSocket(MagicColor.RED));
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Weapon(50, magicSockets);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Weapon(50, magicSockets));
     }
 
     @Test
     public void testWeaponCreationWithNoSockets() {
         List<MagicSocket> magicSockets = new ArrayList<>();
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Weapon(50, magicSockets);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Weapon(50, magicSockets));
     }
 
     @Test
     public void testCreateWeaponWithIllegalStrength() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Weapon(101, List.of(new MagicSocket(MagicColor.BLUE)));
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Weapon(101, List.of(new MagicSocket(MagicColor.BLUE))));
     }
 
     @Test
@@ -88,9 +82,7 @@ public class WeaponTest {
 
         Weapon weapon = new Weapon(50, sockets);
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            weapon.addStone(new GemStone(MagicColor.RED, 5, 5));
-        });
+        assertThrows(IllegalArgumentException.class, () -> weapon.addStone(new GemStone(MagicColor.RED, 5, 5)));
     }
 
     @Test
@@ -101,14 +93,11 @@ public class WeaponTest {
         Weapon weapon = new Weapon(50, sockets);
         weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
-        });
+        assertThrows(IllegalArgumentException.class, () -> weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5)));
     }
 
     @Test
-    public void testResultOfStrike(){
-
+    public void testAttacksWithoutStones(){
         assertEquals(50, WEAPON_WITH_THREE_SOCKETS.attack());
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.attack());
@@ -116,18 +105,26 @@ public class WeaponTest {
     }
 
     @Test
-    void testUsageWithOneStone() {
+    void testAttackWithOneStone() {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         assertEquals(54, WEAPON_WITH_THREE_SOCKETS.attack());
         assertEquals(47.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
     @Test
-    void testUsageWithTwoStones() {
+    void testAttackWithTwoStones() {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         assertEquals(58, WEAPON_WITH_THREE_SOCKETS.attack());
         assertEquals(45.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+    }
+
+    @Test
+    public void testDefenceWithoutStones(){
+        assertEquals(50, WEAPON_WITH_THREE_SOCKETS.defend());
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.defend());
+        assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
 
