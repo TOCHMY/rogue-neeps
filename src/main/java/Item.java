@@ -2,7 +2,6 @@ import java.util.List;
 
 public abstract class Item {
 
-    private static final double DEFAULT_COST_OF_USE = 0.5;
     private double strength;
     private List<MagicSocket> sockets;
 
@@ -15,12 +14,10 @@ public abstract class Item {
         this.sockets = sockets;
     }
 
-    public double use(){
-        double power = this.strength;
-        this.strength -= DEFAULT_COST_OF_USE;
-        return power;
-    }
 
+    void setStrength(double newStrength){
+        strength = newStrength;
+    }
 
     double getStrength() {
         return this.strength;
@@ -34,6 +31,8 @@ public abstract class Item {
     }
 
 
+
+
     public void addStone(GemStone gemStone) {
         sockets.stream()
                 .filter(socket -> socket.getGemStone() == null && socket.getColor() == gemStone.getColor())
@@ -43,5 +42,19 @@ public abstract class Item {
                         () -> {
                             throw new IllegalArgumentException("There is no empty socket of the right color");
                         });
+    }
+
+    double getCostFromStonesOfColor(MagicColor color) {
+        return getSockets().stream()
+                .filter(socket -> socket.getGemStone()!= null &&socket.getGemStone().getColor().equals(color))
+                .mapToDouble(socket -> socket.getGemStone().getCost())
+                .sum();
+    }
+
+    double getStrengthFromStonesOfColor(MagicColor color) {
+        return getSockets().stream()
+                .filter(socket -> socket.getGemStone()!= null &&socket.getGemStone().getColor().equals(color))
+                .mapToDouble(socket -> socket.getGemStone().getStrength())
+                .sum();
     }
 }

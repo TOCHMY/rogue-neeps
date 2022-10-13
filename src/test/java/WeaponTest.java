@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -6,6 +7,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WeaponTest {
+
+    Weapon WEAPON_WITH_THREE_SOCKETS;
+
+    @BeforeEach
+    void createWeapon(){
+        List<MagicSocket> sockets = List.of
+                (new MagicSocket(MagicColor.BLUE),
+                        new MagicSocket(MagicColor.BLUE),
+                        new MagicSocket(MagicColor.RED),
+                        new MagicSocket(MagicColor.GREEN));
+
+        WEAPON_WITH_THREE_SOCKETS = new Weapon(50, sockets);
+
+    }
 
     @Test
     public void testWeaponCreatedWithParameters() {
@@ -48,26 +63,19 @@ public class WeaponTest {
 
     @Test
     public void testAddGemStoneToWeapon() {
-        List<MagicSocket> sockets = List.of
-                (new MagicSocket(MagicColor.BLUE),
-                        new MagicSocket(MagicColor.BLUE),
-                        new MagicSocket(MagicColor.RED),
-                        new MagicSocket(MagicColor.GREEN));
 
-        Weapon weapon = new Weapon(50, sockets);
-
-        weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
-        assertEquals(1, weapon.getSockets().stream()
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
+        assertEquals(1, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
                 .filter(magicSocket -> magicSocket.getGemStone().getColor().equals(MagicColor.BLUE)).count());
 
-        weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
-        assertEquals(2, weapon.getSockets().stream()
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
+        assertEquals(2, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
                 .filter(magicSocket -> magicSocket.getGemStone().getColor().equals(MagicColor.BLUE)).count());
 
-        weapon.addStone(new GemStone(MagicColor.RED, 5, 5));
-        assertEquals(1, weapon.getSockets().stream()
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 5, 5));
+        assertEquals(1, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
                 .filter(magicSocket -> magicSocket.getGemStone().getColor().equals(MagicColor.RED)).count());
     }
@@ -102,20 +110,18 @@ public class WeaponTest {
     @Test
     public void testResultOfStrike(){
 
-        List<MagicSocket> sockets = List.of
-                (new MagicSocket(MagicColor.BLUE),
-                        new MagicSocket(MagicColor.RED),
-                        new MagicSocket(MagicColor.GREEN));
-
-        Weapon weapon = new Weapon(50, sockets);
-
-        assertEquals(50, weapon.use());
-        assertEquals(49.5, weapon.getStrength());
-        assertEquals(49.5, weapon.use());
-        assertEquals(49, weapon.getStrength());
-
+        assertEquals(50, WEAPON_WITH_THREE_SOCKETS.attack());
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.attack());
+        assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
+    @Test
+    void testUsageWithOneStone() {
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
+        assertEquals(54, WEAPON_WITH_THREE_SOCKETS.attack());
+        assertEquals(47.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+    }
 
 
 
