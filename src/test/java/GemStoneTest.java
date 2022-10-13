@@ -14,11 +14,19 @@ public class GemStoneTest {
     }
 
     @Test
+    public void testCreateGemstoneWithBVAValues(){
+        GemStone gemStone = new GemStone(MagicColor.BLUE,30,30);
+        assertEquals(MagicColor.BLUE, gemStone.getColor());
+        assertEquals(30, gemStone.getStrength());
+        assertEquals(30, gemStone.getCost());
+    }
+
+    @Test
     public void testInvalidStrength(){
         assertThrows(IllegalArgumentException.class, () ->
-                new GemStone(MagicColor.BLUE, 0, 10));
+                new GemStone(MagicColor.BLUE, 0, 25));
         assertThrows(IllegalArgumentException.class, () ->
-                new GemStone(MagicColor.BLUE, 11, 10));
+                new GemStone(MagicColor.BLUE, 31, 10));
     }
 
     @Test
@@ -27,7 +35,7 @@ public class GemStoneTest {
                 new GemStone(MagicColor.BLUE, 10, 0));
 
         assertThrows(IllegalArgumentException.class, () ->
-                new GemStone(MagicColor.BLUE, 10, 11));
+                new GemStone(MagicColor.BLUE, 10, 31));
 
     }
 
