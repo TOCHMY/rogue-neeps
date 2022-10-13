@@ -16,7 +16,7 @@ public class Weapon extends Item {
 
         setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
 
-        return power * (1 + (attackPowerFromStones / 100));
+        return Math.round(power * (1 + (attackPowerFromStones / 100)));
     }
 
 

@@ -123,6 +123,14 @@ public class WeaponTest {
         assertEquals(47.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
+    @Test
+    void testUsageWithTwoStones() {
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
+        assertEquals(58, WEAPON_WITH_THREE_SOCKETS.attack());
+        assertEquals(45.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+    }
+
 
 
 }
