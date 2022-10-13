@@ -7,7 +7,7 @@ public class NPC implements Movement {
     private final String name;
     private int xPosition;
     private int yPosition;
-    private final int[] currentPosition = new int[2];
+    private final int[] currentPosition = new int[2]; //ABC
 
     //tanken är att initialPosition ska användas för att se till att NPC inte vandrar för långt bort på kartan
     private int[] initialPosition = new int[2];
