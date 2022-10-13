@@ -2,6 +2,7 @@ import java.util.List;
 
 public abstract class Item {
 
+    private final double DEFAULT_COST_OF_USE = 0.5;
     private double strength;
     private List<MagicSocket> sockets;
 
@@ -49,5 +50,25 @@ public abstract class Item {
                 .filter(socket -> socket.getGemStone()!= null &&socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getStrength())
                 .sum();
+    }
+
+    protected double attackImplementation(){
+        double power = getStrength();
+        double attackPowerFromStones = getStrengthFromStonesOfColor(MagicColor.BLUE);
+        double cost = getCostFromStonesOfColor(MagicColor.BLUE);
+
+        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
+
+        return Math.round(100 * power * (1 + (attackPowerFromStones / 100.0)))/100.0;
+    }
+
+    protected double defendImplementation() {
+        double power = getStrength();
+        double defencePowerFromStones = getStrengthFromStonesOfColor(MagicColor.RED);
+        double cost = getCostFromStonesOfColor(MagicColor.RED);
+
+        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
+
+        return Math.round(100*power * (1 + (defencePowerFromStones / 100)))/100.0;
     }
 }

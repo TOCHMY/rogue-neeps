@@ -8,23 +8,10 @@ public class Weapon extends Item {
     }
 
     public double attack(){
-
-        double power = getStrength();
-        double attackPowerFromStones = getStrengthFromStonesOfColor(MagicColor.BLUE);
-        double cost = getCostFromStonesOfColor(MagicColor.BLUE);
-
-        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
-
-        return Math.round(100 * power * (1 + (attackPowerFromStones / 100.0)))/100.0;
+       return super.attackImplementation();
     }
 
     public double defend() {
-        double power = getStrength();
-        double defencePowerFromStones = getStrengthFromStonesOfColor(MagicColor.RED);
-        double cost = getCostFromStonesOfColor(MagicColor.RED);
-
-        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
-
-        return Math.round(100*power * (1 + (defencePowerFromStones / 100)))/100.0;
+        return super.defendImplementation();
     }
 }

@@ -8,12 +8,6 @@ public class Armor extends Item {
     }
 
     public double defend() {
-        double power = getStrength();
-        double defencePowerFromStones = getStrengthFromStonesOfColor(MagicColor.RED);
-        double cost = getCostFromStonesOfColor(MagicColor.RED);
-
-        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
-
-        return Math.round(100*power * (1 + (defencePowerFromStones / 100)))/100.0;
+        return super.defendImplementation();
     }
 }
