@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 public class Player implements Movement, Positionable{
-    private static int STEPS = 5;
+    private static final int STEPS = 5; //Kan skapa intressanta testfall
 
     private Player.Experience xp;
 

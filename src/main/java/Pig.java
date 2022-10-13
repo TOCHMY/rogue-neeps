@@ -53,6 +53,7 @@ class Pig implements Killable, Movement, Positionable {
         return this.health;
     }
 
+    // Definiera movement speed i konstruktor via NPC klass eller EnemyNPC klass
     @Override
     public void moveUp() {
         yPos += 10;

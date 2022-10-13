@@ -7,6 +7,7 @@ public class PigTest {
     @Test
     public void TestKillable(){
         Pig pig = new Pig();
+        assertTrue(pig.getHP() > 0);
         pig.die();
         assertEquals(0, pig.getHP());
     }

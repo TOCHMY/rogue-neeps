@@ -40,7 +40,8 @@ public class EnemyNPC extends NPC {
         Then enemy starts walking towards Player and attacks() when in range.
          */
         int[] thisPosition = getCurrentPosition(); //dåligt för memory kanske?
-        while (isNotNextToOther(playerPosition)) { //Går för tillfället diagonalt, vill att den ska gå ett steg per loop
+        while (isNotNextToOther(playerPosition)) { //"VILL VI ATT DET SKA KUNNA GÅ DIAGONALT?":
+            // Går för tillfället diagonalt, vill att den ska gå ett steg per loop?
             if (playerPosition[0] > thisPosition[0]) {
                 moveRight();
             }
