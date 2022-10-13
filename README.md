@@ -63,6 +63,10 @@ Comment för att komma ihåg senare: interface för movement?
 ## KARTA: 
 - Förslag: Kartan är 100x100 pixlar. Spelare och NPCer rör sig genom att hålla koll på position med hjälp av arrayer. 
  - Så om NPC Randy skapas på position x=50 y=50 och sedan rör sig upp ett steg så är Randys nya position x=50, y=51. 
+ 
+ ## TODO: 
+ Tommy ska hitta på en massa roliga magier
+ Tommy ska också skriva en massa roliga quest och designa questen 
 
 
 
