@@ -54,16 +54,14 @@ public class PlayerTest {
         assertEquals(2, p.getLvl());
         assertEquals(190, p.getRemainingXp());
     }
-
     @Test
     public void TestKillEnemy(){
         Player p = new Player();
         Pig pig = new Pig();
         pig.takeDmg(p, 20);
-        assertEquals(0, pig.getHealth());
+        assertEquals(0, pig.getHP());
         assertEquals( 80, p.getRemainingXp());
     }
-
     @Test
     public void TestLvlUpByPig(){
         Player p = new Player();
@@ -74,7 +72,6 @@ public class PlayerTest {
         assertEquals(2, p.getLvl());
         assertEquals(200, p.getRemainingXp());
     }
-
     @Test
     public void TestPlayerMovement(){
         Player p = new Player();
@@ -85,8 +82,8 @@ public class PlayerTest {
 
         assertEquals(5, p.getCurrentY());
     }
-
-    @Test public void voidTestPlayerMovementWithDexterity(){
+    @Test
+    public void TestPlayerMovementWithDexterity(){
         Player p = new Player();
 
         p.addDexterity(10);
@@ -96,6 +93,5 @@ public class PlayerTest {
 
         assertEquals(6, p.getCurrentY());
     }
-
 
 }

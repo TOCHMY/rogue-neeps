@@ -1,4 +1,4 @@
-class Pig extends Enemy implements Killable, Movement, Positionable {
+class Pig implements Killable, Movement, Positionable {
     private int xPos;
     private int yPos;
     private final int xp;
@@ -24,15 +24,6 @@ class Pig extends Enemy implements Killable, Movement, Positionable {
     }
 
 
-    @Override
-    int getXp() {
-        return this.xp;
-    }
-
-    @Override
-    int getHealth() {
-        return this.health;
-    }
 
 
 
@@ -50,6 +41,16 @@ class Pig extends Enemy implements Killable, Movement, Positionable {
     public void die() {
         health = 0;
         isDead = true;
+    }
+
+    @Override
+    public int getXP() {
+        return this.xp;
+    }
+
+    @Override
+    public int getHP() {
+        return this.health;
     }
 
     @Override

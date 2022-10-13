@@ -5,16 +5,16 @@ import org.junit.Test;
 public class PigTest {
 
     @Test
-    public void TestgKillable(){
+    public void TestKillable(){
         Pig pig = new Pig();
         pig.die();
-        assertEquals(0, pig.getHealth());
+        assertEquals(0, pig.getHP());
     }
 
     @Test
     public void TestXp(){
         Pig pig = new Pig();
-        assertNotEquals(0, pig.getXp());
+        assertNotEquals(0, pig.getXP());
     }
 
 

@@ -68,22 +68,22 @@ public class Player implements Movement, Positionable{
 
     @Override
     public void moveUp() {
-        currentY += (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+        currentY +=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
     }
 
     @Override
     public void moveDown() {
-        currentY -= (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+        currentY -=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
     }
 
     @Override
     public void moveRight() {
-        currentX += (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+        currentX +=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
     }
 
     @Override
     public void moveLeft() {
-        currentX -= (int) (STEPS + (attributes.get(Attributes.DEXTERITY)/10));
+        currentX -=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
     }
 
     @Override
