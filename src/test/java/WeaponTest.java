@@ -101,7 +101,6 @@ public class WeaponTest {
         Weapon weapon = new Weapon(50, sockets);
         weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
 
-
         assertThrows(IllegalArgumentException.class, () -> {
             weapon.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         });
