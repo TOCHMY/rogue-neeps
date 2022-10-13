@@ -14,7 +14,6 @@ public abstract class Item {
         this.sockets = sockets;
     }
 
-
     void setStrength(double newStrength){
         strength = newStrength;
     }
@@ -26,12 +25,6 @@ public abstract class Item {
     public List<MagicSocket> getSockets() {
         return sockets;
     }
-
-    void die() {
-    }
-
-
-
 
     public void addStone(GemStone gemStone) {
         sockets.stream()

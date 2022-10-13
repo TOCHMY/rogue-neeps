@@ -2,8 +2,6 @@ import java.util.List;
 
 public class Weapon extends Item {
 
-
-
     public Weapon(double strength, List<MagicSocket> sockets){
         super(strength, sockets);
     }
@@ -17,12 +15,5 @@ public class Weapon extends Item {
         setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
 
         return Math.round(power * (1 + (attackPowerFromStones / 100)));
-    }
-
-
-
-
-    @Override
-    public void die() {
     }
 }

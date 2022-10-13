@@ -3,7 +3,6 @@ public class MagicSocket {
     private final MagicColor color;
     private GemStone gemStone;
 
-
     public MagicSocket(MagicColor color){
         this.color = color;
     }
