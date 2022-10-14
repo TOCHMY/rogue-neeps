@@ -24,6 +24,4 @@ public class ArmorTest {
         assertEquals(THREE_SOCKETS, armor.getSockets());
     }
 
-
-
 }
