@@ -6,6 +6,11 @@ public class Weapon extends Item {
         super(strength, sockets);
     }
 
+    @Override
+    double use(ItemVisitor visitor) {
+        return visitor.visit(this);
+    }
+
     public double attack(){
        return super.attackImplementation();
     }

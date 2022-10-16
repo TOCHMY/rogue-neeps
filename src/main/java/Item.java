@@ -52,6 +52,8 @@ public abstract class Item {
                 .sum();
     }
 
+    abstract double use(ItemVisitor visitor);
+
     protected double attackImplementation(){
         double power = getStrength();
         double attackPowerFromStones = getStrengthFromStonesOfColor(MagicColor.BLUE);

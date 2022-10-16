@@ -6,6 +6,11 @@ public class Armor extends Item {
         super(strength, sockets);
     }
 
+    @Override
+    double use(ItemVisitor visitor) {
+        return visitor.visit(this);
+    }
+
     public double defend() {
         return super.defendImplementation();
     }
