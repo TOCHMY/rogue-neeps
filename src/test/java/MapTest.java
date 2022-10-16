@@ -178,7 +178,7 @@ class MapTest {
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
        // map.printDungeon("off","off");
-         map.printDungeon("off","on","on");
+         map.printDungeon("off","on","off");
        // map.printDungeon("on","on");
 
     }
