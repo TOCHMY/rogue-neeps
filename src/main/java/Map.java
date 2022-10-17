@@ -54,6 +54,11 @@ public class Map {
         return tileWithPlayerOn;
     }
 
+    public Tile getTile(int x, int y) {
+        Tile tile = new Tile(x, y);
+        return new Tile(x, y);
+    }
+
     private static void createPathsBetweenRooms() {
     }
 
