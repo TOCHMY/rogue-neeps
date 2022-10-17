@@ -8,6 +8,11 @@ public class FireballTest {
     Map map = new Map();
     final Tile playerStartingTile = new Tile(10, 10);
 
+    @Test
+    void testX() {
+        assertEquals(10, playerStartingTile.getX());
+    }
+
 
     @Test
     void testFireballRange() {
