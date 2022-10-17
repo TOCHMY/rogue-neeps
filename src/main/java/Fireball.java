@@ -3,7 +3,7 @@ public class Fireball extends Map {
     int range = 6;
     Tile[] explosionRadius = new Tile[9];
     Tile targetTile;
-    public Tile cast(Tile playerTile, int playerFacingDirection) {
+    /*public Tile cast(Tile playerTile, int playerFacingDirection) {
         targetTile = playerTile;
         switch (playerFacingDirection) {
             case 1:
@@ -21,5 +21,5 @@ public class Fireball extends Map {
                 break;
         }
         return targetTile;
-    }
+    }*/
 }

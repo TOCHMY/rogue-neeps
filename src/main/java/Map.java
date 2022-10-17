@@ -56,7 +56,6 @@ public class Map {
         return tileWithPlayerOn;
     }
 
-
     private void createTunnelsBetweenRooms() {
         tunnelList = new ArrayList<>();
 
@@ -95,14 +94,6 @@ public class Map {
         Tile tunnelEnd = perimeterArray[26][72];
         Tunnel tunnel = new Tunnel("D", "F",tunnelStart,tunnelEnd);
         return tunnel;
-
-    public Tile getTile(int x, int y) {
-        Tile tile = new Tile(x, y);
-        return new Tile(x, y);
-    }
-
-    private static void createPathsBetweenRooms() {
-
     }
 
     private void makeTilesBelongToTunnel(Tunnel tunnel) {
@@ -386,6 +377,7 @@ public class Map {
             System.out.println(room);
         }
     }
+
 
     public void spawnEnemyNpcs() {
         enemyNpcPositionsArray = new ArrayList<>();
