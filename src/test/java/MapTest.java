@@ -23,20 +23,20 @@ class MapTest {
     void When_DungeonIsNotInitiated_And_MapSizeIs40x100_Expect_firstTile0X0Y(){
         Map map = new Map();
         Tile firstTile = map.getPerimeterArray()[0][0];
-        assertEquals(1, firstTile.getX());
-        assertEquals(1, firstTile.getY());
+        assertEquals(0, firstTile.getX());
+        assertEquals(0, firstTile.getY());
     }
 
 
 
     @Test
-    void When_DungeonIsNotInitiated_And_MapSizeIs40x100_Expect_lastTile40X100Y(){
+    void When_DungeonIsNotInitiated_And_MapSizeIs40x100_Expect_lastTile39X99Y(){
         Map map = new Map();
         int width = map.getPerimeterArray()[0].length;
         int height = map.getPerimeterArray().length;
         Tile lastTile = map.getPerimeterArray()[height-1][width-1];
-        assertEquals(40, lastTile.getX());
-        assertEquals(100, lastTile.getY());
+        assertEquals(39, lastTile.getX());
+        assertEquals(99, lastTile.getY());
     }
 
 
@@ -81,8 +81,8 @@ class MapTest {
     void When_DungeonIsIniated_Expect_playerStartingPositionCorrect(){
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
-        assertEquals(6,playerStartingTile.getX());
-        assertEquals(20,playerStartingTile.getY());
+        assertEquals(5,playerStartingTile.getX());
+        assertEquals(19,playerStartingTile.getY());
     }
 
     @Test
@@ -117,10 +117,10 @@ class MapTest {
     void When_DungeonIsInitiated_Expect_WallTilesInRightLocation(){
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
-        Tile knownVerticalWalltile = map.getPerimeterArray()[1][7];
-        Tile knownHorizontalWalltile = map.getPerimeterArray()[1][8];
-        assertEquals(true, knownVerticalWalltile.isVerticalWallTile());
-        assertEquals(true, knownHorizontalWalltile.isHorizontalWallTile());
+        Tile roomAtopLeftVerticalWallTile = map.getPerimeterArray()[1][6];
+        Tile roomAtopLeftHorizontalWallTile = map.getPerimeterArray()[1][7];
+        assertEquals(true, roomAtopLeftVerticalWallTile.isVerticalWallTile());
+        assertEquals(true, roomAtopLeftHorizontalWallTile.isHorizontalWallTile());
 
     }
     @Test
@@ -152,8 +152,8 @@ class MapTest {
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
         Tile knownEnemyNpcTile = map.getPerimeterArray()[3][15];
-        assertEquals(4, knownEnemyNpcTile.getX());
-        assertEquals(16, knownEnemyNpcTile.getY());
+        assertEquals(3, knownEnemyNpcTile.getX());
+        assertEquals(15, knownEnemyNpcTile.getY());
     }
 
 
@@ -177,9 +177,7 @@ class MapTest {
     void printDungeon_When_DungenonIsInitiated(){
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
-       // map.printDungeon("off","off");
-         map.printDungeon("off","on","off");
-       // map.printDungeon("on","on");
+        map.printDungeon("off","on","off");
 
     }
 

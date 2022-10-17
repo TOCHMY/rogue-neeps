@@ -16,13 +16,14 @@ public class Map {
         spawnEnemyNpcs();
         spawnFriendlyNpcs();
         setPlayerPosition(playerStartingTile); // byt denna
-        setEnemyNpcPositions();
-        setFriendlyNpcPositions();
+        //setEnemyNpcPositions();
+        //setFriendlyNpcPositions();
         createPathsBetweenRooms();
 
     }
 
     private void spawnFriendlyNpcs() {
+        friendlyNpcPositionsArray = new ArrayList<>();
     }
 
 
@@ -60,29 +61,30 @@ public class Map {
     private void createRooms() {
         roomList = new ArrayList<>();
 
-        Room roomA = new Room("A", 24,9, new Tile(1, 7));
+        Room roomA = new Room("A", 23,8, new Tile(2, 7));
         makeTilesBelongToRoom(roomA);
         roomList.add(roomA);
 
-        Room roomB = new Room("B", 32,9, new Tile(2, 56));
+        Room roomB = new Room("B", 31,8, new Tile(2, 56));
         makeTilesBelongToRoom(roomB);
         roomList.add(roomB);
 
-        Room roomC = new Room("C", 25,14, new Tile(22, 7));
+        Room roomC = new Room("C", 23,6, new Tile(13, 26));
         makeTilesBelongToRoom(roomC);
         roomList.add(roomC);
 
-        Room roomD = new Room("D", 23,6, new Tile(13, 26));
-        makeTilesBelongToRoom(roomD);
-        roomList.add(roomD);
-
-        Room roomE = new Room("E", 40,9, new Tile(27, 55));
+        Room roomE = new Room("E", 25,14, new Tile(22, 7));
         makeTilesBelongToRoom(roomE);
         roomList.add(roomE);
 
-        Room roomF = new Room("F", 23,9, new Tile(14, 60));
+        Room roomD = new Room("D", 23,9, new Tile(14, 60));
+        makeTilesBelongToRoom(roomD);
+        roomList.add(roomD);
+
+        Room roomF = new Room("F", 40,9, new Tile(27, 55));
         makeTilesBelongToRoom(roomF);
-        roomList.add(roomE);
+        roomList.add(roomF);
+
 
 
     }
@@ -183,35 +185,35 @@ public class Map {
     }
 
     public void printDungeon(String roomTilesOnOrOff, String backroundOnOrOff, String numbered) {
-        for (int i = 0; i < perimeterArray.length-1; i++) {
-            for (int j = 0; j < perimeterArray[i].length-1; j++) {
-                 if(perimeterArray[i][j].isRoomTile()){
-                    Room room = perimeterArray[i][j].getRoom();
-                     if(perimeterArray[i][j].hasPlayer()){
+        for (int col = 0; col < perimeterArray.length; col++) {
+            for (int row = 0; row < perimeterArray[col].length-1; row++) {
+                 if(perimeterArray[col][row].isRoomTile()){
+                    Room room = perimeterArray[col][row].getRoom();
+                     if(perimeterArray[col][row].hasPlayer()){
                          System.out.print("P");
-                     }else if(perimeterArray[i][j].hasEnemyNPC()) {
+                     }else if(perimeterArray[col][row].hasEnemyNPC()) {
                          System.out.print("H");
                      } else {
                          printRoomTiles(room, roomTilesOnOrOff);
                      }
 
-                } else if(perimeterArray[i][j].isVerticalWallTile()){
+                } else if(perimeterArray[col][row].isVerticalWallTile()){
                      System.out.print("|");
-                 }else if(perimeterArray[i][j].isHorizontalWallTile()){
+                 }else if(perimeterArray[col][row].isHorizontalWallTile()){
                      System.out.print("=");
                  } else {
                      if(backroundOnOrOff == "on"){
                          if(numbered == "on"){
-                             if(j == 0){
-                                 System.out.print(i+1);
+                             if(row == 0){
+                                 System.out.print(col);
                              }
                          }
                          System.out.print("-");
                      }
                      if(backroundOnOrOff == "off"){
                          if(numbered == "on"){
-                             if(j == 0){
-                                 System.out.print(i+1);
+                             if(row == 0){
+                                 System.out.print(col);
                              }
                          }
                          System.out.print(" ");
