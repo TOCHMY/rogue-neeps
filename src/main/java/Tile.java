@@ -1,19 +1,22 @@
 public class Tile {
     private boolean walkable = false;
     private boolean roomTile = false;
-    private boolean hasPlayer = false;
-    private boolean hasEnemyNPC = false;
+    private boolean tunnelTile = false;
+    private boolean wallTile = false;
     private boolean horizontalWall = false;
     private boolean verticalWall = false;
+    private boolean hasPlayer = false;
+    private boolean hasEnemyNPC = false;
     private Room room;
-    private int x;
-    private int y;
+    private Tunnel tunnel;
+    private int row;
+    private int column;
 
 
     // +1 för att börja räkna spelplanen från X1Y1 istället för X0Y0.
-    Tile(int x, int y){
-        this.x = x;
-        this.y = y;
+    Tile(int row, int column){
+        this.row = row;
+        this.column = column;
     }
 
     public void makeRoomTile(Room room){
@@ -38,12 +41,12 @@ public class Tile {
         return room;
     }
 
-    public int getX() {
-        return x;
+    public int getRow() {
+        return row;
     }
 
-    public int getY() {
-        return y;
+    public int getColumn() {
+        return column;
     }
 
     public void setPlayerOnTile() {
@@ -66,11 +69,13 @@ public class Tile {
     }
 
     public void makeVerticalWallTile() {
+        wallTile = true;
         verticalWall = true;
         walkable = false;
     }
 
     public void makeHorizontalWallTile() {
+        wallTile = true;
         horizontalWall = true;
         walkable = false;
     }
@@ -83,11 +88,25 @@ public class Tile {
         return horizontalWall;
     }
 
+    public void makeTunnelTile(Tunnel tunnel) {
+        this.tunnel = tunnel;
+        tunnelTile = true;
+        wallTile = false;
+        verticalWall = false;
+        horizontalWall = false;
+        roomTile = false;
+        makeWalkable();
+    }
+
+    public boolean isWallTile(){
+        return wallTile;
+    }
+
     @Override
     public String toString() {
         return "Tile{" +
-                "x" + x +
-                ", y" + y +
+                "row:" + row +
+                ", column:" + column +
                 ", walkable=" + walkable +
                 ", roomTile=" + roomTile +
                 ", hasPlayer=" + hasPlayer +
@@ -98,6 +117,9 @@ public class Tile {
                 '}';
     }
 
+    public boolean isTunnelTile() {
+        return tunnelTile;
+    }
 
 
     // använd denna när vi har en klass för enemyNPC

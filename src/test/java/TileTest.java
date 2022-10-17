@@ -7,9 +7,8 @@ class TileTest {
     @Test
     void When_NewTileIsCreated_Expect_tileGetXandYCorrectFormat(){
         Tile testtile = new Tile(39,99);
-        assertEquals(39, testtile.getX());
-        assertEquals(99, testtile.getY());
-        System.out.println("testile är: "+ " x:" +testtile.getX() + " y: " + testtile.getY());
+        assertEquals(39, testtile.getRow());
+        assertEquals(99, testtile.getColumn());
     }
 
     @Test
@@ -60,6 +59,7 @@ class TileTest {
         tile.makeRoomTile(new Room("test", 5,5,tile));
         assertNotNull(tile.getRoom());
     }
+
 
 
 

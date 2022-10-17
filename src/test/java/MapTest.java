@@ -23,8 +23,8 @@ class MapTest {
     void When_DungeonIsNotInitiated_And_MapSizeIs40x100_Expect_firstTile0X0Y(){
         Map map = new Map();
         Tile firstTile = map.getPerimeterArray()[0][0];
-        assertEquals(0, firstTile.getX());
-        assertEquals(0, firstTile.getY());
+        assertEquals(0, firstTile.getRow());
+        assertEquals(0, firstTile.getColumn());
     }
 
 
@@ -35,8 +35,8 @@ class MapTest {
         int width = map.getPerimeterArray()[0].length;
         int height = map.getPerimeterArray().length;
         Tile lastTile = map.getPerimeterArray()[height-1][width-1];
-        assertEquals(39, lastTile.getX());
-        assertEquals(99, lastTile.getY());
+        assertEquals(39, lastTile.getRow());
+        assertEquals(99, lastTile.getColumn());
     }
 
 
@@ -81,8 +81,8 @@ class MapTest {
     void When_DungeonIsIniated_Expect_playerStartingPositionCorrect(){
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
-        assertEquals(5,playerStartingTile.getX());
-        assertEquals(19,playerStartingTile.getY());
+        assertEquals(5,playerStartingTile.getRow());
+        assertEquals(19,playerStartingTile.getColumn());
     }
 
     @Test
@@ -152,8 +152,8 @@ class MapTest {
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
         Tile knownEnemyNpcTile = map.getPerimeterArray()[3][15];
-        assertEquals(3, knownEnemyNpcTile.getX());
-        assertEquals(15, knownEnemyNpcTile.getY());
+        assertEquals(3, knownEnemyNpcTile.getRow());
+        assertEquals(15, knownEnemyNpcTile.getColumn());
     }
 
 
