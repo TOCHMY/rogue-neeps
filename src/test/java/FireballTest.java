@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FireballTest {
+    Map map = new Map();
+    final Tile playerStartingTile = new Tile(10, 10);
 
     static final Tile playerStartingTile = new Tile(8, 10);
     static final Tile playerStartingTileCloseToWall = new Tile(3, 8);
