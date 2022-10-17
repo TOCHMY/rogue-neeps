@@ -25,7 +25,27 @@ public class Map {
 
     private void spawnFriendlyNpcs() {
         friendlyNpcPositionsArray = new ArrayList<>();
+
+        // Friendly 1 Room A
+        perimeterArray[9][8].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[9][8]);
+
+        // Friendly 2 Room A
+        perimeterArray[9][10].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[9][10]);
+
+        // Friendly 3 Room B
+        perimeterArray[4][80].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[4][80]);
+
+        // Friendly 4 Room E
+        perimeterArray[37][8].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[37][8]);
+
+
+
     }
+
 
 
     private void setFriendlyNpcPositions() {
@@ -310,6 +330,8 @@ public class Map {
                          System.out.print("P");
                      }else if(perimeterArray[col][row].hasEnemyNPC()) {
                          System.out.print("H");
+                     } else if(perimeterArray[col][row].hasFriendlyNpc){
+                         System.out.print("F");
                      } else {
                          printRoomTiles(room, roomTilesOnOrOff);
                      }
