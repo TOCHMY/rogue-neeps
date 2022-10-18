@@ -1,5 +1,11 @@
-import org.junit.Test;
 
+
+import org.junit.jupiter.api.Assertions;
+//import org.testng.annotations.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 
@@ -51,16 +57,16 @@ public class PlayerTest {
         Player p = new Player();
         p.addXp(110);
 
-        assertEquals(2, p.getLvl());
-        assertEquals(190, p.getRemainingXp());
+        Assertions.assertEquals(2, p.getLvl());
+        Assertions.assertEquals(190, p.getRemainingXp());
     }
     @Test
     public void TestKillEnemy(){
         Player p = new Player();
         Pig pig = new Pig();
         pig.takeDmg(p, 20);
-        assertEquals(0, pig.getHP());
-        assertEquals( 80, p.getRemainingXp());
+        Assertions.assertEquals(0, pig.getHP());
+        Assertions.assertEquals( 80, p.getRemainingXp());
     }
     @Test
     public void TestLvlUpByPig(){
@@ -69,29 +75,9 @@ public class PlayerTest {
             Pig pig = new Pig();
             pig.takeDmg(p, 10);
         }
-        assertEquals(2, p.getLvl());
-        assertEquals(200, p.getRemainingXp());
+        Assertions.assertEquals(2, p.getLvl());
+        Assertions.assertEquals(200, p.getRemainingXp());
     }
-    @Test
-    public void TestPlayerMovement(){
-        Player p = new Player();
-        assertEquals(0, p.getCurrentX());
-        assertEquals(0, p.getCurrentY());
 
-        p.moveUp();
-
-        assertEquals(5, p.getCurrentY());
-    }
-    @Test
-    public void TestPlayerMovementWithDexterity(){
-        Player p = new Player();
-
-        p.addDexterity(10);
-
-
-        p.moveUp();
-
-        assertEquals(6, p.getCurrentY());
-    }
 
 }

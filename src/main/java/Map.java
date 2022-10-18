@@ -5,9 +5,43 @@ public class Map {
     private Tile tileWithPlayerOn;
     private ArrayList<Room> roomList = new ArrayList<>();
     private ArrayList<Tunnel> tunnelList = new ArrayList<>();
+    private Player player;
 
     Map(){
         fillMapWithTiles();
+    }
+
+    public void setPlayer(Player p){
+        player = p;
+        p.setMap(this);
+    }
+
+    public void addPlayer(Player p){
+        setPlayer(p);
+        /*
+        Vill kunna sätta ut playerTile efter instansiering,
+        det gör också testarna mer intressanta, tex ska det kanske inte gå att
+        sätta ut gubben i en vägg eller utanför ett rum.
+
+        setPlayerPosition([0][5]); // setPlayerPosition kanske inte ska ta in en Tile eftersom
+        #1: vad är en tile/ hur vet man vad nästa tile är
+        #2: den bör placeras på en tile (position)
+        */
+    }
+    public void updatePlayerPosition(Direction d){
+
+        if(d == Direction.UP){
+            //Player tile = [++row][col]
+        }
+        if(d == Direction.DOWN){
+
+        }
+        if(d == Direction.LEFT){
+
+        }
+        if(d == Direction.RIGHT){
+
+        }
     }
 
     public void initiateDungeon(Tile playerStartingTile) {
