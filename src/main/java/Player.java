@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player implements Movement {
@@ -6,6 +7,8 @@ public class Player implements Movement {
     private static final int FACING_RIGHT = 2;
     private static final int FACING_DOWN = 3;
     private static final int FACING_LEFT = 4;
+
+    private final ArrayList<Quest> questLog = new ArrayList<>();
 
     private Player.Experience xp;
 
@@ -76,6 +79,19 @@ public class Player implements Movement {
 
     public void addXp(int amount) {
         xp.updateXp(amount);
+    }
+
+    public void addQuestToQuestLog(Quest quest) {
+        if (quest.isInitiated) {
+            questLog.add(quest);
+        } else {
+            throw new IllegalStateException("Quest is not accepted");
+        }
+
+    }
+
+    public Quest getQuestFromQuestLog(int questID) {
+    return questLog.get(questID);
     }
 
     @Override

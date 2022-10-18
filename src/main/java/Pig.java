@@ -1,22 +1,24 @@
-class Pig implements Killable, Movement {
+class Pig extends NPC implements Killable, Movement {
 
+    private String name;
     private final int xp;
     private int health;
 
     private boolean isDead;
 
     public Pig(){
+        super("Pig");
         this.xp = 20;
         this.health = 10;
         this.isDead = false;
     }
 
 
-    public Pig(int xPos, int yPos){
+/*    public Pig(int xPos, int yPos){
         this.xp = 20;
         this.health = 10;
         this.isDead = false;
-    }
+    }*/
 
 
 
@@ -36,6 +38,9 @@ class Pig implements Killable, Movement {
     public void die() {
         health = 0;
         isDead = true;
+        if(questArrayList.get(1).isInitiated) {
+            setPigsKilled();
+        }
     }
 
     @Override
