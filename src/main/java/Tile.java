@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Tile {
     private boolean walkable = false;
     private boolean roomTile = false;
@@ -7,6 +9,8 @@ public class Tile {
     private boolean verticalWall = false;
     private boolean hasPlayer = false;
     private boolean hasEnemyNPC = false;
+    private EnemyNPC hostileNpc;
+    private FriendlyNPC friendlyNpc;
     boolean hasFriendlyNpc = false;
     private Room room;
     private Tunnel tunnel;
@@ -59,7 +63,8 @@ public class Tile {
     }
 
 
-    public void setEnemyNpcOnTile() {
+    public void setEnemyNpcOnTile(EnemyNPC hostile) {
+        this.hostileNpc = hostile;
         hasEnemyNPC = true;
         walkable = false;
         //enemyNPC = null;
@@ -122,11 +127,35 @@ public class Tile {
         return tunnelTile;
     }
 
-    public void setFriendlyNpcOnTile() {
+    public void setFriendlyNpcOnTile(FriendlyNPC friendly) {
+        this.friendlyNpc = friendly;
         hasFriendlyNpc = true;
         walkable = false;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile otherTile = (Tile) o;
+        return this.row == otherTile.row && this.column == otherTile.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
+
+    public boolean isOccupied() {
+        if(hasFriendlyNpc || hasPlayer || hasEnemyNPC){
+            return true;
+        }
+        return false;
+    }
+
+    public EnemyNPC getHostileNPC() {
+        return hostileNpc;
+    }
 
     // använd denna när vi har en klass för enemyNPC
     /*public void setEnemyNpcOnTile(Enemy enemyNPC) {
