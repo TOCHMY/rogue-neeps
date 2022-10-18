@@ -2,22 +2,18 @@ import java.util.HashMap;
 
 public class Player implements Movement {
     private static final int STEPS = 5; //Kan skapa intressanta testfall
-    private static final int FACING_UP = 1;
-    private static final int FACING_RIGHT = 2;
-    private static final int FACING_DOWN = 3;
-    private static final int FACING_LEFT = 4;
 
     private Player.Experience xp;
 
     private HashMap<Attributes, Integer> attributes;
-    private int playerFacingDirection;
+    private FacingDirection playerFacingDirection;
 
     Map map;
 
     Player() {
         generateAttributeList();
         this.xp = new Experience();
-        setPlayerFacingDirection(FACING_UP);
+        setPlayerFacingDirection(FacingDirection.UP);
     }
 
     public void setMap(Map m){
@@ -81,32 +77,32 @@ public class Player implements Movement {
     @Override
     public void moveUp() {
         map.updatePlayerPosition(Direction.UP);
-        setPlayerFacingDirection(FACING_UP);
+        setPlayerFacingDirection(FacingDirection.UP);
     }
 
     @Override
     public void moveDown() {
         map.updatePlayerPosition(Direction.DOWN);
-        setPlayerFacingDirection(FACING_DOWN);
+        setPlayerFacingDirection(FacingDirection.DOWN);
     }
 
     @Override
     public void moveRight() {
+        setPlayerFacingDirection(FacingDirection.RIGHT);
         map.updatePlayerPosition(Direction.RIGHT);
-        setPlayerFacingDirection(FACING_RIGHT);
     }
 
     @Override
     public void moveLeft() {
         map.updatePlayerPosition(Direction.LEFT);
-        setPlayerFacingDirection(FACING_LEFT);
+        setPlayerFacingDirection(FacingDirection.LEFT);
     }
 
-    private void setPlayerFacingDirection(int direction) {
+    private void setPlayerFacingDirection(FacingDirection direction) {
         playerFacingDirection = direction;
     }
 
-    public int getPlayerFacingDirection() {
+    public FacingDirection getPlayerFacingDirection() {
         return playerFacingDirection;
     }
 

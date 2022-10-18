@@ -300,9 +300,9 @@ public class Map {
         int startOfRow = sT.getRow();
         int endOfRow = sT.getRow() + height;
         for (int i = startOfCol; i < endOfCol; i++) {
-                for (int j = startOfRow; j < endOfRow; j++) {
-                    perimeterArray[j][i].makeRoomTile(room);
-                }
+            for (int j = startOfRow; j < endOfRow; j++) {
+                perimeterArray[j][i].makeRoomTile(room);
+            }
         }
     }
 
@@ -359,43 +359,43 @@ public class Map {
     public void printDungeon(String roomTilesOnOrOff, String backroundOnOrOff, String numbered) {
         for (int col = 0; col < perimeterArray.length; col++) {
             for (int row = 0; row < perimeterArray[col].length-1; row++) {
-                 if(perimeterArray[col][row].isRoomTile()){
+                if(perimeterArray[col][row].isRoomTile()){
                     Room room = perimeterArray[col][row].getRoom();
-                     if(perimeterArray[col][row].hasPlayer()){
-                         System.out.print("P");
-                     }else if(perimeterArray[col][row].hasEnemyNPC()) {
-                         System.out.print("H");
-                     } else if(perimeterArray[col][row].hasFriendlyNpc){
-                         System.out.print("F");
-                     } else {
-                         printRoomTiles(room, roomTilesOnOrOff);
-                     }
+                    if(perimeterArray[col][row].hasPlayer()){
+                        System.out.print("P");
+                    }else if(perimeterArray[col][row].hasEnemyNPC()) {
+                        System.out.print("H");
+                    } else if(perimeterArray[col][row].hasFriendlyNpc){
+                        System.out.print("F");
+                    } else {
+                        printRoomTiles(room, roomTilesOnOrOff);
+                    }
 
                 } else if(perimeterArray[col][row].isVerticalWallTile()){
-                     System.out.print("|");
-                 }else if(perimeterArray[col][row].isHorizontalWallTile()){
-                     System.out.print("=");
-                 } else if(perimeterArray[col][row].isTunnelTile()) {
-                     System.out.print(" ");
-                 } else {
-                     if(backroundOnOrOff == "on"){
-                         if(numbered == "on"){
-                             if(row == 0){
-                                 System.out.print(col);
-                             }
-                         }
-                         System.out.print("-");
-                     }
-                     if(backroundOnOrOff == "off"){
-                         if(numbered == "on"){
-                             if(row == 0){
-                                 System.out.print(col);
-                             }
-                         }
-                         System.out.print(" ");
+                    System.out.print("|");
+                }else if(perimeterArray[col][row].isHorizontalWallTile()){
+                    System.out.print("=");
+                } else if(perimeterArray[col][row].isTunnelTile()) {
+                    System.out.print(" ");
+                } else {
+                    if(backroundOnOrOff == "on"){
+                        if(numbered == "on"){
+                            if(row == 0){
+                                System.out.print(col);
+                            }
+                        }
+                        System.out.print("-");
+                    }
+                    if(backroundOnOrOff == "off"){
+                        if(numbered == "on"){
+                            if(row == 0){
+                                System.out.print(col);
+                            }
+                        }
+                        System.out.print(" ");
 
 
-                     }
+                    }
 
 
                 }
