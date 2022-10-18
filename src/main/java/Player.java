@@ -2,10 +2,6 @@ import java.util.HashMap;
 
 public class Player implements Movement, Positionable{
     private static final int STEPS = 5; //Kan skapa intressanta testfall
-    private static final int FACING_UP = 1;
-    private static final int FACING_RIGHT = 2;
-    private static final int FACING_DOWN = 3;
-    private static final int FACING_LEFT = 4;
 
     private Player.Experience xp;
 
@@ -14,14 +10,14 @@ public class Player implements Movement, Positionable{
     private int currentX;
     private int currentY;
 
-    private int playerFacingDirection;
+    private FacingDirection playerFacingDirection;
 
     Player(){
         this.currentX = 0;
         this.currentY = 0;
         generateAttributeList();
         this.xp = new Experience();
-        setPlayerFacingDirection(FACING_UP);
+        setPlayerFacingDirection(FacingDirection.UP);
     }
 
 
@@ -77,32 +73,32 @@ public class Player implements Movement, Positionable{
     @Override
     public void moveUp() {
         currentY +=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
-        setPlayerFacingDirection(FACING_UP);
+        setPlayerFacingDirection(FacingDirection.UP);
     }
 
     @Override
     public void moveDown() {
         currentY -=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
-        setPlayerFacingDirection(FACING_DOWN);
+        setPlayerFacingDirection(FacingDirection.DOWN);
     }
 
     @Override
     public void moveRight() {
         currentX +=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
-        setPlayerFacingDirection(FACING_RIGHT);
+        setPlayerFacingDirection(FacingDirection.RIGHT);
     }
 
     @Override
     public void moveLeft() {
         currentX -=  STEPS + (int)(attributes.get(Attributes.DEXTERITY)/10);
-        setPlayerFacingDirection(FACING_LEFT);
+        setPlayerFacingDirection(FacingDirection.LEFT);
     }
 
-    private void setPlayerFacingDirection(int direction) {
+    private void setPlayerFacingDirection(FacingDirection direction) {
         playerFacingDirection = direction;
     }
 
-    public int getPlayerFacingDirection() {
+    public FacingDirection getPlayerFacingDirection() {
         return playerFacingDirection;
     }
 

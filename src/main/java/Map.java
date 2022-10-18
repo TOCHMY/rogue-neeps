@@ -56,8 +56,7 @@ public class Map {
     }
 
     public Tile getTile(int x, int y) {
-        Tile tile = new Tile(x, y);
-        return new Tile(x, y);
+        return perimeterArray[x][y];
     }
 
     private static void createPathsBetweenRooms() {
