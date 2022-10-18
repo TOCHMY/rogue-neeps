@@ -9,6 +9,7 @@ public class FriendlyNPC extends NPC {
         isQuestGiver = false;
     }
 
+
     public FriendlyNPC(String name, int xPosition, int yPosition, boolean isQuestGiver) {
        // super(name, xPosition, yPosition);
         super(name);

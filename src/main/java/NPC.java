@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class NPC implements Movement {
+public class NPC extends Quest implements Movement {
 
     //Set NPC movement range? <- så typ en specifik NPC kan inte röra sig längre än 2 pixlar
     // från sin initialPosition.
@@ -19,6 +19,10 @@ public class NPC implements Movement {
         initialPosition[0] = xPosition;
         initialPosition[1] = yPosition;
         setCurrentPosition(xPosition, yPosition);*/
+    }
+
+    public NPC(String name) {
+        this.name = name;
     }
 
     private void setCurrentPosition(int xPosition, int yPosition) {
