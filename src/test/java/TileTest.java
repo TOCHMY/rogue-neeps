@@ -1,3 +1,6 @@
+
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,29 +10,29 @@ class TileTest {
     @Test
     void When_NewTileIsCreated_Expect_tileGetXandYCorrectFormat(){
         Tile testtile = new Tile(39,99);
-        assertEquals(39, testtile.getRow());
-        assertEquals(99, testtile.getColumn());
+        Assertions.assertEquals(39, testtile.getRow());
+        Assertions.assertEquals(99, testtile.getColumn());
     }
 
     @Test
     void makeRoomTileWorks(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isRoomTile());
+        Assertions.assertEquals(false, tile.isRoomTile());
         tile.makeRoomTile(new Room("test", 5,5,tile));
-        assertEquals(true, tile.isRoomTile());
+        Assertions.assertEquals(true, tile.isRoomTile());
 
     }
 
     @Test
     void When_NewTileIsCreated_Expect_tileIsWalkableFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isWalkable());
+        Assertions.assertEquals(false, tile.isWalkable());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isRoomTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isRoomTile());
+        Assertions.assertEquals(false, tile.isRoomTile());
     }
 
     @Test
@@ -43,7 +46,7 @@ class TileTest {
     void When_tileIsSetToRoomTile_Expect_tileIsWalkableTrue(){
         Tile tile = new Tile(0,0);
         tile.makeWalkable();
-        assertEquals(true, tile.isWalkable());
+        Assertions.assertEquals(true, tile.isWalkable());
     }
 
     @Test
