@@ -32,6 +32,7 @@ public class FireballTest {
         map.initiateDungeon(playerStartingTileCloseToWall);
         map.printDungeon("off", "off", "on");
         Fireball fireball = new Fireball();
+
         Player p = new Player();
         FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
         assertEquals(1, fireball.cast(playerStartingTileCloseToWall, playerFacingDirection).getRow());
