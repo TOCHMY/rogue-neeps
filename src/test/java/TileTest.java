@@ -13,9 +13,10 @@ class TileTest {
 
     @Test
     void makeRoomTileWorks(){
+        Map map = new Map();
         Tile tile = new Tile(0,0);
         assertEquals(false, tile.isRoomTile());
-        tile.makeRoomTile(new Room("test", 5,5,tile));
+        tile.makeRoomTile(new Room("test", 5,5,tile, map));
         assertEquals(true, tile.isRoomTile());
 
     }
@@ -55,9 +56,10 @@ class TileTest {
 
     @Test
     void When_tileIsSetToRoomTile_Expect_getRoomNotNull(){
-        Tile tile = new Tile(0,0);
-        tile.makeRoomTile(new Room("test", 5,5,tile));
-        assertNotNull(tile.getRoom());
+        Map map = new Map();
+        Tile startTile = new Tile(0,0);
+        startTile.makeRoomTile(new Room("test", 5,5,startTile, map));
+        assertNotNull(startTile.getRoom());
     }
 
 

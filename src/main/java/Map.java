@@ -3,68 +3,32 @@ import java.util.ArrayList;
 public class Map {
     private final Tile[][] perimeterArray = new Tile[40][100];
     private Tile tileWithPlayerOn;
-    private ArrayList<Tile> enemyNpcPositionsArray;
-    private ArrayList<Tile> friendlyNpcPositionsArray;
-    private ArrayList<Room> roomList;
-    private ArrayList<Tunnel> tunnelList;
+    private ArrayList<Room> roomList = new ArrayList<>();
+    private ArrayList<Tunnel> tunnelList = new ArrayList<>();
 
     Map(){
         fillMapWithTiles();
     }
 
     public void initiateDungeon(Tile playerStartingTile) {
-        createRooms();
-        createTunnelsBetweenRooms();
-        spawnEnemyNpcs();
-        spawnFriendlyNpcs();
-        setPlayerPosition(playerStartingTile); // byt denna
+       // spawnFriendlyNpcs();
+        updatePlayerPosition(playerStartingTile); // byt denna
         //setEnemyNpcPositions();
         //setFriendlyNpcPositions();
 
     }
 
-    private void spawnFriendlyNpcs() {
-        friendlyNpcPositionsArray = new ArrayList<>();
-
-        // Friendly 1 Room A
-        perimeterArray[9][8].setFriendlyNpcOnTile();
-        friendlyNpcPositionsArray.add(perimeterArray[9][8]);
-
-        // Friendly 2 Room A
-        perimeterArray[9][10].setFriendlyNpcOnTile();
-        friendlyNpcPositionsArray.add(perimeterArray[9][10]);
-
-        // Friendly 3 Room B
-        perimeterArray[4][80].setFriendlyNpcOnTile();
-        friendlyNpcPositionsArray.add(perimeterArray[4][80]);
-
-        // Friendly 4 Room E
-        perimeterArray[37][8].setFriendlyNpcOnTile();
-        friendlyNpcPositionsArray.add(perimeterArray[37][8]);
-
-
+    public void addRoom(Room room) {
+        makeTilesBelongToRoom(room);
+        roomList.add(room);
 
     }
 
 
 
-    private void setFriendlyNpcPositions() {
-        friendlyNpcPositionsArray = new ArrayList<>();
-    }
 
-    public ArrayList<Tile> getFriendlyNpcPositionsArray() {
-        return friendlyNpcPositionsArray;
-    }
 
-    private void setEnemyNpcPositions() {
-        enemyNpcPositionsArray = new ArrayList<>();
-    }
-
-    public ArrayList<Tile> getEnemyNpcPositionsArray() {
-        return enemyNpcPositionsArray;
-    }
-
-    public void setPlayerPosition(Tile tileWithPlayerOn) {
+    public void updatePlayerPosition(Tile tileWithPlayerOn) {
         tileWithPlayerOn.setPlayerOnTile();
         int row = tileWithPlayerOn.getRow();
         int col = tileWithPlayerOn.getColumn();
@@ -72,69 +36,22 @@ public class Map {
         perimeterArray[row][col].setPlayerOnTile();
     }
 
+    public void updatePlayerPosition(String direction) {
+
+    }
+
+
     public Tile getPlayerPosition() {
         return tileWithPlayerOn;
     }
 
-    private void createTunnelsBetweenRooms() {
-        tunnelList = new ArrayList<>();
 
-        Tunnel tunnel1 = makeTunnelBetweenAandC();
-        makeTilesBelongToTunnel(tunnel1);
-        tunnelList.add(tunnel1);
+    public void addTunnel(Tunnel tunnel){
+        makeTilesBelongToTunnel(tunnel);
+        tunnelList.add(tunnel);
 
-        Tunnel tunnel2 = makeTunnelBetweenBandD();
-        makeTilesBelongToTunnel(tunnel2);
-        tunnelList.add(tunnel2);
-
-        Tunnel tunnel3 = makeTunnelBetweenDandF();
-        makeTilesBelongToTunnel(tunnel3);
-        tunnelList.add(tunnel3);
-
-        Tunnel tunnel4 = makeTunnelBetweenEandF();
-        makeTilesBelongToTunnel(tunnel4);
-        tunnelList.add(tunnel4);
-
-        Tunnel tunnel5 = makeTunnelBetweenCandD();
-        makeTilesBelongToTunnel(tunnel5);
-        tunnelList.add(tunnel5);
     }
 
-    private Tunnel makeTunnelBetweenCandD() {
-        Tile tunnelStart = perimeterArray[17][49];
-        Tile tunnelEnd = perimeterArray[17][59];
-        Tunnel tunnel = new Tunnel("C", "D",tunnelStart,tunnelEnd);
-        return tunnel;
-    }
-
-
-    private Tunnel makeTunnelBetweenAandC() {
-        Tile tunnelStart = perimeterArray[10][31];
-        Tile tunnelEnd = perimeterArray[13][31];
-        Tunnel tunnel = new Tunnel("A", "C",tunnelStart,tunnelEnd);
-        return tunnel;
-    }
-
-    private Tunnel makeTunnelBetweenBandD() {
-        Tile tunnelStart = perimeterArray[10][72];
-        Tile tunnelEnd = perimeterArray[13][72];
-        Tunnel tunnel = new Tunnel("B", "D",tunnelStart,tunnelEnd);
-        return tunnel;
-    }
-
-    private Tunnel makeTunnelBetweenDandF() {
-        Tile tunnelStart = perimeterArray[23][72];
-        Tile tunnelEnd = perimeterArray[26][72];
-        Tunnel tunnel = new Tunnel("D", "F",tunnelStart,tunnelEnd);
-        return tunnel;
-    }
-
-    private Tunnel makeTunnelBetweenEandF() {
-        Tile tunnelStart = perimeterArray[29][32];
-        Tile tunnelEnd = perimeterArray[29][54];
-        Tunnel tunnel = new Tunnel("E", "F",tunnelStart,tunnelEnd);
-        return tunnel;
-    }
 
     private void makeTilesBelongToTunnel(Tunnel tunnel) {
         makeTilesInTunnelToTunnelTiles(tunnel);
@@ -195,37 +112,6 @@ public class Map {
     }
 
 
-    private void createRooms() {
-        roomList = new ArrayList<>();
-
-        Room roomA = new Room("A", 27,8, new Tile(2, 7));
-        makeTilesBelongToRoom(roomA);
-        roomList.add(roomA);
-
-        Room roomB = new Room("B", 31,8, new Tile(2, 56));
-        makeTilesBelongToRoom(roomB);
-        roomList.add(roomB);
-
-        Room roomC = new Room("C", 23,6, new Tile(14, 26));
-        makeTilesBelongToRoom(roomC);
-        roomList.add(roomC);
-
-        Room roomE = new Room("E", 25,14, new Tile(24, 7));
-        makeTilesBelongToRoom(roomE);
-        roomList.add(roomE);
-
-        Room roomD = new Room("D", 23,9, new Tile(14, 60));
-        makeTilesBelongToRoom(roomD);
-        roomList.add(roomD);
-
-        Room roomF = new Room("F", 40,9, new Tile(27, 55));
-        makeTilesBelongToRoom(roomF);
-        roomList.add(roomF);
-
-
-
-    }
-
     private void fillMapWithTiles(){
         for (int row = 0; row < perimeterArray.length; row++) {
             for (int col = 0; col < perimeterArray[row].length; col++) {
@@ -267,6 +153,7 @@ public class Map {
         for (int i = startOfCol; i < endOfCol; i++) {
                 for (int j = startOfRow; j < endOfRow; j++) {
                     perimeterArray[j][i].makeRoomTile(room);
+                    room.addTileToRoom(perimeterArray[j][i]);
                 }
         }
     }
@@ -329,7 +216,11 @@ public class Map {
                      if(perimeterArray[col][row].hasPlayer()){
                          System.out.print("P");
                      }else if(perimeterArray[col][row].hasEnemyNPC()) {
-                         System.out.print("H");
+                         if(perimeterArray[col][row].getHostileNPC().isMeleeEnemy()){
+                             System.out.print("M");
+                         } else {
+                             System.out.print("R");
+                         }
                      } else if(perimeterArray[col][row].hasFriendlyNpc){
                          System.out.print("F");
                      } else {
@@ -419,75 +310,6 @@ public class Map {
         for (Room room : roomList) {
             System.out.println(room);
         }
-    }
-
-
-    public void spawnEnemyNpcs() {
-        enemyNpcPositionsArray = new ArrayList<>();
-
-        // Enemy 1 Room A
-        perimeterArray[3][15].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[3][15]);
-
-        // Enemy 2 ROOM A
-        perimeterArray[4][28].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[4][28]);
-
-
-        // Enemy 3 ROOM B
-        perimeterArray[4][65].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[4][65]);
-
-
-        // Enemy 4 ROOM B
-        perimeterArray[7][66].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[7][66]);
-
-        // Enemy 5 ROOM F
-        perimeterArray[9][70].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[9][70]);
-
-        // Enemy 6 ROOM F
-        perimeterArray[16][70].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[16][70]);
-
-
-        // Enemy 7 ROOM E
-        perimeterArray[30][75].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[30][75]);
-
-
-        // Enemy 8 ROOM E
-        perimeterArray[34][70].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[34][70]);
-
-
-        // Enemy 9
-        perimeterArray[19][70].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[19][70]);
-
-        // Enemy 10
-        perimeterArray[34][19].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[34][19]);
-
-        // Enemy 11
-        perimeterArray[27][15].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[27][15]);
-
-        // Enemy 12
-        perimeterArray[25][13].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[25][13]);
-
-
-        // Enemy 13 för D
-        perimeterArray[15][30].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[15][30]);
-
-        // Enemy 14 för D
-        perimeterArray[17][44].setEnemyNpcOnTile();
-        enemyNpcPositionsArray.add(perimeterArray[17][44]);
-
-
     }
 
     public ArrayList<Tunnel> getTunnelList() {
