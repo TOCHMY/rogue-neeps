@@ -38,7 +38,7 @@ public class Room {
     }
 
     public void addHostileNpc(EnemyNPC npc, Tile npcTile) throws IllegalArgumentException{
-        Tile t = map.getPerimeterArray()[npcTile.getRow()][npcTile.getColumn()];
+        Tile t = map.getMap2dArray()[npcTile.getRow()][npcTile.getColumn()];
 
         if(!roomTilesList.contains(npcTile)){
             throw new IllegalArgumentException("tile is not a room tile");
@@ -56,7 +56,7 @@ public class Room {
     }
 
     public void addFriendlyNpc(FriendlyNPC npc, Tile npcTile)throws IllegalArgumentException{
-        Tile t = map.getPerimeterArray()[npcTile.getRow()][npcTile.getColumn()];
+        Tile t = map.getMap2dArray()[npcTile.getRow()][npcTile.getColumn()];
         if(!roomTilesList.contains(npcTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         };

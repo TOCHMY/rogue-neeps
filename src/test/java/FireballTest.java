@@ -9,7 +9,7 @@ public class FireballTest {
     static final Tile playerStartingTile = new Tile(8, 10);
     static final Tile playerStartingTileCloseToWall = new Tile(3, 8);
 
-    @Test
+   /* @Test
     void testFireballRange() {
         Map map = new Map();
         map.initiateDungeon(playerStartingTile);
@@ -20,9 +20,9 @@ public class FireballTest {
         FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
         assertEquals(targetTile.getRow(), fireball.cast(playerStartingTile, playerFacingDirection).getRow());
         assertEquals(targetTile.getColumn(), fireball.cast(playerStartingTile, playerFacingDirection).getColumn());
-    }
+    }*/
 
-    //Testa att fireball kolliderar med vägg
+    /*//Testa att fireball kolliderar med vägg
     @Test
     void testCastFireball_fireballCollideWithWall() {
         Map map = new Map();
@@ -34,5 +34,5 @@ public class FireballTest {
         FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
         assertEquals(1, fireball.cast(playerStartingTileCloseToWall, playerFacingDirection).getRow());
         assertEquals(8, fireball.cast(playerStartingTileCloseToWall, playerFacingDirection).getColumn());
-    }
+    }*/
 }

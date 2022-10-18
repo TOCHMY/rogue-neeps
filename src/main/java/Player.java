@@ -96,25 +96,25 @@ public class Player implements Movement {
 
     @Override
     public void moveUp() {
-        map.updatePlayerPosition(Direction.UP);
+        map.updatePlayerPosition(Direction.UP, this);
         setPlayerFacingDirection(FACING_UP);
     }
 
     @Override
     public void moveDown() {
-        map.updatePlayerPosition(Direction.DOWN);
+        map.updatePlayerPosition(Direction.DOWN, this);
         setPlayerFacingDirection(FACING_DOWN);
     }
 
     @Override
     public void moveRight() {
-        map.updatePlayerPosition(Direction.RIGHT);
+        map.updatePlayerPosition(Direction.RIGHT, this);
         setPlayerFacingDirection(FACING_RIGHT);
     }
 
     @Override
     public void moveLeft() {
-        map.updatePlayerPosition(Direction.LEFT);
+        map.updatePlayerPosition(Direction.LEFT, this);
         setPlayerFacingDirection(FACING_LEFT);
     }
 

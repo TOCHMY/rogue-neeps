@@ -12,14 +12,6 @@ public class NPC extends Quest implements Movement {
     //tanken är att initialPosition ska användas för att se till att NPC inte vandrar för långt bort på kartan
     private int[] initialPosition = new int[2];
 
-    public NPC(String name) {
-        this.name = name;
-        /*this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        initialPosition[0] = xPosition;
-        initialPosition[1] = yPosition;
-        setCurrentPosition(xPosition, yPosition);*/
-    }
 
     public NPC(String name) {
         this.name = name;

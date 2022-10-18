@@ -12,6 +12,7 @@ public class Tile {
     private EnemyNPC hostileNpc;
     private FriendlyNPC friendlyNpc;
     boolean hasFriendlyNpc = false;
+    Player player;
     private Room room;
     private Tunnel tunnel;
     private int row;
@@ -54,7 +55,8 @@ public class Tile {
         return column;
     }
 
-    public void setPlayerOnTile() {
+    public void setPlayerOnTile(Player player) {
+        this.player = player;
         hasPlayer = true;
     }
 
@@ -155,6 +157,11 @@ public class Tile {
 
     public EnemyNPC getHostileNPC() {
         return hostileNpc;
+    }
+
+    public void removePlayerFromTile() {
+            hasPlayer = false;
+            player = null;
     }
 
     // använd denna när vi har en klass för enemyNPC
