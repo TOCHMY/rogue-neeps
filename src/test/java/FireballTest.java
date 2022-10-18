@@ -10,6 +10,11 @@ public class FireballTest {
 
 
 
+    @Test
+    void testX() {
+        assertEquals(10, playerStartingTile.getX());
+    }
+
 
     @Test
     void testFireballRange() {
