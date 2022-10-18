@@ -1,5 +1,3 @@
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +11,7 @@ class TunnelTest {
         Tile tunnelEnd = new Tile(13, 31);
         tunnelEnd.makeHorizontalWallTile();
         Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);
-        Assertions.assertEquals(tunnelStart, tunnel.getStartingTile());
+        assertEquals(tunnelStart, tunnel.getStartTile());
     }
 
     @Test
@@ -23,7 +21,7 @@ class TunnelTest {
         Tile tunnelEnd = new Tile(13, 31);
         tunnelEnd.makeHorizontalWallTile();
         Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);
-        Assertions.assertEquals(tunnelStart, tunnel.getStartingTile());
+        assertEquals(tunnelStart, tunnel.getStartTile());
     }
 
     @Test
@@ -33,7 +31,7 @@ class TunnelTest {
         Tile tunnelEnd = new Tile(13, 31);
         tunnelEnd.makeHorizontalWallTile();
         Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);
-        Assertions.assertEquals(tunnelStart, tunnel.getStartingTile());
+        assertEquals(tunnelStart, tunnel.getStartTile());
     }
 
     @Test
@@ -57,7 +55,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_roomIsCreated_Expect_startingTileToBeAWallTile(){
+    void When_tunnelIsCreated_Expect_startingTileToBeAWallTile(){
         Tile tunnelStart = new Tile(10,31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13,31);
@@ -65,7 +63,9 @@ class TunnelTest {
         Tunnel tunnel = new Tunnel("A","C", tunnelStart, tunnelEnd);
         Tile wallTile = new Tile(0,0);
         wallTile.makeVerticalWallTile();
-        Assertions.assertEquals(wallTile.isWallTile(), tunnel.getStartingTile().isWallTile());
+        assertEquals(wallTile.isWallTile(), tunnel.getStartTile().isWallTile());
     }
+
+
 
 }

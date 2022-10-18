@@ -7,6 +7,7 @@ public class Tile {
     private boolean verticalWall = false;
     private boolean hasPlayer = false;
     private boolean hasEnemyNPC = false;
+    boolean hasFriendlyNpc = false;
     private Room room;
     private Tunnel tunnel;
     private int row;
@@ -119,6 +120,11 @@ public class Tile {
 
     public boolean isTunnelTile() {
         return tunnelTile;
+    }
+
+    public void setFriendlyNpcOnTile() {
+        hasFriendlyNpc = true;
+        walkable = false;
     }
 
 

@@ -159,6 +159,119 @@ class MapTest {
         assertEquals(15, knownEnemyNpcTile.getColumn());
     }
 
+    @Test
+    void When_VerticalTunnelIsCreated_Expect_TunnelStartWalkable(){
+        Map map = new Map();
+        map.initiateDungeon(playerStartingTile);
+        Tunnel aToC = map.getTunnelList().get(0);
+        Tile startTile = aToC.getStartTile();
+
+        assertEquals(true, startTile.isWalkable());
+    }
+
+    @Test
+    void When_VerticalTunnelIsCreated_Expect_TunnelEndWalkable(){
+        Map map = new Map();
+        map.initiateDungeon(playerStartingTile);
+        Tunnel tunnelAtoD = map.getTunnelList().get(0);
+        Tile endTile = tunnelAtoD.getEndingTile();
+
+        assertEquals(true, endTile.isWalkable());
+    }
+
+    @Test
+    void When_VerticalTunnelIsCreated_Expect_TunnelTraversable(){
+        Map map = new Map();
+        map.initiateDungeon(playerStartingTile);
+        Tunnel tunnelAtoD = map.getTunnelList().get(0);
+        Tile startTile = tunnelAtoD.getStartTile();
+        int col = startTile.getColumn();
+        int row = startTile.getRow();
+        System.out.println("Tunnellängd: " + tunnelAtoD.getLength());
+
+        // tunneln A till C är 4 lång
+        Tile tunnelTile1 = tunnelAtoD.getStartTile();
+        Tile tunnelTile2 = map.getPerimeterArray()[row+1][col];
+        Tile tunnelTile3 = map.getPerimeterArray()[row+2][col];
+        Tile tunnelTile4 = tunnelAtoD.getEndingTile();
+
+
+        assertEquals(true, tunnelTile1.isWalkable());
+        assertEquals(true, tunnelTile2.isWalkable());
+        assertEquals(true, tunnelTile3.isWalkable());
+        assertEquals(true, tunnelTile4.isWalkable());
+
+        // kolla så att startTile är rätt
+        assertEquals(tunnelAtoD.getStartTile(), map.getPerimeterArray()[row][col]);
+        assertEquals(tunnelAtoD.getEndingTile(), map.getPerimeterArray()[row+3][col]);
+
+
+    }
+
+    @Test
+    void When_HorizontalTunnelIsCreated_Expect_TunnelStartWalkable(){
+        Map map = new Map();
+        map.initiateDungeon(playerStartingTile);
+        Tunnel tunnelEtoF = map.getTunnelList().get(3);
+        Tile startTile = tunnelEtoF.getStartTile();
+
+        assertEquals(true, startTile.isWalkable());
+    }
+
+    @Test
+    void When_HorizontalTunnelIsCreated_Expect_TunnelEndWalkable(){
+        Map map = new Map();
+        map.initiateDungeon(playerStartingTile);
+        Tunnel tunnelEtoF = map.getTunnelList().get(3);
+        Tile endTile = tunnelEtoF.getEndingTile();
+
+        assertEquals(true, endTile.isWalkable());
+    }
+
+    @Test
+    void When_HorizontalTunnelIsCreated_Expect_TunnelTraversable(){
+        Map map = new Map();
+        map.initiateDungeon(playerStartingTile);
+        Tunnel tunnelCtoD = map.getTunnelList().get(4);
+        Tile startTile = tunnelCtoD.getStartTile();
+        int col = startTile.getColumn();
+        int row = startTile.getRow();
+        System.out.println("Tunnellängd: " + tunnelCtoD.getLength());
+
+        // tunneln C till D är 11 lång
+        Tile tunnelTile1 = tunnelCtoD.getStartTile();
+        Tile tunnelTile2 = map.getPerimeterArray()[row][col+1];
+        Tile tunnelTile3 = map.getPerimeterArray()[row][col+2];
+        Tile tunnelTile4 = map.getPerimeterArray()[row][col+3];
+        Tile tunnelTile5 = map.getPerimeterArray()[row][col+4];
+        Tile tunnelTile6 = map.getPerimeterArray()[row][col+5];
+        Tile tunnelTile7 = map.getPerimeterArray()[row][col+6];
+        Tile tunnelTile8 = map.getPerimeterArray()[row][col+7];
+        Tile tunnelTile9 = map.getPerimeterArray()[row][col+8];
+        Tile tunnelTile10 = map.getPerimeterArray()[row][col+9];
+        Tile tunnelTile11 = tunnelCtoD.getEndingTile();
+
+        assertEquals(true, tunnelTile1.isWalkable());
+        assertEquals(true, tunnelTile2.isWalkable());
+        assertEquals(true, tunnelTile3.isWalkable());
+        assertEquals(true, tunnelTile4.isWalkable());
+        assertEquals(true, tunnelTile5.isWalkable());
+        assertEquals(true, tunnelTile6.isWalkable());
+        assertEquals(true, tunnelTile7.isWalkable());
+        assertEquals(true, tunnelTile8.isWalkable());
+        assertEquals(true, tunnelTile9.isWalkable());
+        assertEquals(true, tunnelTile10.isWalkable());
+        assertEquals(true, tunnelTile11.isWalkable());
+
+        // kolla så start och endtile är rätt
+        assertEquals(tunnelCtoD.getStartTile(), map.getPerimeterArray()[row][col]);
+        assertEquals(tunnelCtoD.getEndingTile(), map.getPerimeterArray()[row][col+10]);
+    }
+
+
+
+
+
 
     /** Nedan är metoder för att printa kartan i olika former, samt metod för att printa info om rum **/
 

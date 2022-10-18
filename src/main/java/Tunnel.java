@@ -33,7 +33,7 @@ public class Tunnel {
     }
 
 
-    public Tile getStartingTile() {
+    public Tile getStartTile() {
         return tunnelStart;
     }
 
@@ -58,7 +58,11 @@ public class Tunnel {
     }
 
     public int getLength() {
-        return length;
+        if(verticalTunnel){
+            return 1 + (tunnelEnd.getRow() - tunnelStart.getRow());
+        } else {
+            return 1 + (tunnelEnd.getColumn() - tunnelStart.getColumn());
+        }
     }
 
     public void addTile(Tile tile) {

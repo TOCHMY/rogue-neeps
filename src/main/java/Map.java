@@ -60,7 +60,27 @@ public class Map {
 
     private void spawnFriendlyNpcs() {
         friendlyNpcPositionsArray = new ArrayList<>();
+
+        // Friendly 1 Room A
+        perimeterArray[9][8].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[9][8]);
+
+        // Friendly 2 Room A
+        perimeterArray[9][10].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[9][10]);
+
+        // Friendly 3 Room B
+        perimeterArray[4][80].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[4][80]);
+
+        // Friendly 4 Room E
+        perimeterArray[37][8].setFriendlyNpcOnTile();
+        friendlyNpcPositionsArray.add(perimeterArray[37][8]);
+
+
+
     }
+
 
 
     private void setFriendlyNpcPositions() {
@@ -106,7 +126,20 @@ public class Map {
         makeTilesBelongToTunnel(tunnel3);
         tunnelList.add(tunnel3);
 
+        Tunnel tunnel4 = makeTunnelBetweenEandF();
+        makeTilesBelongToTunnel(tunnel4);
+        tunnelList.add(tunnel4);
 
+        Tunnel tunnel5 = makeTunnelBetweenCandD();
+        makeTilesBelongToTunnel(tunnel5);
+        tunnelList.add(tunnel5);
+    }
+
+    private Tunnel makeTunnelBetweenCandD() {
+        Tile tunnelStart = perimeterArray[17][49];
+        Tile tunnelEnd = perimeterArray[17][59];
+        Tunnel tunnel = new Tunnel("C", "D",tunnelStart,tunnelEnd);
+        return tunnel;
     }
 
 
@@ -131,6 +164,13 @@ public class Map {
         return tunnel;
     }
 
+    private Tunnel makeTunnelBetweenEandF() {
+        Tile tunnelStart = perimeterArray[29][32];
+        Tile tunnelEnd = perimeterArray[29][54];
+        Tunnel tunnel = new Tunnel("E", "F",tunnelStart,tunnelEnd);
+        return tunnel;
+    }
+
     private void makeTilesBelongToTunnel(Tunnel tunnel) {
         makeTilesInTunnelToTunnelTiles(tunnel);
         makeTilesAroundTunnelToTunnelWallTiles(tunnel);
@@ -147,9 +187,9 @@ public class Map {
     }
 
     private void makeVerticalTunnelWalls(Tunnel tunnel) {
-        int tunnelStartRow = tunnel.getStartingTile().getRow();
+        int tunnelStartRow = tunnel.getStartTile().getRow();
         int tunnelEndRow = tunnel.getEndingTile().getRow();
-        int col = tunnel.getStartingTile().getColumn();
+        int col = tunnel.getStartTile().getColumn();
         for (int i = tunnelStartRow; i < tunnelEndRow; i++) {
             if(i != tunnelStartRow && i != tunnelEndRow){
                 perimeterArray[i][col+1].makeVerticalWallTile();
@@ -159,12 +199,13 @@ public class Map {
     }
 
     private void makeHorizontalTunnelWalls(Tunnel tunnel) {
-        int tunnelStartCol = tunnel.getStartingTile().getColumn();
+        int tunnelStartCol = tunnel.getStartTile().getColumn();
         int tunnelEndCol = tunnel.getEndingTile().getColumn();
-        int row = tunnel.getStartingTile().getRow();
-        for (int i = tunnel.getStartingTile().getColumn(); i < tunnel.getLength(); i++) {
-            if(i != tunnelStartCol || i != tunnelEndCol){
-                perimeterArray[row][i].makeHorizontalWallTile();
+        int row = tunnel.getStartTile().getRow();
+        for (int i = tunnelStartCol; i < tunnelEndCol; i++) {
+            if(i != tunnelStartCol && i != tunnelEndCol){
+                perimeterArray[row-1][i].makeHorizontalWallTile();
+                perimeterArray[row+1][i].makeHorizontalWallTile();
             }
         }
     }
@@ -172,7 +213,7 @@ public class Map {
 
 
     private void makeTilesInTunnelToTunnelTiles(Tunnel tunnel) {
-        Tile start = tunnel.getStartingTile();
+        Tile start = tunnel.getStartTile();
         Tile end = tunnel.getEndingTile();
         if(tunnel.isVerticalTunnel()){
             for (int i = start.getRow(); i < end.getRow()+1; i++) {
@@ -181,7 +222,7 @@ public class Map {
             }
         } else {
             // en horisontell tunnel
-            for (int i = start.getColumn(); i < end.getColumn(); i++) {
+            for (int i = start.getColumn(); i < end.getColumn()+1; i++) {
                 perimeterArray[start.getRow()][i].makeTunnelTile(tunnel);
                 tunnel.addTile(perimeterArray[start.getRow()][i]);
             }
@@ -324,6 +365,8 @@ public class Map {
                          System.out.print("P");
                      }else if(perimeterArray[col][row].hasEnemyNPC()) {
                          System.out.print("H");
+                     } else if(perimeterArray[col][row].hasFriendlyNpc){
+                         System.out.print("F");
                      } else {
                          printRoomTiles(room, roomTilesOnOrOff);
                      }
@@ -480,5 +523,9 @@ public class Map {
         enemyNpcPositionsArray.add(perimeterArray[17][44]);
 
 
+    }
+
+    public ArrayList<Tunnel> getTunnelList() {
+        return tunnelList;
     }
 }
