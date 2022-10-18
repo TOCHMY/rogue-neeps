@@ -282,7 +282,7 @@ class MapTest {
          perimeterArray[34][70].setEnemyNpcOnTile();
          enemyNpcPositionsArray.add(perimeterArray[34][70]);*/
 
-
+// hello test
          // HostileNPC 9 Room D NEW
          EnemyNPC npc9 = new EnemyNPC("hostile9NotMelee",1,false); // nuvarande
          npcPos = new Tile(19,70);
