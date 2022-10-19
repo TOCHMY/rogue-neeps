@@ -19,6 +19,7 @@ public class FriendlyNPCTest {
         assertEquals("Hello adventurer.", npc.nonQuestGiverResponse());
     }
 
+
     //Return QuestDescription for particular quest
     @Test
     void testQuestGiverFriendlyNPC_respondsToPlayerInteraction_ExpectPigQuestDescription() {
