@@ -3,132 +3,70 @@ import java.util.HashMap;
 
 public class Quest {
 
-    int questID;
-    boolean isInitiated;
-    boolean isCompleted;
-    String questDescription;
-    String questName;
-    String questGoal;
-    int killQuestCurrentKilled;
-    ArrayList<Quest> questArrayList = new ArrayList<>();
-    HashMap<Integer, Quest> questHashMap = new HashMap<>();
+    private int questID;
+    private boolean isInitiated;
+    private boolean isCompleted;
+    private String questDescription;
+    private String questName;
+    private String questGoal;
+    private int killQuestCurrentKilled;
 
-    Quest() {
-        addQuests();
-        putQuestsInMap();
-    }
+    public Quest() {
 
-    Quest(int questID, String questName) {
+    };
+
+    public Quest(int questID, String questName) {
         this.questID = questID;
         this.questName = questName;
-    }
-
-    public void acceptQuest(String input) {
-        if (input.equals("y")) {
-            isInitiated = true;
-            isCompleted = false;
-        }
-    }
-
-    public void completeQuest() {
-        if (this.isCompleted) {
-            //NPC option to complete
-        }
-    }
-
-    public Quest getQuestByID(int questID) {
-        return questArrayList.get(questID);
-    }
-
-    public Quest getQuestByIDFromHashMap(int questID) {
-        return questHashMap.get(questID);
-    }
-
-
-    public String getQuestName(int questID) {
-        return questArrayList.get(questID).questName;
-    }
-
-    public String getQuestHashName(int questID) {
-        return questHashMap.get(questID).questName;
-    }
-
-    public String getQuestDescription(int questID) {
-        return questArrayList.get(questID).questDescription;
     }
 
     public void setQuestDescription(String questDescription) {
         this.questDescription = questDescription;
     }
 
+    public String getQuestDescription() {
+        return questDescription;
+    }
+
     public void setQuestGoal(String questGoal) {
         this.questGoal = questGoal;
     }
-
-    public String getQuestGoal(int questID) {
-        return questArrayList.get(questID).questGoal;
-    }
-
-
-    public void setPigsKilled() {
+    public void setEnemiesKilled() {
         killQuestCurrentKilled++;
     }
 
-    private int getPigsKilled() {
+    private int getEnemiesKilled() {
         return killQuestCurrentKilled;
     }
 
     public void pigMenaceQuestGoalHandler() {
-        int pigsKilled = getPigsKilled();
+        int pigsKilled = getEnemiesKilled();
         int totalPigsNeededToKill = 5;
         if (pigsKilled == totalPigsNeededToKill) {
             isCompleted = true;
             System.out.println(this.questName + " is completed!");
         }
     }
-
-    private void pigMenace() {
-        Quest q = new Quest(1, "Pig Menace");
-        q.setQuestDescription("The pigs in this area has developed an attitude. Show them who's boss!");
-        q.setQuestGoal("Kill 5 pigs.");
-        q.isInitiated = false;
-        questArrayList.add(q);
-        q.pigMenaceQuestGoalHandler();
-        questHashMap.put(questID, q);
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    private Quest pigMenaceHash() {
-        Quest q = new Quest(1, "Pig Menace");
-        q.setQuestDescription("The pigs in this area has developed an attitude. Show them who's boss!");
-        q.setQuestGoal("Kill 5 pigs.");
-        q.isInitiated = false;
-        q.pigMenaceQuestGoalHandler();
-        return q;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
-    private void findHerbert() {
-        Quest q = new Quest(2, "Find Herbert");
-        q.setQuestDescription("My grandpa, Herbert, went picking flowers and is probably lost somewhere. " +
-                "\nCan you find him for me and tell him to come home?");
-        q.setQuestGoal("Find Herbert");
-        q.isInitiated = false;
-        questArrayList.add(q);
+    public boolean isInitiated() {
+        return isInitiated;
     }
 
-    void addQuests() {
-        addQuestFlagToArrayList();
-        pigMenace();
-        findHerbert();
+    public void setInitiated(boolean initiated) {
+        isInitiated = initiated;
     }
 
-    //Existerar endast för att questID ska börja på 1 och höra ihop med ArrayList index.
-    private void addQuestFlagToArrayList() {
-        Quest q = new Quest(0, "Flag");
-        questArrayList.add(q);
+    @Override
+    public String toString() {
+        return "Quest name: " + questName + " with questID " + questID;
     }
 
-    void putQuestsInMap() {
-        questHashMap.put(pigMenaceHash().questID, pigMenaceHash());
-    }
 
 }
