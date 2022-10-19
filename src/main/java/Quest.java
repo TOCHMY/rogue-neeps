@@ -3,21 +3,22 @@ import java.util.HashMap;
 
 public class Quest {
 
-    private int questID;
+    private final int questID;
     private boolean isInitiated;
     private boolean isCompleted;
     private String questDescription;
-    private String questName;
+    private final String questName;
     private String questGoal;
     private int killQuestCurrentKilled;
 
-    public Quest() {
-
-    };
 
     public Quest(int questID, String questName) {
         this.questID = questID;
         this.questName = questName;
+    }
+
+    public void setQuestGiver(FriendlyNPC npc) {
+        npc.assignQuestToNPC(this);
     }
 
     public void setQuestDescription(String questDescription) {
@@ -31,6 +32,15 @@ public class Quest {
     public void setQuestGoal(String questGoal) {
         this.questGoal = questGoal;
     }
+
+    public String getQuestGoal() {
+        return questGoal;
+    }
+
+    public int getQuestID() {
+        return questID;
+    }
+
     public void setEnemiesKilled() {
         killQuestCurrentKilled++;
     }
