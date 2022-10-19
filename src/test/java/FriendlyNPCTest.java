@@ -5,15 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FriendlyNPCTest {
 
-    @BeforeAll
-    static void initiateQuests() {
-        QuestDatabase qdb = new QuestDatabase();
-    }
 
     @Test
     void testNonQuestGiverFriendlyNPC_respondsToPlayerInteraction() {
         FriendlyNPC npc = new FriendlyNPC("Brian");
-        npc.assignQuestToNPC(1);
         assertEquals("Hello adventurer.", npc.nonQuestGiverResponse());
     }
 

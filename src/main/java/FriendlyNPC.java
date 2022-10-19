@@ -8,10 +8,6 @@ public class FriendlyNPC extends NPC {
 
     private QuestDatabase qdb = new QuestDatabase();
 
-    public FriendlyNPC() {
-        isQuestGiver = false;
-    }
-
     public FriendlyNPC(String name) {
         this.name = name;
         isQuestGiver = false;
