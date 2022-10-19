@@ -144,7 +144,7 @@ class MapTest {
         Tunnel tunnel5 = new Tunnel("E", "F",tunnelStart,tunnelEnd);
         map.addTunnel(tunnel5);
 
-        Player player = new Player();
+        Player player = new Ogre();
 
         map.setPlayer(player, playerStartingTile);
         map.printDungeon("off","on","off");
@@ -203,7 +203,7 @@ class MapTest {
         Map map = new Map();
 
         Tile playerStartTile = new Tile(5,20);
-        Player player = new Player();
+        Player player = new Ogre();
         map.setPlayer(player, playerStartTile);
 
         assertEquals(playerStartTile, map.getPlayerPosition());
@@ -216,7 +216,7 @@ class MapTest {
         map.addRoom(roomA);
         Tile playerStartTile = new Tile(5,20);
         Tile expectedTile = new Tile(4,20);
-        Player player = new Player();
+        Player player = new Ogre();
         map.setPlayer(player, playerStartTile);
         assertEquals(playerStartTile, map.getPlayerPosition());
         player.moveUp();
@@ -230,7 +230,7 @@ class MapTest {
         map.addRoom(roomA);
         Tile playerStartTile = new Tile(5,20);
         Tile expectedTile = new Tile(6,20);
-        Player player = new Player();
+        Player player = new Ogre();
         map.setPlayer(player, playerStartTile);
         assertEquals(playerStartTile, map.getPlayerPosition());
         player.moveDown();
@@ -244,7 +244,7 @@ class MapTest {
         map.addRoom(roomA);
         Tile playerStartTile = new Tile(5,20);
         Tile expectedTile = new Tile(5,21);
-        Player player = new Player();
+        Player player = new Ogre();
         map.setPlayer(player, playerStartTile);
         assertEquals(playerStartTile, map.getPlayerPosition());
         player.moveRight();
@@ -258,7 +258,7 @@ class MapTest {
         map.addRoom(roomA);
         Tile playerStartTile = new Tile(5,20);
         Tile expectedTile = new Tile(5,19);
-        Player player = new Player();
+        Player player = new Ogre();
         map.setPlayer(player, playerStartTile);
         assertEquals(playerStartTile, map.getPlayerPosition());
         player.moveLeft();

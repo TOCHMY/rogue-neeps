@@ -14,39 +14,31 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTest {
 
+    private static int STARTING_XP = 100;
+
     @Test
-    public void TestEmptyConstructor(){
-        Player p = new Player();
+    public void When_Concrete_Expect_Success(){
+        new Human();
+        new Ogre();
+    }
+    @Test
+    public void When_Concrete_Expect_ExperienceExists(){
+        Player p = new Ogre();
+        assertEquals(STARTING_XP, p.getRemainingXp());
     }
 
     @Test
-    public void TestGetPlayerAttributes(){
-        Player p = new Player();
-        HashMap<Attributes, Integer> attrs = p.getAttributes();
-        assertEquals(1, attrs.get(Attributes.STRENGTH));
-        assertEquals(1, attrs.get(Attributes.DEXTERITY));
-        assertEquals(1, attrs.get(Attributes.INTELLIGENCE));
-    }
-
-    @Test
-    public void TestGetLvl(){
-        Player p = new Player();
+    public void When_Concrete_Expect_Lvl(){
+        Player p = new Ogre();
         int lvl = p.getLvl();
         assertEquals(1, lvl);
     }
 
     @Test
-    public void TestGetRemainingXp(){
-        Player p = new Player();
-        int remaining = p.getRemainingXp();
-        assertEquals(100, remaining);
-    }
-
-    @Test
-    public void TestAddXp(){
+    public void When_Concrete_Test_AddXp(){
         int XPGained = 10;
 
-        Player p = new Player();
+        Ogre p = new Ogre();
         int xpBefore = p.getRemainingXp();
         p.addXp(XPGained);
         int xpAfter = p.getRemainingXp();
@@ -55,30 +47,20 @@ public class PlayerTest {
     }
 
     @Test
-    public void TestLvlUp(){
-        Player p = new Player();
+    public void When_Concrete_Test_LvlUp(){
+        Player p = new Ogre();
         p.addXp(110);
 
         Assertions.assertEquals(2, p.getLvl());
         Assertions.assertEquals(190, p.getRemainingXp());
     }
     @Test
-    public void TestKillEnemy(){
-        Player p = new Player();
+    public void When_Concrete_Test_Combat(){
+        Player p = new Ogre();
         Pig pig = new Pig();
         pig.takeDmg(p, 20);
         Assertions.assertEquals(0, pig.getHP());
         Assertions.assertEquals( 80, p.getRemainingXp());
-    }
-    @Test
-    public void TestLvlUpByPig(){
-        Player p = new Player();
-        for(int i = 0; i < 5; i++){
-            Pig pig = new Pig();
-            pig.takeDmg(p, 10);
-        }
-        Assertions.assertEquals(2, p.getLvl());
-        Assertions.assertEquals(200, p.getRemainingXp());
     }
 
 
