@@ -19,8 +19,7 @@ public class ItemTest {
         List<MagicSocket> sockets = List.of
                 (new MagicSocket(MagicColor.BLUE),
                         new MagicSocket(MagicColor.BLUE),
-                        new MagicSocket(MagicColor.RED),
-                        new MagicSocket(MagicColor.GREEN));
+                        new MagicSocket(MagicColor.RED));
 
         WEAPON_WITH_THREE_SOCKETS = new Weapon(50, sockets);
 

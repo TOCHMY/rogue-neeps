@@ -1,8 +1,8 @@
 import java.util.List;
 
-public class Armor extends Item {
+public class Shield extends Item{
 
-    public Armor(double strength, List<MagicSocket> sockets){
+    public Shield(double strength, List<MagicSocket> sockets) {
         super(strength, sockets);
         if(anySocketOfWrongColor(sockets)) {
             throw new IllegalArgumentException("Defence items can only have red sockets");
@@ -19,8 +19,4 @@ public class Armor extends Item {
         return sockets.size() - countSocketsOfColor(sockets,MagicColor.RED) > 0;
     }
 
-
-    public double defend() {
-        return super.defendImplementation();
-    }
 }
