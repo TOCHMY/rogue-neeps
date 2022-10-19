@@ -38,9 +38,9 @@ class Pig extends NPC implements Killable, Movement {
     public void die() {
         health = 0;
         isDead = true;
-        if(questArrayList.get(1).isInitiated) {
+/*        if(questArrayList.get(1).isInitiated) {
             setPigsKilled();
-        }
+        }*/
     }
 
     @Override

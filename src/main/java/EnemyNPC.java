@@ -11,9 +11,7 @@ public class EnemyNPC extends NPC {
     private int experiencePointsWorth;
     private boolean isMapBoss;
 
-    // public EnemyNPC(String name, int xPosition, int yPosition, int level, boolean isMeleeEnemy) {
     public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
-        // super(name, xPosition, yPosition);
         super(name);
         this.level = level;
         setEnemyStats(level);
@@ -37,31 +35,6 @@ public class EnemyNPC extends NPC {
         experiencePointsWorth = level * 2;
     }
 
-    public void approachPlayer(int[] playerPosition) {
-        /*
-        If player comes within X pixels of enemy
-        Then enemy starts walking towards Player and attacks() when in range.
-         */
-        int[] thisPosition = getCurrentPosition(); //dåligt för memory kanske?
-        while (isNotNextToOther(playerPosition)) { //"VILL VI ATT DET SKA KUNNA GÅ DIAGONALT?":
-            // Går för tillfället diagonalt, vill att den ska gå ett steg per loop?
-            if (playerPosition[0] > thisPosition[0]) {
-                moveRight();
-            }
-            if (playerPosition[0] < thisPosition[0]) {
-                moveLeft();
-            }
-            if (playerPosition[1] > thisPosition[1]) {
-                moveUp();
-            }
-            if (playerPosition[1] < thisPosition[1]) {
-                moveDown();
-            }
-            System.out.println(Arrays.toString(thisPosition));
-
-        }
-//            attackPlayer();
-    }
 
     public void attackPlayer() {
         /*

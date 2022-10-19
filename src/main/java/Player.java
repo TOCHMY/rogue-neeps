@@ -3,24 +3,19 @@ import java.util.HashMap;
 
 public class Player implements Movement {
     private static final int STEPS = 5; //Kan skapa intressanta testfall
-    private static final int FACING_UP = 1;
-    private static final int FACING_RIGHT = 2;
-    private static final int FACING_DOWN = 3;
-    private static final int FACING_LEFT = 4;
-
     private final ArrayList<Quest> questLog = new ArrayList<>();
 
     private Player.Experience xp;
 
     private HashMap<Attributes, Integer> attributes;
-    private int playerFacingDirection;
+    private Direction playerFacingDirection;
 
     Map map;
 
     Player() {
         generateAttributeList();
         this.xp = new Experience();
-        setPlayerFacingDirection(FACING_UP);
+        setPlayerFacingDirection(Direction.UP);
     }
 
     public void setMap(Map m){
@@ -97,32 +92,32 @@ public class Player implements Movement {
     @Override
     public void moveUp() {
         map.updatePlayerPosition(Direction.UP, this);
-        setPlayerFacingDirection(FACING_UP);
+        setPlayerFacingDirection(Direction.UP);
     }
 
     @Override
     public void moveDown() {
         map.updatePlayerPosition(Direction.DOWN, this);
-        setPlayerFacingDirection(FACING_DOWN);
+        setPlayerFacingDirection(Direction.DOWN);
     }
 
     @Override
     public void moveRight() {
         map.updatePlayerPosition(Direction.RIGHT, this);
-        setPlayerFacingDirection(FACING_RIGHT);
+        setPlayerFacingDirection(Direction.RIGHT);
     }
 
     @Override
     public void moveLeft() {
         map.updatePlayerPosition(Direction.LEFT, this);
-        setPlayerFacingDirection(FACING_LEFT);
+        setPlayerFacingDirection(Direction.LEFT);
     }
 
-    private void setPlayerFacingDirection(int direction) {
+    private void setPlayerFacingDirection(Direction direction) {
         playerFacingDirection = direction;
     }
 
-    public int getPlayerFacingDirection() {
+    public Direction getPlayerFacingDirection() {
         return playerFacingDirection;
     }
 
