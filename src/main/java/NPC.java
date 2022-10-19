@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class NPC implements Movement {
+public class NPC extends Quest implements Movement {
 
     //Set NPC movement range? <- så typ en specifik NPC kan inte röra sig längre än 2 pixlar
     // från sin initialPosition.
@@ -12,13 +12,9 @@ public class NPC implements Movement {
     //tanken är att initialPosition ska användas för att se till att NPC inte vandrar för långt bort på kartan
     private int[] initialPosition = new int[2];
 
-    public NPC(String name, int xPosition, int yPosition) {
+
+    public NPC(String name) {
         this.name = name;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        initialPosition[0] = xPosition;
-        initialPosition[1] = yPosition;
-        setCurrentPosition(xPosition, yPosition);
     }
 
     private void setCurrentPosition(int xPosition, int yPosition) {
@@ -90,38 +86,4 @@ public class NPC implements Movement {
     public String toString() {
         return name + "'s current position is " + currentPosition[0] + ", " + currentPosition[1] + ".";
     }
-
-    public static void main(String[] args) {
-        EnemyNPC pig = new EnemyNPC("Pig", 45, 45, 1, true);
-        EnemyNPC bossPig = new EnemyNPC("King Boar Swine III", 20, 33, 1, true, true);
-        NPC randy = new NPC("Randy", 50, 50);
-        FriendlyNPC sofia = new FriendlyNPC("Sofia", 50, 50, true);
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-        randy.idleMove();
-        System.out.println(randy);
-
-
-        sofia.moveUp();
-        System.out.println(sofia);
-
-        System.out.println(pig);
-        while (pig.isNotNextToOther(sofia.getCurrentPosition())) {
-            pig.approachPlayer(sofia.getCurrentPosition());
-            System.out.println(pig);
-        }
-
-    }
-
 }

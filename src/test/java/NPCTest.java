@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NPCTest {
 
-    //Hur testa random movement? Kolla med Henke B
+   /* //Hur testa random movement? Kolla med Henke B
 
     @Test
     void testIdleMovement_makeSureTheNPCMoved() {
@@ -61,5 +61,5 @@ class NPCTest {
         assertArrayEquals(randy.getCurrentPosition(), new int[]{51, 50});
         randy.moveLeft();
         assertArrayEquals(randy.getCurrentPosition(), new int[]{50, 50});
-    }
+    }*/
 }

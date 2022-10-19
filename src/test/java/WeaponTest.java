@@ -1,3 +1,6 @@
+
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +42,7 @@ public class WeaponTest {
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
         assertEquals(49.5, attackVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
         assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
+
     }
 
     @Test

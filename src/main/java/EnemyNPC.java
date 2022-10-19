@@ -11,15 +11,18 @@ public class EnemyNPC extends NPC {
     private int experiencePointsWorth;
     private boolean isMapBoss;
 
-    public EnemyNPC(String name, int xPosition, int yPosition, int level, boolean isMeleeEnemy) {
-        super(name, xPosition, yPosition);
+    // public EnemyNPC(String name, int xPosition, int yPosition, int level, boolean isMeleeEnemy) {
+    public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
+        // super(name, xPosition, yPosition);
+        super(name);
         this.level = level;
         setEnemyStats(level);
         this.isMeleeEnemy = isMeleeEnemy;
     }
 
     public EnemyNPC(String name, int xPosition, int yPosition, int level, boolean isMeleeEnemy, boolean isMapBoss) {
-        super(name, xPosition, yPosition);
+        //super(name, xPosition, yPosition);
+        super(name);
         this.level = level;
         setEnemyStats(level * 10); //+ or * a static value to make it stronger? Depending on the player level algorithm thingy
         this.isMeleeEnemy = isMeleeEnemy;
@@ -64,5 +67,9 @@ public class EnemyNPC extends NPC {
         /*
         If player is within Range of enemy, enemy attacks
          */
+    }
+
+    public boolean isMeleeEnemy(){
+        return isMeleeEnemy;
     }
 }
