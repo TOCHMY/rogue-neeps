@@ -5,6 +5,7 @@ public class EnemyNPC extends NPC {
 
     private final int level; //Hook up with player level for balance during map-gen
     private final boolean isMeleeEnemy; //True = melee fighter, false = ranged fighter
+    private String name;
     private int attackValue;
     private int defenseValue;
     private int hitPointValue;
@@ -12,7 +13,7 @@ public class EnemyNPC extends NPC {
     private boolean isMapBoss;
 
     public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
-        super(name);
+        this.name = name;
         this.level = level;
         setEnemyStats(level);
         this.isMeleeEnemy = isMeleeEnemy;
@@ -20,7 +21,7 @@ public class EnemyNPC extends NPC {
 
     public EnemyNPC(String name, int xPosition, int yPosition, int level, boolean isMeleeEnemy, boolean isMapBoss) {
         //super(name, xPosition, yPosition);
-        super(name);
+        this.name = name;
         this.level = level;
         setEnemyStats(level * 10); //+ or * a static value to make it stronger? Depending on the player level algorithm thingy
         this.isMeleeEnemy = isMeleeEnemy;
@@ -42,7 +43,7 @@ public class EnemyNPC extends NPC {
          */
     }
 
-    public boolean isMeleeEnemy(){
+    public boolean isMeleeEnemy() {
         return isMeleeEnemy;
     }
 }

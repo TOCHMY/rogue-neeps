@@ -1,4 +1,4 @@
-class Pig extends NPC implements Killable, Movement {
+class Pig extends EnemyNPC implements Killable, Movement {
 
     private String name;
     private final int xp;
@@ -7,7 +7,7 @@ class Pig extends NPC implements Killable, Movement {
     private boolean isDead;
 
     public Pig(){
-        super("Pig");
+        super("Pig", 1, true);
         this.xp = 20;
         this.health = 10;
         this.isDead = false;

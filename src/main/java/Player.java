@@ -77,16 +77,19 @@ public class Player implements Movement {
     }
 
     public void addQuestToQuestLog(Quest quest) {
-        if (quest.isInitiated) {
+        if (quest.isInitiated()) {
             questLog.add(quest);
         } else {
             throw new IllegalStateException("Quest is not accepted");
         }
-
     }
 
     public Quest getQuestFromQuestLog(int questID) {
     return questLog.get(questID);
+    }
+
+    public void interactWithFriendlyNPC(FriendlyNPC npc) {
+
     }
 
     @Override
