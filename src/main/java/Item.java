@@ -15,7 +15,7 @@ public abstract class Item {
         this.sockets = sockets;
     }
 
-    void setStrength(double newStrength){
+    void setStrength(double newStrength) {
         strength = newStrength;
     }
 
@@ -40,28 +40,35 @@ public abstract class Item {
 
     double getCostFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
-                .filter(socket -> socket.getGemStone()!= null &&socket.getGemStone().getColor().equals(color))
+                .filter(socket -> socket.getGemStone() != null && socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getCost())
                 .sum();
     }
 
     double getStrengthFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
-                .filter(socket -> socket.getGemStone()!= null &&socket.getGemStone().getColor().equals(color))
+                .filter(socket -> socket.getGemStone() != null && socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getStrength())
                 .sum();
     }
 
     abstract double use(ItemVisitor visitor);
 
-    protected double attackImplementation(){
+    protected long countSocketsOfColor(List<MagicSocket> sockets, MagicColor color) {
+        return sockets.stream().filter(socket -> socket.getColor() == color).count();
+    }
+
+    abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
+
+
+    protected double attackImplementation() {
         double power = getStrength();
         double attackPowerFromStones = getStrengthFromStonesOfColor(MagicColor.BLUE);
         double cost = getCostFromStonesOfColor(MagicColor.BLUE);
 
         setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
 
-        return Math.round(100 * power * (1 + (attackPowerFromStones / 100.0)))/100.0;
+        return Math.round(100 * power * (1 + (attackPowerFromStones / 100.0))) / 100.0;
     }
 
     protected double defendImplementation() {
@@ -71,6 +78,6 @@ public abstract class Item {
 
         setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
 
-        return Math.round(100*power * (1 + (defencePowerFromStones / 100)))/100.0;
+        return Math.round(100 * power * (1 + (defencePowerFromStones / 100))) / 100.0;
     }
 }

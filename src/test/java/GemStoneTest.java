@@ -15,8 +15,8 @@ public class GemStoneTest {
 
     @Test
     public void testCreateGemstoneWithBVAValues(){
-        GemStone gemStone = new GemStone(MagicColor.BLUE,30,30);
-        assertEquals(MagicColor.BLUE, gemStone.getColor());
+        GemStone gemStone = new GemStone(MagicColor.RED,30,30);
+        assertEquals(MagicColor.RED, gemStone.getColor());
         assertEquals(30, gemStone.getStrength());
         assertEquals(30, gemStone.getCost());
     }
