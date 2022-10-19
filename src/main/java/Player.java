@@ -1,29 +1,45 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Player implements Movement {
+abstract class Player implements Movement {
     private static final int STEPS = 5; //Kan skapa intressanta testfall
     private final ArrayList<Quest> questLog = new ArrayList<>();
 
     private Player.Experience xp;
 
-    private HashMap<Attributes, Integer> attributes;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
+    int hp;
     private Direction playerFacingDirection;
 
     Map map;
 
-    Player() {
-        generateAttributeList();
+    Player(int strength, int dexterity, int intelligence, int hp) {
+        this.strength = strength;
+        this.dexterity = dexterity;
+        this.intelligence = intelligence;
+        this.hp = hp;
         this.xp = new Experience();
         setPlayerFacingDirection(Direction.UP);
     }
 
-    public void setMap(Map m){
-        map = m;
+    abstract void wield(Weapon w);
+
+    public int getStrength() {
+        return strength;
     }
 
-    public void addDexterity(int amount) {
-        attributes.merge(Attributes.DEXTERITY, amount, Integer::sum);
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public void setMap(Map m){
+        map = m;
     }
 
     static class Experience {
@@ -51,17 +67,6 @@ public class Player implements Movement {
                 cap = lvl * 100;
             }
         }
-    }
-
-    public HashMap<Attributes, Integer> getAttributes() {
-        return attributes;
-    }
-
-    private void generateAttributeList() {
-        attributes = new HashMap<>();
-        attributes.put(Attributes.STRENGTH, 1);
-        attributes.put(Attributes.DEXTERITY, 1);
-        attributes.put(Attributes.INTELLIGENCE, 1);
     }
 
     public int getLvl() {
