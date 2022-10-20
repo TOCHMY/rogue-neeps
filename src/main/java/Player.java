@@ -5,6 +5,7 @@ import java.util.HashMap;
 abstract class Player implements Movement {
     private static final int STEPS = 5; //Kan skapa intressanta testfall
     private final ArrayList<Quest> questLog = new ArrayList<>();
+    private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
 
     private Player.Experience xp;
 
@@ -97,6 +98,10 @@ abstract class Player implements Movement {
         xp.updateXp(amount);
     }
 
+    public ArrayList<Quest> getQuestLog() {
+        return questLog;
+    }
+
     public void addQuestToQuestLog(Quest quest) {
         if (quest.isInitiated()) {
             questLog.add(quest);
@@ -105,12 +110,16 @@ abstract class Player implements Movement {
         }
     }
 
-    public ArrayList<Quest> getQuestLog() {
-        return questLog;
-    }
-
     public void removeQuestFromQuestLog(Quest quest) {
         questLog.remove(quest.getQuestID());
+    }
+
+    public void addFinishedQuestToFinishedQuestLog(Quest quest) {
+        finishedQuestsLog.add(quest);
+    }
+
+    public ArrayList<Quest> getFinishedQuestsLog() {
+        return new ArrayList<>(finishedQuestsLog);
     }
 
     private void addFlagToQuestLog() {
@@ -122,10 +131,22 @@ abstract class Player implements Movement {
         return questLog.get(questID);
     }
 
-    public void interactWithFriendlyNPC(FriendlyNPC npc) {
-
+    public void interactWithFriendlyNPC(UserInputAsker uia, FriendlyNPC target) {
+        String response = uia.ask("Talk to " + target.getName() + "? y / n");
+        if (response.equals("y")) {
+            for (Quest q : questLog) {
+                if (q.getTalkQuestTarget() == null) { // if quest isn't a talkquest
+                    continue;
+                }
+                if (q.getTalkQuestTarget().equals(target)) {
+//                    target.say(); //hämta questGiverName
+                    q.setCompleted(true);
+                    FriendlyNPC questGiver = q.getQuestGiver();
+                    questGiver.completeQuest(q, this);
+                }
+            }
+        }
     }
-
 
     @Override
     public void moveUp() {

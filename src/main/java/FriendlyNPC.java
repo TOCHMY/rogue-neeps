@@ -7,6 +7,8 @@ public class FriendlyNPC extends NPC implements Movement {
     private final boolean isQuestGiver;
     private Quest questToGive;
 
+    private boolean isQuestGoal = false;
+
     public FriendlyNPC(String name) {
         this.name = name;
         isQuestGiver = false;
@@ -26,7 +28,13 @@ public class FriendlyNPC extends NPC implements Movement {
 
     public void assignQuestToNPC(Quest quest) {
         this.questToGive = quest;
+    }
 
+    public void setQuestGoal() {
+        isQuestGoal = true;
+    }
+    public boolean isQuestGoal() {
+        return isQuestGoal;
     }
 
     public Quest getAssignedQuest() {
@@ -64,8 +72,11 @@ public class FriendlyNPC extends NPC implements Movement {
 
     public void completeQuest(Quest quest, Player player) {
         if (quest.equals(questToGive) && questToGive.isCompleted()) {
-            System.out.println("Thank you for your help!");
+            System.out.println("Quest Completed.");
+            player.addFinishedQuestToFinishedQuestLog(quest);
             player.removeQuestFromQuestLog(quest);
+        } else {
+            System.out.println("Quest: \"" + questToGive.getQuestName() + "\" not completed yet.");
         }
     }
 

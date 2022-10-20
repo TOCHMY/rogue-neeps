@@ -12,7 +12,8 @@ public class Quest {
     private int killQuestCurrentKilled;
     private int amountOfEnemiesToKill;
     private EnemyNPC killQuestTarget;
-
+    private FriendlyNPC talkQuestTarget;
+    private FriendlyNPC questGiver;
 
     public Quest(int questID, String questName) {
         this.questID = questID;
@@ -20,11 +21,24 @@ public class Quest {
     }
 
     public void setQuestGiver(FriendlyNPC npc) {
+        this.questGiver = npc;
         npc.assignQuestToNPC(this);
+    }
+
+    public FriendlyNPC getQuestGiver() {
+        return questGiver;
     }
 
     public void setKillQuestTarget(EnemyNPC npc) {
         this.killQuestTarget = npc;
+    }
+
+    public void setTalkQuestTarget(FriendlyNPC npc) {
+        this.talkQuestTarget = npc;
+    }
+
+    public FriendlyNPC getTalkQuestTarget() {
+        return talkQuestTarget;
     }
 
     public EnemyNPC getKillQuestTarget() {
@@ -72,11 +86,8 @@ public class Quest {
                 }
             }
         }
-
     }
 
-
-    //fixa snygg string
     public String printKillQuestStatus() {
         return killQuestCurrentKilled + " of " + amountOfEnemiesToKill + " " + killQuestTarget.getName().toLowerCase()  + "s killed.";
     }

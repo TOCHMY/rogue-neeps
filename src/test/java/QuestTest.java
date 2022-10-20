@@ -41,6 +41,24 @@ public class QuestTest {
     }
 
     @Test
+    void testQuestNotInitiatedByPlayer() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("n");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        assertFalse(quest.isInitiated());
+    }
+
+    @Test
+    void testAskToAcceptQuest_throwsIllegalInput() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("invalid input");
+        assertThrows(IllegalArgumentException.class, () ->
+                npcKate.askToAcceptQuest(userInputAsker, player));
+    }
+
+    //gör assertThrows av asktoaccept
+//    void testQuest
+    @Test
     void testQuestAddedToPlayerQuestLog() {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
@@ -65,7 +83,10 @@ public class QuestTest {
         assertEquals("1 of 5 pigs killed.", quest.printKillQuestStatus());
     }
 
-    //Detta test skulle kunna slås ihop med testKillQuestDoesNotIncrementBeyondQuestGoal()
+    //Detta test skulle kunna slås ihop med testKillQuestDoesNotIncrementBeyondQuestGoal().
+    //Testar enbart ett av alla olika format ett ord kan ha blir korrekt format
+    //I detta fall ett djur vars böjning av ordet är enklet -> lägg till ett s för att representera Pig i plural
+    // andra skulle vara tex Octopus -> Octopi, Mantis -> Mantises osv
     @Test
     void testPigQuestStatusTextDisplaysCorrectText_WhenPigsGetKilled_AfterQuestGoalIsCompleted() {
         EnemyNPC pig = new EnemyNPC("Pig", 1, true);
@@ -79,6 +100,9 @@ public class QuestTest {
         player.killTarget(pig); //6
         assertEquals("5 of 5 pigs killed.", quest.printKillQuestStatus());
     }
+
+    //Testar enbart ett av alla olika format ett ord kan ha blir korrekt format (i detta fall djur med s i slutet)
+    // andra skulle vara tex Octopus -> Octopi osv
 
     @Test
     void testKillQuestDoesNotIncrementBeyondQuestGoal() {
@@ -117,6 +141,23 @@ public class QuestTest {
         assertFalse(player.getQuestLog().contains(quest));
     }
 
+    @Test
+    void testPigQuest_NotCompleted_questRemainsInQuestLog() {
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        npcKate.completeQuest(quest, player);
+        assertTrue(player.getQuestLog().contains(quest));
+    }
+
+    @Test
+    void testPigQuest_whenCompleted_questAddedToFinishedQuestLog() {
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        quest.setCompleted(true);
+        npcKate.completeQuest(quest, player);
+        assertTrue(player.getFinishedQuestsLog().contains(quest));
+    }
+
 
     //Herbert Quest
     @Test
@@ -124,5 +165,19 @@ public class QuestTest {
         Quest quest2 = qdb.getQuest(2);
         assertEquals("Find Herbert", quest2.getQuestName());
     }
+
+/*    @Test
+    void testHerbertQuest_isCompletedWhenHerbertIsFound() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        Quest quest2 = qdb.getQuest(2);
+        FriendlyNPC npcHerbert = new FriendlyNPC("Herbert");
+        quest2.setQuestGiver(npcKate);
+        quest2.setInitiated(true);
+        player.addQuestToQuestLog(quest2);
+        assertFalse(quest2.isCompleted());
+        when(userInputAsker.ask("Talk to " + npcHerbert.getName() + "? y / n")).thenReturn("y");
+        player.interactWithFriendlyNPC(userInputAsker, npcHerbert);
+        assertTrue(quest2.isCompleted());
+    }*/
 
 }
