@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ShieldTest {
 
+    Shield SHIELD;
+    DefenceVisitor DEFENCEVISITOR;
     List<MagicSocket> TWO_DEFENCE_SOCKETS;
     List<MagicSocket> BLUE_SOCKET;
     List<MagicSocket> GREEN_SOCKET;
@@ -25,6 +27,8 @@ public class ShieldTest {
                 (new MagicSocket(MagicColor.GREEN));
         PURPLE_SOCKET =  List.of
                 (new MagicSocket(MagicColor.PURPLE));
+        SHIELD = new Shield(50, TWO_DEFENCE_SOCKETS);
+        DEFENCEVISITOR = new DefenceVisitor();
     }
 
     @Test
@@ -45,5 +49,20 @@ public class ShieldTest {
         assertThrows(IllegalArgumentException.class, ()->{
             new Shield(50, PURPLE_SOCKET);
         });
+    }
+
+    @Test
+    void testDefendWithoutStones() {
+        assertEquals(50, SHIELD.accept(DEFENCEVISITOR));
+        assertEquals(49.5, SHIELD.getStrength());
+    }
+    @Test
+    void testDefendWithStones() {
+        SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
+        assertEquals(60, SHIELD.accept(DEFENCEVISITOR));
+        assertEquals(47.5, SHIELD.getStrength());
+        SHIELD.addStone(new GemStone(MagicColor.RED, 30, 20));
+        assertEquals(71.25, SHIELD.accept(DEFENCEVISITOR));
+        assertEquals(25, SHIELD.getStrength());
     }
 }

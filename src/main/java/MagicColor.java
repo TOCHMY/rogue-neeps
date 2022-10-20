@@ -1,6 +1,6 @@
 public enum MagicColor {
 
-    BLUE("Attack"),GREEN("Defense"),RED("Intelligence"),PURPLE("Special");
+    BLUE("Attack"),GREEN("Intelligence"),RED("Defence"),PURPLE("Special");
 
     private final String type;
 

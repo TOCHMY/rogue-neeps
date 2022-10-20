@@ -1,13 +1,16 @@
 public class DefenceVisitor implements ItemVisitor {
 
-    public double visit(Item item) {
-        if (item instanceof Armor)
-            return useDefence(item);
-        else if (item instanceof Weapon) {
-            return 0.5 * useDefence(item);
-        } else return 0;
+    @Override
+    public double visit(Weapon item) {
+        return 0.5 * useDefence(item);
     }
+    @Override
+    public double visit(Armor item) {
+        return useDefence(item);    }
 
+    @Override
+    public double visit(Shield item) {
+        return useDefence(item);    }
 
     protected double useDefence(Item item) {
         double DEFAULT_COST_OF_USE = 0.5;
