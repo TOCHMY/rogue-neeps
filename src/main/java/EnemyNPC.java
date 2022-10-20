@@ -11,6 +11,7 @@ public class EnemyNPC extends NPC {
     private int hitPointValue;
     private int experiencePointsWorth;
     private boolean isMapBoss;
+    private boolean isDead;
 
     public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
         this.name = name;
@@ -19,8 +20,7 @@ public class EnemyNPC extends NPC {
         this.isMeleeEnemy = isMeleeEnemy;
     }
 
-    public EnemyNPC(String name, int xPosition, int yPosition, int level, boolean isMeleeEnemy, boolean isMapBoss) {
-        //super(name, xPosition, yPosition);
+    public EnemyNPC(String name, int level, boolean isMeleeEnemy, boolean isMapBoss) {
         this.name = name;
         this.level = level;
         setEnemyStats(level * 10); //+ or * a static value to make it stronger? Depending on the player level algorithm thingy
@@ -43,7 +43,16 @@ public class EnemyNPC extends NPC {
          */
     }
 
+    public void die() {
+        hitPointValue = 0;
+        isDead = true;
+    }
+
     public boolean isMeleeEnemy() {
         return isMeleeEnemy;
+    }
+
+    public String getName() {
+        return name;
     }
 }

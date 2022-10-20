@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +23,7 @@ abstract class Player implements Movement {
         this.hp = hp;
         this.xp = new Experience();
         setPlayerFacingDirection(Direction.UP);
+        addFlagToQuestLog();
     }
 
     abstract void wield(Weapon w);
@@ -38,7 +40,7 @@ abstract class Player implements Movement {
         return intelligence;
     }
 
-    public void setMap(Map m){
+    public void setMap(Map m) {
         map = m;
     }
 
@@ -69,6 +71,20 @@ abstract class Player implements Movement {
         }
     }
 
+    //temporary method to kill enemey npc
+    public void killTarget(EnemyNPC target) {
+        target.die();
+
+        for (Quest q : questLog) {
+            if (q.getKillQuestTarget() == null) { // if quest isn't a killquest
+                continue;
+            }
+            if (q.getKillQuestTarget().getName().equals(target.getName())) {
+                q.updateKillQuestStatus(target);
+            }
+        }
+    }
+
     public int getLvl() {
         return xp.lvl;
     }
@@ -89,13 +105,27 @@ abstract class Player implements Movement {
         }
     }
 
+    public ArrayList<Quest> getQuestLog() {
+        return questLog;
+    }
+
+    public void removeQuestFromQuestLog(Quest quest) {
+        questLog.remove(quest.getQuestID());
+    }
+
+    private void addFlagToQuestLog() {
+        Quest flag = new Quest(0, "Flag");
+        questLog.add(flag);
+    }
+
     public Quest getQuestFromQuestLog(int questID) {
-    return questLog.get(questID);
+        return questLog.get(questID);
     }
 
     public void interactWithFriendlyNPC(FriendlyNPC npc) {
 
     }
+
 
     @Override
     public void moveUp() {

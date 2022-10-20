@@ -8,8 +8,10 @@ public class Quest {
     private boolean isCompleted;
     private String questDescription;
     private final String questName;
-    private String questGoal;
+    private String questGoalText;
     private int killQuestCurrentKilled;
+    private int amountOfEnemiesToKill;
+    private EnemyNPC killQuestTarget;
 
 
     public Quest(int questID, String questName) {
@@ -21,6 +23,22 @@ public class Quest {
         npc.assignQuestToNPC(this);
     }
 
+    public void setKillQuestTarget(EnemyNPC npc) {
+        this.killQuestTarget = npc;
+    }
+
+    public EnemyNPC getKillQuestTarget() {
+        return killQuestTarget;
+    }
+
+    public String getQuestName() {
+        return questName;
+    }
+
+    public int getKillQuestCurrentKilled() {
+        return killQuestCurrentKilled;
+    }
+
     public void setQuestDescription(String questDescription) {
         this.questDescription = questDescription;
     }
@@ -29,33 +47,38 @@ public class Quest {
         return questDescription;
     }
 
-    public void setQuestGoal(String questGoal) {
-        this.questGoal = questGoal;
+    public void setQuestGoalText(String questGoalText) {
+        this.questGoalText = questGoalText;
     }
 
-    public String getQuestGoal() {
-        return questGoal;
+    public void setKillQuestGoal(int amountOfEnemiesToKill) {
+        this.amountOfEnemiesToKill = amountOfEnemiesToKill;
     }
 
     public int getQuestID() {
         return questID;
     }
 
-    public void setEnemiesKilled() {
+    public void incrementEnemiesKilled() {
         killQuestCurrentKilled++;
     }
 
-    private int getEnemiesKilled() {
-        return killQuestCurrentKilled;
+    public void updateKillQuestStatus(EnemyNPC npc) {
+        if (npc.getName().equals(killQuestTarget.getName())) {
+            if (killQuestCurrentKilled != amountOfEnemiesToKill) {
+                incrementEnemiesKilled();
+                if (killQuestCurrentKilled == amountOfEnemiesToKill) {
+                    setCompleted(true);
+                }
+            }
+        }
+
     }
 
-    public void pigMenaceQuestGoalHandler() {
-        int pigsKilled = getEnemiesKilled();
-        int totalPigsNeededToKill = 5;
-        if (pigsKilled == totalPigsNeededToKill) {
-            isCompleted = true;
-            System.out.println(this.questName + " is completed!");
-        }
+
+    //fixa snygg string
+    public String printKillQuestStatus() {
+        return killQuestCurrentKilled + " of " + amountOfEnemiesToKill + " " + killQuestTarget.getName().toLowerCase()  + "s killed.";
     }
     public boolean isCompleted() {
         return isCompleted;

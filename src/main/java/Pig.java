@@ -2,33 +2,22 @@ class Pig extends EnemyNPC implements Killable, Movement {
 
     private String name;
     private final int xp;
-    private int health;
+    private int hitPointValue;
 
     private boolean isDead;
 
     public Pig(){
         super("Pig", 1, true);
         this.xp = 20;
-        this.health = 10;
+        this.hitPointValue = 10;
         this.isDead = false;
     }
 
-
-/*    public Pig(int xPos, int yPos){
-        this.xp = 20;
-        this.health = 10;
-        this.isDead = false;
-    }*/
-
-
-
-
-
     @Override
     public void takeDmg( Player p, int amount) {
-        health -= amount;
-        if(health <= 0){
-            health = 0;
+        hitPointValue -= amount;
+        if(hitPointValue <= 0){
+            hitPointValue = 0;
             p.addXp(xp);
             die();
         }
@@ -36,11 +25,8 @@ class Pig extends EnemyNPC implements Killable, Movement {
 
     @Override
     public void die() {
-        health = 0;
+        hitPointValue = 0;
         isDead = true;
-/*        if(questArrayList.get(1).isInitiated) {
-            setPigsKilled();
-        }*/
     }
 
     @Override
@@ -50,7 +36,7 @@ class Pig extends EnemyNPC implements Killable, Movement {
 
     @Override
     public int getHP() {
-        return this.health;
+        return this.hitPointValue;
     }
 
     // Definiera movement speed i konstruktor via NPC klass eller EnemyNPC klass

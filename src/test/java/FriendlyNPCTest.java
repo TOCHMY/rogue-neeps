@@ -13,6 +13,9 @@ import static org.mockito.Mockito.when;
 
 public class FriendlyNPCTest {
 
+    private final QuestDatabase qdb = new QuestDatabase();
+    Player player = new Human();
+
     @Test
     void testNonQuestGiverFriendlyNPC_respondsToPlayerInteraction() {
         FriendlyNPC npc = new FriendlyNPC("Brian");
@@ -24,7 +27,7 @@ public class FriendlyNPCTest {
     @Test
     void testQuestGiverFriendlyNPC_respondsToPlayerInteraction_ExpectPigQuestDescription() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
-        npc.getQuestFromDatabase(1);
+        npc.getQuestFromDatabase(1, qdb);
         assertEquals("The pigs in this area has developed an attitude. Show them who's boss!", npc.respondWithQuest());
     }
 
@@ -32,9 +35,9 @@ public class FriendlyNPCTest {
     void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectAccept() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
-        npc.getQuestFromDatabase(1);
+        npc.getQuestFromDatabase(1, qdb);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
-        assertEquals("Thank you for helping me!", npc.askToAcceptQuest(userInputAsker));
+        assertEquals("Thank you for helping me!", npc.askToAcceptQuest(userInputAsker, player));
     }
     @Test
     void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectNotAccept() {
@@ -42,14 +45,14 @@ public class FriendlyNPCTest {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
 
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("n");
-        assertEquals("Oh, okay...", npc.askToAcceptQuest(userInputAsker));
+        assertEquals("Oh, okay...", npc.askToAcceptQuest(userInputAsker, player));
     }
     @Test
     void testFriendlyNPC_InvalidInput() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
-        npc.getQuestFromDatabase(1);
+        npc.getQuestFromDatabase(1, qdb);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("invalid input");
-        assertThrows(IllegalArgumentException.class,  () -> npc.askToAcceptQuest(userInputAsker));
+        assertThrows(IllegalArgumentException.class,  () -> npc.askToAcceptQuest(userInputAsker, player));
     }
 }

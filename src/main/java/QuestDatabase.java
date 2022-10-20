@@ -6,8 +6,7 @@ public class QuestDatabase {
     //Flag existerar endast för att fylla plats 0 i arrayen
     private static final Quest FLAG = new Quest(0, "");
     private final Quest pigMenace = new Quest(1, "Pig Menace");
-    private final Quest findHerbert = new Quest(2, "Find Herber");
-
+    private final Quest findHerbert = new Quest(2, "Find Herbert");
     QuestDatabase() {
         setup();
     }
@@ -19,8 +18,11 @@ public class QuestDatabase {
     }
 
     private void initiatePigMenace() {
+        final EnemyNPC pig = new Pig();
         pigMenace.setQuestDescription("The pigs in this area has developed an attitude. Show them who's boss!");
-        pigMenace.setQuestGoal("Kill 5 pigs.");
+        pigMenace.setQuestGoalText("Kill 5 pigs.");
+        pigMenace.setKillQuestGoal(5);
+        pigMenace.setKillQuestTarget(pig);
         pigMenace.setInitiated(false);
         pigMenace.setCompleted(false);
     }
@@ -28,7 +30,7 @@ public class QuestDatabase {
     private void initiateFindHerbert() {
         findHerbert.setQuestDescription("My grandpa, Herbert, went picking flowers and is probably lost somewhere. " +
                 "\nCan you find him for me and tell him to come home?");
-        findHerbert.setQuestGoal("Find Herbert");
+        findHerbert.setQuestGoalText("Find Herbert");
         findHerbert.setInitiated(false);
         findHerbert.setCompleted(false);
     }

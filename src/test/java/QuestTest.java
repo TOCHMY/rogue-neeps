@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,79 +8,121 @@ import static org.mockito.Mockito.when;
 
 //Tänkte göra tillståndsmaskin på QuestTest, fråga till Henke -> När man skriver testfallen till tillståndsmaskinen
 // ska alla test vara samlade i samma Testklass, eller kan man hoppa mellan? Huruvida ett quest accepteras eller ej styrs
-// i FriendlyNPC klassen nu
+// i FriendlyNPC klassen nu, så tillstånd styrs i QuestTest medan bågar kan styras i FriendlyNPC och EnemyNPC
 
+
+//quest.setInitated() och setCompleted() kallas ibland istället för att gå igenom hela processen att spelaren ska
+// acceptera quest av NPC
 public class QuestTest {
-    QuestDatabase qdb = new QuestDatabase();
 
-    @Test
-    void testQuestNotInitiatedByPlayer() {
-        Quest quest = qdb.getQuest(1);
-        assertFalse(quest.isInitiated());
+    Player player = new Human();
+    private final FriendlyNPC npcKate = new FriendlyNPC("Kate", true);
+    private Quest quest = new Quest(0, "");
+    private final QuestDatabase qdb = new QuestDatabase();
+
+    @BeforeEach
+    void assignPigQuestToNPCKate() {
+        quest = qdb.getQuest(1);
+        npcKate.assignQuestToNPC(quest);
     }
 
-//    @Test
-//    void testQuestIsInitiatedByPlayer() {
-//        Quest quest = qdb.getQuest(1);
-//        FriendlyNPC npc = new FriendlyNPC("Kate", true);
-//        UserInputAsker userInputAsker = mock(UserInputAsker.class);
-//        npc.getQuestFromDatabase(quest.getQuestID());
-//        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
-//        npc.askToAcceptQuest(userInputAsker);
-//
-//        assertTrue(quest.isInitiated());
-//    }
-//
-//    @Test
-//    void testQuestAddedToPlayerQuestLog() {
-//        Quest quest = new Quest();
-//        Player player = new Player();
-//        quest.acceptQuest("y");
-//        player.addQuestToQuestLog(quest);
-//        assertEquals(player.getQuestFromQuestLog(quest.questID), quest);
-//    }
-//
-//    @Test
-//    void testQuestNotAccepted_NotAddedToPlayerQuestLog() {
-//        Quest quest = new Quest();
-//        Player player = new Player();
-//        assertThrows(IllegalStateException.class, ()
-//                -> player.addQuestToQuestLog(quest));
-//    }
-//
-//    @Test
-//    void testPigQuestName() {
-//        Quest quest = new Quest();
-//        assertEquals("Pig Menace", quest.getQuestName(1));
-//    }
-//
-//    @Test
-//    void testPigHash() {
-//        Quest quest = new Quest();
-//        assertEquals("Pig Menace", quest.getQuestHashName(1));
-//    }
-//    @Test
-//    void testPigQuestDescription() {
-//        Quest quest = new Quest();
-//        assertEquals("The pigs in this area has developed an attitude. Show them who's boss!", quest.getQuestDescription(1));
-//    }
-//
-//    @Test
-//    void testHerbertQuestName() {
-//        Quest quest = new Quest();
-//        assertEquals("Find Herbert", quest.getQuestName(2));
-//    }
-//
-//    @Test
-//    void testQuestGoalExists() {
-//        Quest quest = new Quest();
-//        assertEquals("Find Herbert", quest.getQuestGoal(2));
-//    }
-//
-//    @Test
-//    void testQuestCompletion_whenQuestGoalIsReached() {
-//        Quest quest = new Quest();
-////        quest = quest.getQuest
-//    }
-//
+
+    @Test
+    void testQuestIsCorrectlyAssignedToFriendlyNPC() {
+        assertEquals(quest, npcKate.getAssignedQuest());
+    }
+
+    @Test
+    void testQuestIsInitiatedByPlayer() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        assertTrue(quest.isInitiated());
+    }
+
+    @Test
+    void testQuestAddedToPlayerQuestLog() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        assertEquals(player.getQuestFromQuestLog(quest.getQuestID()), quest);
+    }
+
+    @Test
+    void testQuestNotAccepted_NotAddedToPlayerQuestLog() {
+        assertThrows(IllegalStateException.class, ()
+                -> player.addQuestToQuestLog(quest));
+    }
+
+
+    @Test
+    void testPigQuestGoalIsUpdated_WhenPigsGetKilled() {
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        assertEquals("0 of 5 pigs killed.", quest.printKillQuestStatus());
+        player.killTarget(pig);
+        assertEquals("1 of 5 pigs killed.", quest.printKillQuestStatus());
+    }
+
+    //Detta test skulle kunna slås ihop med testKillQuestDoesNotIncrementBeyondQuestGoal()
+    @Test
+    void testPigQuestStatusTextDisplaysCorrectText_WhenPigsGetKilled_AfterQuestGoalIsCompleted() {
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig); //6
+        assertEquals("5 of 5 pigs killed.", quest.printKillQuestStatus());
+    }
+
+    @Test
+    void testKillQuestDoesNotIncrementBeyondQuestGoal() {
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig); //6 pigs killed
+        assertEquals(5, quest.getKillQuestCurrentKilled());
+    }
+
+    @Test
+    void testPigQuestGoalIsSetToCompleted_WhenQuestGoalIsReached() {
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        assertFalse(quest.isCompleted());
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        player.killTarget(pig);
+        assertTrue(quest.isCompleted());
+    }
+
+    @Test
+    void testPigQuestReturnedToFriendlyNPC_questIsCompleted_questIsRemovedFromQuestLog() {
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        quest.setCompleted(true);
+        npcKate.completeQuest(quest, player);
+        assertFalse(player.getQuestLog().contains(quest));
+    }
+
+
+    //Herbert Quest
+    @Test
+    void testHerbertQuestName() {
+        Quest quest2 = qdb.getQuest(2);
+        assertEquals("Find Herbert", quest2.getQuestName());
+    }
+
 }
