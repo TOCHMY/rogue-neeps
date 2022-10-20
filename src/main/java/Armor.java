@@ -10,7 +10,7 @@ public class Armor extends Item {
     }
 
     @Override
-    double use(ItemVisitor visitor) {
+    double accept(ItemVisitor visitor) {
         return visitor.visit(this);
     }
 
@@ -19,8 +19,4 @@ public class Armor extends Item {
         return sockets.size() - countSocketsOfColor(sockets,MagicColor.RED) > 0;
     }
 
-
-    public double defend() {
-        return super.defendImplementation();
-    }
 }

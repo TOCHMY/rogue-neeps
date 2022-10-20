@@ -2,24 +2,26 @@ import java.util.List;
 
 public abstract class Item {
 
-    private final double DEFAULT_COST_OF_USE = 0.5;
+    private static final double MAX_STRENGTH = 100;
+    private static final double MIN_STRENGTH = 1;
+    private static final double MAX_AMOUNT_OF_SOCKETS = 5;
     private double strength;
     private List<MagicSocket> sockets;
 
     public Item(double strength, List<MagicSocket> sockets) {
-        if (strength < 1 || strength > 100)
+        if (strength < MIN_STRENGTH || strength > MAX_STRENGTH)
             throw new IllegalArgumentException("Strength must be between 1 to 100");
-        if (sockets.isEmpty() || sockets.size() > 5)
+        if (sockets.isEmpty() || sockets.size() > MAX_AMOUNT_OF_SOCKETS)
             throw new IllegalArgumentException("Number of sockets must be between 1 to 5");
         this.strength = strength;
         this.sockets = sockets;
     }
 
-    void setStrength(double newStrength) {
+    public void setStrength(double newStrength) {
         strength = newStrength;
     }
 
-    double getStrength() {
+    public double getStrength() {
         return this.strength;
     }
 
@@ -52,7 +54,7 @@ public abstract class Item {
                 .sum();
     }
 
-    abstract double use(ItemVisitor visitor);
+    abstract double accept(ItemVisitor visitor);
 
     protected long countSocketsOfColor(List<MagicSocket> sockets, MagicColor color) {
         return sockets.stream().filter(socket -> socket.getColor() == color).count();
@@ -60,24 +62,4 @@ public abstract class Item {
 
     abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
 
-
-    protected double attackImplementation() {
-        double power = getStrength();
-        double attackPowerFromStones = getStrengthFromStonesOfColor(MagicColor.BLUE);
-        double cost = getCostFromStonesOfColor(MagicColor.BLUE);
-
-        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
-
-        return Math.round(100 * power * (1 + (attackPowerFromStones / 100.0))) / 100.0;
-    }
-
-    protected double defendImplementation() {
-        double power = getStrength();
-        double defencePowerFromStones = getStrengthFromStonesOfColor(MagicColor.RED);
-        double cost = getCostFromStonesOfColor(MagicColor.RED);
-
-        setStrength(getStrength() - DEFAULT_COST_OF_USE - cost);
-
-        return Math.round(100 * power * (1 + (defencePowerFromStones / 100))) / 100.0;
-    }
 }

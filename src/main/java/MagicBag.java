@@ -10,7 +10,7 @@ public class MagicBag extends Item {
     }
 
     @Override
-    double use(ItemVisitor visitor) {
+    double accept(ItemVisitor visitor) {
         return visitor.visit(this);
     }
 
