@@ -150,7 +150,7 @@ public class ItemCollectionTest {
     }
 
     @Test
-    void testGetALlItems() {
+    void testGetAllItems() {
         ITEM_COLLECTION.addRightHandItem(WEAPON);
         assertTrue(ITEM_COLLECTION.getAllItems().contains(WEAPON));
         ITEM_COLLECTION.addLeftHandItem(SHIELD);

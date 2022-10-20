@@ -1,9 +1,8 @@
 public class AttackVisitor implements ItemVisitor {
 
-    public double visit(Item item) {
-        if (item instanceof Weapon)
-            return useAttack(item);
-        return 0;
+    @Override
+    public double visit(Weapon item) {
+        return useAttack(item);
     }
 
     protected double useAttack(Item item) {

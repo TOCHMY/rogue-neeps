@@ -1,6 +1,3 @@
-
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,9 +35,9 @@ public class WeaponTest {
 
     @Test
     public void testAttacksWithoutStones() {
-        assertEquals(50, attackVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
+        assertEquals(50, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
-        assertEquals(49.5, attackVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
         assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
 
     }
@@ -48,7 +45,7 @@ public class WeaponTest {
     @Test
     void testAttackWithOneStone() {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
-        assertEquals(54, attackVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
+        assertEquals(54, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
         assertEquals(47.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
@@ -56,15 +53,15 @@ public class WeaponTest {
     void testAttackWithTwoStones() {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
-        assertEquals(58, attackVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
+        assertEquals(58, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
         assertEquals(45.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
     @Test
     public void testDefenceWithoutStones() {
-        assertEquals(25, defenceVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
+        assertEquals(25, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
-        assertEquals(24.75, defenceVisitor.visit(WEAPON_WITH_THREE_SOCKETS));
+        assertEquals(24.75, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
         assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
