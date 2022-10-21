@@ -6,6 +6,8 @@ public class Quest {
     private final int questID;
     private boolean isInitiated;
     private boolean isCompleted;
+
+    private boolean isReturnedToQuestGiver;
     private String questDescription;
     private final String questName;
     private String questGoalText;
@@ -22,7 +24,6 @@ public class Quest {
 
     public void setQuestGiver(FriendlyNPC npc) {
         this.questGiver = npc;
-        npc.assignQuestToNPC(this);
     }
 
     public FriendlyNPC getQuestGiver() {
@@ -73,6 +74,14 @@ public class Quest {
         return questID;
     }
 
+    public boolean isReturnedToQuestGiver() {
+        return isReturnedToQuestGiver;
+    }
+
+    public void setReturnedToQuestGiver(boolean returnedToQuestGiver) {
+        isReturnedToQuestGiver = returnedToQuestGiver;
+    }
+
     public void incrementEnemiesKilled() {
         killQuestCurrentKilled++;
     }
@@ -82,9 +91,21 @@ public class Quest {
             if (killQuestCurrentKilled != amountOfEnemiesToKill) {
                 incrementEnemiesKilled();
                 if (killQuestCurrentKilled == amountOfEnemiesToKill) {
+                    printQuestCompleted();
                     setCompleted(true);
                 }
             }
+        }
+    }
+
+    public void printQuestCompleted() {
+        System.out.println("Quest " + getQuestName() + " is completed. Return to " + getQuestGiver().getName() + ".");
+
+    }
+
+    public void updateTalkQuestStatus(FriendlyNPC npc) {
+        if (npc.equals(talkQuestTarget)) {
+            setCompleted(true);
         }
     }
 
@@ -109,8 +130,11 @@ public class Quest {
 
     @Override
     public String toString() {
-        return "Quest name: " + questName + " with questID " + questID;
+        return "Quest name: " + questName + ". QuestID: " + questID;
     }
 
 
+    public String getQuestGoalText() {
+        return questGoalText;
+    }
 }

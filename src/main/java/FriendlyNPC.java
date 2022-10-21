@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class FriendlyNPC extends NPC implements Movement {
 
     private final String name;
+    private String dialog = "";
     private final boolean isQuestGiver;
     private Quest questToGive;
 
@@ -28,21 +29,27 @@ public class FriendlyNPC extends NPC implements Movement {
 
     public void assignQuestToNPC(Quest quest) {
         this.questToGive = quest;
+        quest.setQuestGiver(this);
     }
 
     public void setQuestGoal() {
         isQuestGoal = true;
     }
+
     public boolean isQuestGoal() {
         return isQuestGoal;
+    }
+
+    public boolean isQuestGiver() {
+        return isQuestGiver;
     }
 
     public Quest getAssignedQuest() {
         return questToGive;
     }
 
-    public Quest giveQuest() {
-        return questToGive;
+    public void offerQuest() {
+        System.out.println(questToGive.getQuestDescription());
     }
 
     public String nonQuestGiverResponse() {
@@ -53,15 +60,16 @@ public class FriendlyNPC extends NPC implements Movement {
         return questToGive.getQuestDescription();
     }
 
-    private void handleQuestAccept(Player player) {
+    private void handleQuestAccepted(Player player) {
         questToGive.setInitiated(true);
         player.addQuestToQuestLog(questToGive);
     }
 
     public String askToAcceptQuest(UserInputAsker uia, Player player) throws IllegalArgumentException {
+        offerQuest();
         String response = uia.ask("Do you accept this quest? y / n");
         if (response.equals("y")) {
-            handleQuestAccept(player);
+            handleQuestAccepted(player);
             return "Thank you for helping me!";
         } else if (response.equals("n")) {
             return "Oh, okay...";
@@ -72,12 +80,21 @@ public class FriendlyNPC extends NPC implements Movement {
 
     public void completeQuest(Quest quest, Player player) {
         if (quest.equals(questToGive) && questToGive.isCompleted()) {
-            System.out.println("Quest Completed.");
+            System.out.println("Quest \"" + quest.getQuestName() + "\" completed.");
+            quest.setReturnedToQuestGiver(true);
             player.addFinishedQuestToFinishedQuestLog(quest);
             player.removeQuestFromQuestLog(quest);
         } else {
-            System.out.println("Quest: \"" + questToGive.getQuestName() + "\" not completed yet.");
+            System.out.println("Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
         }
+    }
+
+    public void setDialog(String text) {
+        this.dialog = text;
+    }
+
+    public String say() {
+        return dialog;
     }
 
 

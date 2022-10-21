@@ -26,7 +26,6 @@ public class QuestTest {
         npcKate.assignQuestToNPC(quest);
     }
 
-
     @Test
     void testQuestIsCorrectlyAssignedToFriendlyNPC() {
         assertEquals(quest, npcKate.getAssignedQuest());
@@ -35,6 +34,8 @@ public class QuestTest {
     @Test
     void testQuestIsInitiatedByPlayer() {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        npcKate.setDialog(quest.getQuestDescription());
+        System.out.println(npcKate.say());
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
         npcKate.askToAcceptQuest(userInputAsker, player);
         assertTrue(quest.isInitiated());
@@ -63,18 +64,32 @@ public class QuestTest {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
         npcKate.askToAcceptQuest(userInputAsker, player);
-        assertEquals(player.getQuestFromQuestLog(quest.getQuestID()), quest);
+        assertEquals(player.getQuestFromQuestLog(quest), quest);
     }
 
     @Test
     void testQuestNotAccepted_NotAddedToPlayerQuestLog() {
         assertThrows(IllegalStateException.class, ()
-                -> player.addQuestToQuestLog(quest));
+                -> player.addQuestToQuestLog(quest)); // "Quest is not accepted"
     }
 
+    @Test
+    void testPlayerAbandonQuest_questIsRemovedFromQuestLog() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        player.abandonQuest(quest);
+        assertFalse(player.getQuestLog().contains(quest));
+    }
 
     @Test
-    void testPigQuestGoalIsUpdated_WhenPigsGetKilled() {
+    void testPlayerAbandonQuest_questDoesNotExistInQuestLog_throwsException() {
+        assertThrows(NullPointerException.class, ()
+                -> player.abandonQuest(quest)); // "Quest does not exist in quest log"
+    }
+
+    @Test
+    void testPigQuestGoalIsUpdated_WhenPigIsKilled() {
         EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
@@ -133,11 +148,25 @@ public class QuestTest {
     }
 
     @Test
-    void testPigQuestReturnedToFriendlyNPC_questIsCompleted_questIsRemovedFromQuestLog() {
+    void testPigQuestReturnedToFriendlyNPC_questIsRemovedFromQuestLog() {
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         quest.setCompleted(true);
         npcKate.completeQuest(quest, player);
+        assertFalse(player.getQuestLog().contains(quest));
+    }
+    @Test
+    void testPigQuestReturnedToFriendlyNPC_questIsRemovedFromQuestLog_withNPCInteraction() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
+        npcKate.assignQuestToNPC(quest);
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        quest.setCompleted(true);
+        assertFalse(quest.isReturnedToQuestGiver());
+        player.interactWithFriendlyNPC(userInputAsker, npcKate);
+        assertTrue(quest.isReturnedToQuestGiver());
+        assertTrue(player.getFinishedQuestsLog().contains(quest));
         assertFalse(player.getQuestLog().contains(quest));
     }
 
@@ -150,7 +179,7 @@ public class QuestTest {
     }
 
     @Test
-    void testPigQuest_whenCompleted_questAddedToFinishedQuestLog() {
+    void testPigQuest_whenReturnedToQuestGiver_questAddedToFinishedQuestLog() {
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         quest.setCompleted(true);
@@ -166,11 +195,14 @@ public class QuestTest {
         assertEquals("Find Herbert", quest2.getQuestName());
     }
 
-/*    @Test
+    @Test
     void testHerbertQuest_isCompletedWhenHerbertIsFound() {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         Quest quest2 = qdb.getQuest(2);
-        FriendlyNPC npcHerbert = new FriendlyNPC("Herbert");
+        FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
+        npcHerbert.setDialog("Oh I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
+        System.out.println(npcHerbert.say());
+        npcHerbert.setQuestGoal();
         quest2.setQuestGiver(npcKate);
         quest2.setInitiated(true);
         player.addQuestToQuestLog(quest2);
@@ -178,6 +210,37 @@ public class QuestTest {
         when(userInputAsker.ask("Talk to " + npcHerbert.getName() + "? y / n")).thenReturn("y");
         player.interactWithFriendlyNPC(userInputAsker, npcHerbert);
         assertTrue(quest2.isCompleted());
-    }*/
+    }
 
+    //Gör denna till tillståndsmaskin?
+    @Test
+    void testInteractionWithNPCsForHerbertQuest_fromStartToFinish() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        Quest quest2 = qdb.getQuest(2);
+        FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
+        npcHerbert.setDialog("Oh I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
+        npcHerbert.setQuestGoal();
+        npcKate.assignQuestToNPC(quest2);
+        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
+        player.interactWithFriendlyNPC(userInputAsker, npcKate);
+        assertFalse(player.getQuestLog().contains(quest2));
+        assertFalse(quest2.isInitiated());
+        assertFalse(quest2.isCompleted());
+        assertFalse(quest2.isReturnedToQuestGiver());
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        assertTrue(player.getQuestLog().contains(quest2));
+        assertTrue(quest2.isInitiated());
+        assertFalse(quest2.isCompleted());
+        assertFalse(quest2.isReturnedToQuestGiver());
+        when(userInputAsker.ask("Talk to " + npcHerbert.getName() + "? y / n")).thenReturn("y");
+        player.interactWithFriendlyNPC(userInputAsker, npcHerbert);
+        assertTrue(quest2.isCompleted());
+        assertFalse(quest2.isReturnedToQuestGiver());
+        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
+        npcKate.completeQuest(quest2, player);
+        assertTrue(quest2.isReturnedToQuestGiver());
+        assertFalse(player.getQuestLog().contains(quest2));
+        assertTrue(player.getFinishedQuestsLog().contains(quest2));
+    }
 }

@@ -24,7 +24,6 @@ abstract class Player implements Movement {
         this.hp = hp;
         this.xp = new Experience();
         setPlayerFacingDirection(Direction.UP);
-        addFlagToQuestLog();
     }
 
     abstract void wield(Weapon w);
@@ -111,7 +110,7 @@ abstract class Player implements Movement {
     }
 
     public void removeQuestFromQuestLog(Quest quest) {
-        questLog.remove(quest.getQuestID());
+        questLog.remove(quest);
     }
 
     public void addFinishedQuestToFinishedQuestLog(Quest quest) {
@@ -122,29 +121,56 @@ abstract class Player implements Movement {
         return new ArrayList<>(finishedQuestsLog);
     }
 
-    private void addFlagToQuestLog() {
-        Quest flag = new Quest(0, "Flag");
-        questLog.add(flag);
-    }
-
-    public Quest getQuestFromQuestLog(int questID) {
-        return questLog.get(questID);
+    public Quest getQuestFromQuestLog(Quest quest) {
+        for (Quest q : questLog) {
+            if (q.equals(quest)) {
+                return q;
+            }
+        }
+        return null;
     }
 
     public void interactWithFriendlyNPC(UserInputAsker uia, FriendlyNPC target) {
         String response = uia.ask("Talk to " + target.getName() + "? y / n");
         if (response.equals("y")) {
+            target.say();
+            if (target.isQuestGiver()) {
+                handleQuestGiverInteraction(target);
+            }
+            if (target.isQuestGoal()) {
+                talkQuestHandler(target);
+            }
+        }
+    }
+
+    private void talkQuestHandler(FriendlyNPC npc) {
+        for (Quest q : questLog) {
+            if (q.getTalkQuestTarget().equals(npc)) {
+                q.updateTalkQuestStatus(npc);
+                q.printQuestCompleted();
+            }
+        }
+    }
+
+    private void handleQuestGiverInteraction(FriendlyNPC npc) {
+        if (questLog.contains(npc.getAssignedQuest())) {
             for (Quest q : questLog) {
-                if (q.getTalkQuestTarget() == null) { // if quest isn't a talkquest
-                    continue;
-                }
-                if (q.getTalkQuestTarget().equals(target)) {
-//                    target.say(); //hämta questGiverName
-                    q.setCompleted(true);
-                    FriendlyNPC questGiver = q.getQuestGiver();
-                    questGiver.completeQuest(q, this);
+                if (q.isCompleted() && q.getQuestGiver().equals(npc)) {
+                    q.setReturnedToQuestGiver(true);
+                    npc.completeQuest(q, this);
+                    break;
                 }
             }
+        }  else {
+            npc.offerQuest();
+        }
+    }
+
+    public void abandonQuest(Quest quest) {
+        if (questLog.contains(quest)) {
+            removeQuestFromQuestLog(quest);
+        } else {
+            throw new NullPointerException("Quest does not exist in quest log");
         }
     }
 
