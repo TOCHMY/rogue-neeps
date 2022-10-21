@@ -2,72 +2,33 @@ import java.util.ArrayList;
 
 public class Map {
     private final Tile[][] map2dArray = new Tile[40][100];
-    private Tile tileWithPlayerOn;
     private ArrayList<Room> roomList = new ArrayList<>();
     private ArrayList<Tunnel> tunnelList = new ArrayList<>();
     private Player player;
+    private Position playerPosition;
 
     Map(){
         fillMapWithTiles();
     }
 
-    public void setPlayer(Player p, Tile tileToMoveTo){
-        int col = tileToMoveTo.getColumn();
-        int row = tileToMoveTo.getRow();
-
-        tileWithPlayerOn = tileToMoveTo;
-        map2dArray[row][col].setPlayerOnTile(p);
+    private void bindPlayer(Player p){
         player = p;
         p.setMap(this);
     }
 
-    public void addPlayer(Player p){
-        //setPlayer(p, playerStartTile);
-        /*
-        Vill kunna sätta ut playerTile efter instansiering,
-        det gör också testarna mer intressanta, tex ska det kanske inte gå att
-        sätta ut gubben i en vägg eller utanför ett rum.
-
-        setPlayerPosition([0][5]); // setPlayerPosition kanske inte ska ta in en Tile eftersom
-        #1: vad är en tile/ hur vet man vad nästa tile är
-        #2: den bör placeras på en tile (position)
-        */
+    public void setPlayer(Player p, Position pos){
+        bindPlayer(p);
+        playerPosition = pos;
+        map2dArray[pos.row()][pos.col()].setPlayerOnTile(p);
     }
-    public void updatePlayerPosition(Direction d, Player player){
-        int row = tileWithPlayerOn.getRow();
-        int col = tileWithPlayerOn.getColumn();
 
-        if(d == Direction.UP){
-            Tile tileUp = map2dArray[row-1][col];
-            if(tileUp.isWalkable()){
-                map2dArray[row][col].removePlayerFromTile();
-                player.map.setPlayer(player,tileUp);
-            }
 
-        }
-        if(d == Direction.DOWN){
-            Tile tileDown = map2dArray[row+1][col];
-            if(tileDown.isWalkable()){
-                map2dArray[row][col].removePlayerFromTile();
-                player.map.setPlayer(player,tileDown);
-            }
 
-        }
-        if(d == Direction.LEFT){
-            Tile tileLeft = map2dArray[row][col-1];
-            if(tileLeft.isWalkable()){
-                map2dArray[row][col].removePlayerFromTile();
-                player.map.setPlayer(player,tileLeft);
-            }
-
-        }
-        if(d == Direction.RIGHT){
-            Tile tileRight = map2dArray[row][col+1];
-            if(tileRight.isWalkable()){
-                map2dArray[row][col].removePlayerFromTile();
-                player.map.setPlayer(player,tileRight);
-            }
-
+    public void updatePlayerPosition(Direction direction, Player player) {
+        Position newPos = playerPosition.newPosition(direction);
+        if(map2dArray[newPos.row()][newPos.col()].isWalkable()){
+            map2dArray[playerPosition.row()][playerPosition.col()].removePlayerFromTile();
+            player.map.setPlayer(player, newPos);
         }
     }
 
@@ -81,24 +42,13 @@ public class Map {
 
 
 
-
-    // tar in en tile, så att spelaren kan "teleportera" till vilken tile som helst på kartan.
-    public void updatePlayerPosition(Tile tileWithPlayerOn) {
-
-        tileWithPlayerOn.setPlayerOnTile(player);
-        int row = tileWithPlayerOn.getRow();
-        int col = tileWithPlayerOn.getColumn();
-        this.tileWithPlayerOn = tileWithPlayerOn;
-        map2dArray[row][col].setPlayerOnTile(player);
-    }
-
     public void updatePlayerPosition(String direction) {
 
     }
 
 
-    public Tile getPlayerPosition() {
-        return tileWithPlayerOn;
+    public Position getPlayerPosition() {
+        return playerPosition;
     }
 
 
