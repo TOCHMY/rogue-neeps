@@ -63,5 +63,18 @@ public class PlayerTest {
         Assertions.assertEquals( 80, p.getRemainingXp());
     }
 
+    @Test
+    public void WhenNoMapExpectErrorOnMove(){
+        Player p = new Ogre();
+        assertThrows(IllegalStateException.class, () ->  p.moveUp());
+    }
+
+    @Test
+    public void WhenMapExpectCanMove(){
+        Player player = new Ogre();
+        Map map = new Map();
+        map.setPlayer(player, new Position(0, 0));
+        assertDoesNotThrow(() -> player.moveRight());
+    }
 
 }

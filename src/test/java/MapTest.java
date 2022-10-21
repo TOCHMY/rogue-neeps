@@ -1,12 +1,10 @@
-
-
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MapTest {
-    final Tile playerStartingTile = new Tile(5,19);
+    final Position playerStartingPosition= new Position(5,19);
 
     @Test
     void createMapVersion1_and_printMap(){
@@ -146,7 +144,7 @@ class MapTest {
 
         Player player = new Ogre();
 
-        map.setPlayer(player, playerStartingTile);
+        map.setPlayer(player, playerStartingPosition);
         map.printDungeon("off","on","off");
 
         player.moveDown();
@@ -201,12 +199,10 @@ class MapTest {
     @Test
     void When_newMapCreated_Expect_playerPositionRow5Col20(){
         Map map = new Map();
-
-        Tile playerStartTile = new Tile(5,20);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartTile);
+        map.setPlayer(player, playerStartingPosition);
 
-        assertEquals(playerStartTile, map.getPlayerPosition());
+        assertEquals(playerStartingPosition, map.getPlayerPosition());
     }
 
     @Test
@@ -214,13 +210,14 @@ class MapTest {
         Map map = new Map();
         Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
         map.addRoom(roomA);
-        Tile playerStartTile = new Tile(5,20);
-        Tile expectedTile = new Tile(4,20);
+
+        Position expectedPosition = playerStartingPosition.newPosition(Direction.UP);
+
         Player player = new Ogre();
-        map.setPlayer(player, playerStartTile);
-        assertEquals(playerStartTile, map.getPlayerPosition());
+        map.setPlayer(player, playerStartingPosition);
+        assertEquals(playerStartingPosition, map.getPlayerPosition());
         player.moveUp();
-        assertEquals(expectedTile, map.getPlayerPosition());
+        assertEquals(expectedPosition, map.getPlayerPosition());
     }
 
     @Test
@@ -228,13 +225,13 @@ class MapTest {
         Map map = new Map();
         Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
         map.addRoom(roomA);
-        Tile playerStartTile = new Tile(5,20);
-        Tile expectedTile = new Tile(6,20);
+
+        Position expectedPosition = playerStartingPosition.newPosition(Direction.DOWN);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartTile);
-        assertEquals(playerStartTile, map.getPlayerPosition());
+        map.setPlayer(player, playerStartingPosition);
+        assertEquals(playerStartingPosition, map.getPlayerPosition());
         player.moveDown();
-        assertEquals(expectedTile, map.getPlayerPosition());
+        assertEquals(expectedPosition , map.getPlayerPosition());
     }
 
     @Test
@@ -242,13 +239,13 @@ class MapTest {
         Map map = new Map();
         Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
         map.addRoom(roomA);
-        Tile playerStartTile = new Tile(5,20);
-        Tile expectedTile = new Tile(5,21);
+
+        Position expectedPosition = playerStartingPosition.newPosition(Direction.RIGHT);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartTile);
-        assertEquals(playerStartTile, map.getPlayerPosition());
+        map.setPlayer(player, playerStartingPosition);
+        assertEquals(playerStartingPosition, map.getPlayerPosition());
         player.moveRight();
-        assertEquals(expectedTile, map.getPlayerPosition());
+        assertEquals(expectedPosition , map.getPlayerPosition());
     }
 
     @Test
@@ -256,13 +253,13 @@ class MapTest {
         Map map = new Map();
         Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
         map.addRoom(roomA);
-        Tile playerStartTile = new Tile(5,20);
-        Tile expectedTile = new Tile(5,19);
+
+        Position expectedPosition = playerStartingPosition.newPosition(Direction.LEFT);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartTile);
-        assertEquals(playerStartTile, map.getPlayerPosition());
+        map.setPlayer(player, playerStartingPosition);
+        assertEquals(playerStartingPosition, map.getPlayerPosition());
         player.moveLeft();
-        assertEquals(expectedTile, map.getPlayerPosition());
+        assertEquals(expectedPosition , map.getPlayerPosition());
     }
 
 
