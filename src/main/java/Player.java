@@ -1,47 +1,41 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 abstract class Player implements Movement {
-    private static final int STEPS = 5; //Kan skapa intressanta testfall
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
 
     private Player.Experience xp;
-
-    private int strength;
-    private int dexterity;
-    private int intelligence;
-    int hp;
+    Stats stats;
     private Direction playerFacingDirection;
-
     Map map;
+    ItemCollection items;
+    NicoMap nm;
+    int hp;
 
     Player(int strength, int dexterity, int intelligence, int hp) {
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
         this.hp = hp;
-        this.xp = new Experience();
+        stats = new Stats(strength, dexterity, intelligence);
+        xp = new Experience();
         setPlayerFacingDirection(Direction.UP);
     }
 
-    abstract void wield(Weapon w);
+    abstract void equip(Weapon weapon);
+    abstract void equip(Shield shield);
 
-    public int getStrength() {
-        return strength;
+    abstract List<Weapon> canEquip();
+
+    public Stats getStats(){
+        return stats;
     }
 
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public void setMap(Map m) {
+    public void setMap(Map m){
         map = m;
+    }
+
+    public void bindMap(NicoMap nicoMap) {
+        nm = nicoMap;
     }
 
     static class Experience {
@@ -175,25 +169,44 @@ abstract class Player implements Movement {
     }
 
     @Override
-    public void moveUp() {
+    public void moveUp(){
+
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
+
         map.updatePlayerPosition(Direction.UP, this);
         setPlayerFacingDirection(Direction.UP);
     }
 
     @Override
     public void moveDown() {
+
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
         map.updatePlayerPosition(Direction.DOWN, this);
         setPlayerFacingDirection(Direction.DOWN);
     }
 
     @Override
     public void moveRight() {
+
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
         map.updatePlayerPosition(Direction.RIGHT, this);
         setPlayerFacingDirection(Direction.RIGHT);
+
+        // nm.move(Direction.RIGHT);
     }
 
     @Override
     public void moveLeft() {
+
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
         map.updatePlayerPosition(Direction.LEFT, this);
         setPlayerFacingDirection(Direction.LEFT);
     }

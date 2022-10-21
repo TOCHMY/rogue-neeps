@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Ogre extends Player{
 
     //kan bara ha melee vapen
 
-
-    Weapon left_hand;
-    Weapon right_hand;
+    //Kan slå sönder vägg OM vapen är av brute och strength >= x för väggtyp Y
+    //Testfall enligt beslutstabell för var1-n och res klättra, slå sönder
 
     Ogre() {
         super(5, 1, 1, 100);
@@ -12,7 +15,16 @@ public class Ogre extends Player{
 
 
     @Override
-    void wield(Weapon w){
+    void equip(Weapon weapon){
+
+    }
+    @Override
+    void equip(Shield shield) {
+
+    }
+    @Override
+    List<Weapon> canEquip() {
+        return null;
     }
 }
 
