@@ -1,6 +1,5 @@
 
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +14,7 @@ public class ItemTest {
     Weapon WEAPON_WITH_THREE_SOCKETS;
 
     @BeforeEach
-    void createWeapon(){
+    void setup(){
         List<MagicSocket> sockets = List.of
                 (new MagicSocket(MagicColor.BLUE),
                         new MagicSocket(MagicColor.BLUE),
@@ -59,19 +58,27 @@ public class ItemTest {
     }
 
     @Test
-    public void testAddGemStoneToItem() {
-
+    public void testAddOneGemStoneToItem() {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         assertEquals(1, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
                 .filter(magicSocket -> magicSocket.getGemStone().getColor().equals(MagicColor.BLUE)).count());
+    }
 
+    @Test
+    public void testAddTwoGemStonesToItem() {
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         assertEquals(2, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
                 .filter(magicSocket -> magicSocket.getGemStone().getColor().equals(MagicColor.BLUE)).count());
+    }
 
+    @Test
+    public void testAddThreeGemStonesToItem() {
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 5, 5));
+        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         assertEquals(1, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
                 .filter(magicSocket -> magicSocket.getGemStone().getColor().equals(MagicColor.RED)).count());

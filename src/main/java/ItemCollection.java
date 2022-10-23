@@ -2,12 +2,28 @@ import java.util.*;
 
 public class ItemCollection {
 
+    private static AttackVisitor ATTACK_VISITOR;
+    private static DefenceVisitor DEFENCE_VISITOR;
     private Item leftHandItem;
     private Item rightHandItem;
     private Armor armor;
     private MagicBag magicBag;
 
     public ItemCollection() {
+        ATTACK_VISITOR = new AttackVisitor();
+        DEFENCE_VISITOR = new DefenceVisitor();
+    }
+
+    public double attackWithItems() {
+        return getAllItems().stream()
+                .mapToDouble(item -> item.accept(ATTACK_VISITOR))
+                .sum();
+    }
+
+    public double defendWithItems() {
+        return getAllItems().stream()
+                .mapToDouble(item -> item.accept(DEFENCE_VISITOR))
+                .sum();
     }
 
     public List<Item> getHandItems() {
@@ -17,7 +33,7 @@ public class ItemCollection {
         if (rightHandItem != null)
             items.add(rightHandItem);
 
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
     public void addArmor(Armor armor) {
@@ -33,7 +49,7 @@ public class ItemCollection {
     public Optional<Armor> removeArmor() {
         Armor armorToRemove = this.armor;
         this.armor = null;
-        return Optional.of(armorToRemove);
+        return Optional.ofNullable(armorToRemove);
     }
 
     public void addRightHandItem(Item item) {
@@ -64,6 +80,28 @@ public class ItemCollection {
                 .count();
     }
 
+
+
+    public Optional<Item> removeRightHandItem() {
+        Item itemToRemove = this.rightHandItem;
+        rightHandItem = null;
+        return Optional.ofNullable(itemToRemove);
+    }
+
+    public Optional<Item> removeLeftHandItem() {
+        Item itemToRemove = this.leftHandItem;
+        leftHandItem = null;
+        return Optional.ofNullable(itemToRemove);
+    }
+
+    public Item getLeftHandItem() {
+        return leftHandItem;
+    }
+
+    public Item getRightHandItem() {
+        return rightHandItem;
+    }
+
     public List<Item> getAllItems() {
         List<Item> allItems = new ArrayList<>();
         if (leftHandItem != null)
@@ -78,23 +116,5 @@ public class ItemCollection {
         return Collections.unmodifiableList(allItems);
     }
 
-    public Optional<Item> removeRightHandItem() {
-        Item itemToRemove = this.rightHandItem;
-        rightHandItem = null;
-        return Optional.of(itemToRemove);
-    }
 
-    public Optional<Item> removeLeftHandItem() {
-        Item itemToRemove = this.leftHandItem;
-        leftHandItem = null;
-        return Optional.of(itemToRemove);
-    }
-
-    public Item getLeftHandItem() {
-        return leftHandItem;
-    }
-
-    public Item getRightHandItem() {
-        return rightHandItem;
-    }
 }

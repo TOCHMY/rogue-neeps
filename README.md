@@ -113,10 +113,14 @@ GemStones har:
 ### En Player har en ItemCollection
 	ItemCollection kan vara tom eller innehålla
 - Upp till 2 handhållna items, dessa kan vara:
-	- Upp till 2 Vapen
-	- Max 1 sköld 
+    - Upp till 2 Vapen
+    - Max 1 sköld 
 - 1 Armor
 - 1 Shield
 - EVENTUELLT. 1 Helmet
 - I nuläget 1 MagicBag, den ska bort härifrån
 Man kan lägga till och ta bort Items från ItemCollection
+
+Items strength påverkas 
+
+När spelaren gör attack eller försvar 
