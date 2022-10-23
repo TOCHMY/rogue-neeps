@@ -11,6 +11,7 @@ public class DefenceVisitor implements ItemVisitor {
     public double visit(Weapon item) {
         return 0.5 * useDefence(item);
     }
+
     @Override
     public double visit(Armor item) {
         return useDefence(item);    }

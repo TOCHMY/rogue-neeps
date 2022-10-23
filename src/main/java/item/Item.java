@@ -12,7 +12,7 @@ public abstract class Item {
     private static final double MIN_STRENGTH = 1;
     private static final double MAX_AMOUNT_OF_SOCKETS = 5;
     private double strength;
-    private List<MagicSocket> sockets;
+    private final List<MagicSocket> sockets;
 
     public Item(double strength, List<MagicSocket> sockets) {
         if (strength < MIN_STRENGTH || strength > MAX_STRENGTH)
@@ -22,6 +22,8 @@ public abstract class Item {
         this.strength = strength;
         this.sockets = sockets;
     }
+
+    abstract double accept(ItemVisitor visitor);
 
     public void setStrength(double newStrength) {
         strength = newStrength;
@@ -46,26 +48,22 @@ public abstract class Item {
                         });
     }
 
-    double getCostFromStonesOfColor(MagicColor color) {
+    protected double getCostFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
                 .filter(socket -> socket.getGemStone() != null && socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getCost())
                 .sum();
     }
 
-    double getStrengthFromStonesOfColor(MagicColor color) {
+    protected double getStrengthFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
                 .filter(socket -> socket.getGemStone() != null && socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getStrength())
                 .sum();
     }
 
-    protected abstract double accept(ItemVisitor visitor);
-
     protected long countSocketsOfColor(List<MagicSocket> sockets, MagicColor color) {
         return sockets.stream().filter(socket -> socket.getColor() == color).count();
     }
-
-    protected abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
-
+    abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
 }

@@ -7,6 +7,8 @@ import item.weapon.Shield;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import item.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.List;
 
@@ -45,16 +47,11 @@ public class ShieldTest {
         assertEquals(TWO_DEFENCE_SOCKETS, shield.getSockets());
     }
 
-    @Test
-    void testCreateShieldWithWrongStones() {
-        assertThrows(IllegalArgumentException.class, ()->{
-            new Shield(50, BLUE_SOCKET);
-        });
-        assertThrows(IllegalArgumentException.class, ()->{
-            new Shield(50, GREEN_SOCKET);
-        });
-        assertThrows(IllegalArgumentException.class, ()->{
-            new Shield(50, PURPLE_SOCKET);
+    @ParameterizedTest
+    @EnumSource(value = MagicColor.class, names = {"GREEN", "PURPLE", "BLUE"})
+    void testCreateArmorWithWrongSocket(MagicColor color) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Shield(50, List.of(new MagicSocket(color)));
         });
     }
 
@@ -64,10 +61,16 @@ public class ShieldTest {
         assertEquals(49.5, SHIELD.getStrength());
     }
     @Test
-    void testDefendWithStones() {
+    void testDefendOnceWithStones() {
         SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
         assertEquals(60, SHIELD.accept(DEFENCEVISITOR));
         assertEquals(47.5, SHIELD.getStrength());
+    }
+
+    @Test
+    void testDefendTwiceWithStones() {
+        SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
+        SHIELD.accept(DEFENCEVISITOR);
         SHIELD.addStone(new GemStone(MagicColor.RED, 30, 20));
         assertEquals(71.25, SHIELD.accept(DEFENCEVISITOR));
         assertEquals(25, SHIELD.getStrength());

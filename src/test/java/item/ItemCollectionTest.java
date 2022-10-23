@@ -101,17 +101,23 @@ public class ItemCollectionTest {
     }
 
     @Test
-    void testRemoveHandItems() {
-        Weapon weapon1 = new Weapon(50, ATTACK_DEFENCE_SOCKETS);
-        ITEM_COLLECTION.addRightHandItem(weapon1);
-        Weapon weapon2 = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
-        ITEM_COLLECTION.addLeftHandItem(weapon2);
+    void testRemoveRightHandItem() {
+        Weapon weapon = new Weapon(50, ATTACK_DEFENCE_SOCKETS);
 
-        assertEquals(weapon1, ITEM_COLLECTION.removeRightHandItem().get());
-        assertFalse(ITEM_COLLECTION.getHandItems().contains(weapon1));
-        assertTrue(ITEM_COLLECTION.getHandItems().contains(weapon2));
-        assertEquals(weapon2, ITEM_COLLECTION.removeLeftHandItem().get());
-        assertFalse(ITEM_COLLECTION.getHandItems().contains(weapon2));
+        ITEM_COLLECTION.addRightHandItem(weapon);
+
+        assertEquals(weapon, ITEM_COLLECTION.removeRightHandItem().get());
+        assertNotEquals(ITEM_COLLECTION.getRightHandItem(), weapon);
+    }
+
+    @Test
+    void testRemoveLeftHandItem() {
+        Weapon weapon = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
+
+        ITEM_COLLECTION.addLeftHandItem(weapon);
+
+        assertEquals(weapon, ITEM_COLLECTION.removeLeftHandItem().get());
+        assertNotEquals(ITEM_COLLECTION.getLeftHandItem(), weapon);
     }
 
     @Test
@@ -171,5 +177,27 @@ public class ItemCollectionTest {
         assertTrue(ITEM_COLLECTION.getAllItems().contains(WEAPON));
         ITEM_COLLECTION.removeRightHandItem();
         assertTrue(ITEM_COLLECTION.getAllItems().isEmpty());
+    }
+
+    @Test
+    void testUseAllItemsInAttack() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+        ITEM_COLLECTION.addArmor(ARMOR);
+
+        double expectedStrength = 50;
+
+        assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
+    }
+
+    @Test
+    void testUseAllItemsInDefence() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+        ITEM_COLLECTION.addArmor(ARMOR);
+
+        double expectedStrength = 125;
+
+        assertEquals(expectedStrength, ITEM_COLLECTION.defendWithItems());
     }
 }

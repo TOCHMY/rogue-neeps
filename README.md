@@ -77,3 +77,50 @@ t.ex. att man har en klass som ärver nå interface, t.ex. One-hand, dual wield,
 Sen har vissa klasser mana för de ärver från nå mage interface. 
 Sen nå combat system där man slår på varandra och det dras HP baserat på attackstyrka, rng.nr 1.05% dmg etc.
 Det jag menar är att jag tänker på förhand att uppgiften skulle kretsa mycket kring ärvning av klasser för att skapa olika ingame klasser. Och typ combat systemet
+
+## Item-systemet:
+Det finns olika typer av Items
+### Items har:
+- Styrka mellan 1-100
+- Mellan 1 och 5 sockets av olika MagicColors
+Varje MagicSocket har:
+-  En MagicColor. 
+- En plats för en GemStone av samma MagicColor som sig själv 
+GemStones har:
+-  En MagicColor 
+- Strength (int mellan 1-30)
+- Cost (int mellan 1-30)
+
+### MagicColors som hittills finns är:
+- BLUE(Attack)
+- RED(Defence)
+- PURPLE(Magic)
+- GREEN(Intelligence)
+
+### Items som hittills finns:
+- Weapon
+	- Kan användas för attack och defence, kan därmed ha BLUE och RED sockets
+- Armor
+	- Kan användas för defence, kan därmed ha RED sockets 
+	- EV. TILLÄGG (Man blir klumpig och får mindre dexterity)
+- Shield
+	- Kan användas för defence, kan därmed ha RED sockets
+- EVENTUELLT. HELMET
+	- Med defence och intelligence
+- MagicBag
+	- Kan innehålla PURPLE sockets som används för spells
+
+### En Player har en ItemCollection
+	ItemCollection kan vara tom eller innehålla
+- Upp till 2 handhållna items, dessa kan vara:
+    - Upp till 2 Vapen
+    - Max 1 sköld 
+- 1 Armor
+- 1 Shield
+- EVENTUELLT. 1 Helmet
+- I nuläget 1 MagicBag, den ska bort härifrån
+Man kan lägga till och ta bort Items från ItemCollection
+
+Items strength påverkas 
+
+När spelaren gör attack eller försvar 
