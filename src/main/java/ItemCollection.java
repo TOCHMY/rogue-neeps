@@ -15,9 +15,15 @@ public class ItemCollection {
     }
 
     public double attackWithItems() {
-        return getAllItems().stream()
+        double weakArmorImpact = isArmorWeakerThan15() ? 0.5 : 1;
+        return weakArmorImpact * getAllItems().stream()
                 .mapToDouble(item -> item.accept(ATTACK_VISITOR))
                 .sum();
+    }
+
+    private boolean isArmorWeakerThan15() {
+        double THRESHOLD_FOR_WEAK_ARMOR = 15;
+        return (armor.getStrength() + armor.getStrengthFromStonesOfColor(MagicColor.RED) < THRESHOLD_FOR_WEAK_ARMOR);
     }
 
     public double defendWithItems() {
@@ -79,7 +85,6 @@ public class ItemCollection {
                 .filter(item -> item instanceof Shield)
                 .count();
     }
-
 
 
     public Optional<Item> removeRightHandItem() {

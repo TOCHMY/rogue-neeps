@@ -178,7 +178,6 @@ public class ItemCollectionTest {
         ITEM_COLLECTION.addArmor(ARMOR);
 
         double expectedStrength = 50;
-
         assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
     }
 
@@ -192,4 +191,16 @@ public class ItemCollectionTest {
 
         assertEquals(expectedStrength, ITEM_COLLECTION.defendWithItems());
     }
+
+    @Test
+    void testArmorWeakerThan15HalvesAttack() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+
+        ITEM_COLLECTION.addArmor(new Armor(10, DEFENCE_SOCKETS));
+
+        double expectedStrength = 25;
+        assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
+    }
+
 }
