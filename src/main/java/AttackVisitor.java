@@ -7,13 +7,13 @@ public class AttackVisitor implements ItemVisitor {
 
     protected double useAttack(Item item) {
         double DEFAULT_COST_OF_USE = 0.5;
-        double power = item.getStrength();
-        double attackPowerFromStones = item.getStrengthFromStonesOfColor(MagicColor.BLUE);
+        double baseStrength = item.getBaseStrength();
+        double strengthFromStones = item.getStrengthFromStonesOfColor(MagicColor.BLUE);
         double cost = item.getCostFromStonesOfColor(MagicColor.BLUE);
 
-        item.setStrength(item.getStrength() - DEFAULT_COST_OF_USE - cost);
+        item.setBaseStrength(item.getBaseStrength() - DEFAULT_COST_OF_USE - cost);
 
-        return Math.round(100 * power * (1 + (attackPowerFromStones / 100.0))) / 100.0;
+        return Math.round(100 * baseStrength * (1 + (strengthFromStones / 100.0))) / 100.0;
     }
 
 

@@ -15,12 +15,12 @@ public class DefenceVisitor implements ItemVisitor {
 
     protected double useDefence(Item item) {
         double DEFAULT_COST_OF_USE = 0.5;
-        double power = item.getStrength();
-        double defencePowerFromStones = item.getStrengthFromStonesOfColor(MagicColor.RED);
+        double baseStrength = item.getBaseStrength();
+        double strengthFromStones = item.getStrengthFromStonesOfColor(MagicColor.RED);
         double cost = item.getCostFromStonesOfColor(MagicColor.RED);
 
-        item.setStrength(item.getStrength() - DEFAULT_COST_OF_USE - cost);
+        item.setBaseStrength(item.getBaseStrength() - DEFAULT_COST_OF_USE - cost);
 
-        return Math.round(100 * power * (1 + (defencePowerFromStones / 100))) / 100.0;
+        return Math.round(100 * baseStrength * (1 + (strengthFromStones / 100))) / 100.0;
     }
 }

@@ -23,7 +23,7 @@ public class ItemCollection {
 
     private boolean isArmorWeakerThan15() {
         double THRESHOLD_FOR_WEAK_ARMOR = 15;
-        return (armor.getStrength() + armor.getStrengthFromStonesOfColor(MagicColor.RED) < THRESHOLD_FOR_WEAK_ARMOR);
+        return (armor.getBaseStrength() + armor.getStrengthFromStonesOfColor(MagicColor.RED) < THRESHOLD_FOR_WEAK_ARMOR);
     }
 
     public double defendWithItems() {

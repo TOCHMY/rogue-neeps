@@ -37,24 +37,24 @@ public class ArmorTest {
     @Test
     public void testCreateArmor() {
         Armor armor = new Armor(50, THREE_SOCKETS);
-        assertEquals(50, armor.getStrength());
+        assertEquals(50, armor.getBaseStrength());
         assertEquals(THREE_SOCKETS, armor.getSockets());
     }
 
     @Test
     void testDefendWithoutStones() {
         assertEquals(50, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
-        assertEquals(49.5, ARMOR_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49.5, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
     void testDefendOnceWithStones() {
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
         assertEquals(60, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
-        assertEquals(47.5, ARMOR_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(47.5, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 30, 20));
         assertEquals(71.25, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
-        assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
     }
     @Test
     void testDefendTwiceWithStones() {
@@ -62,7 +62,7 @@ public class ArmorTest {
         ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR);
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 30, 20));
         assertEquals(71.25, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
-        assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @ParameterizedTest

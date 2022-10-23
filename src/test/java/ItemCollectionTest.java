@@ -48,9 +48,7 @@ public class ItemCollectionTest {
     void testAddTooManyArmors() {
         Armor armor = new Armor(50, DEFENCE_SOCKETS);
         ITEM_COLLECTION.addArmor(armor);
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addArmor(armor);
-        });
+        assertThrows(IllegalStateException.class, () -> ITEM_COLLECTION.addArmor(armor));
     }
 
     @Test
@@ -84,12 +82,10 @@ public class ItemCollectionTest {
         Weapon weapon2 = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
         ITEM_COLLECTION.addLeftHandItem(weapon2);
 
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addLeftHandItem(new Weapon(80, ATTACK_DEFENCE_SOCKETS));
-        });
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addRightHandItem(new Weapon(77.5, ATTACK_DEFENCE_SOCKETS));
-        });
+        assertThrows(IllegalStateException.class, () -> ITEM_COLLECTION.addLeftHandItem(new Weapon(80, ATTACK_DEFENCE_SOCKETS)));
+        assertThrows(IllegalStateException.class, () ->
+            ITEM_COLLECTION.addRightHandItem(new Weapon(77.5, ATTACK_DEFENCE_SOCKETS))
+        );
     }
 
     @Test

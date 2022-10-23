@@ -38,9 +38,9 @@ public class WeaponTest {
     @Test
     public void testAttacksWithoutStones() {
         assertEquals(50, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
-        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
-        assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
 
     }
 
@@ -48,7 +48,7 @@ public class WeaponTest {
     void testAttackWithOneStone() {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         assertEquals(54, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
-        assertEquals(47.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(47.5, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
@@ -56,20 +56,20 @@ public class WeaponTest {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 8, 2));
         assertEquals(58, WEAPON_WITH_THREE_SOCKETS.accept(attackVisitor));
-        assertEquals(45.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(45.5, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
     public void testDefenceOnceWithoutStones() {
         assertEquals(25, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
-        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
     void testDefenceTwiceWithoutStones() {
         WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor);
         assertEquals(24.75, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
-        assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
+        assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @ParameterizedTest

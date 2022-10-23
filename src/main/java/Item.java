@@ -2,29 +2,29 @@ import java.util.List;
 
 public abstract class Item {
 
-    private static final double MAX_STRENGTH = 100;
-    private static final double MIN_STRENGTH = 1;
+    private static final double MAX_BASE_STRENGTH = 100;
+    private static final double MIN_BASE_STRENGTH = 1;
     private static final double MAX_AMOUNT_OF_SOCKETS = 5;
-    private double strength;
+    private double baseStrength;
     private final List<MagicSocket> sockets;
 
-    public Item(double strength, List<MagicSocket> sockets) {
-        if (strength < MIN_STRENGTH || strength > MAX_STRENGTH)
+    public Item(double baseStrength, List<MagicSocket> sockets) {
+        if (baseStrength < MIN_BASE_STRENGTH || baseStrength > MAX_BASE_STRENGTH)
             throw new IllegalArgumentException("Strength must be between 1 to 100");
         if (sockets.isEmpty() || sockets.size() > MAX_AMOUNT_OF_SOCKETS)
             throw new IllegalArgumentException("Number of sockets must be between 1 to 5");
-        this.strength = strength;
+        this.baseStrength = baseStrength;
         this.sockets = sockets;
     }
 
     abstract double accept(ItemVisitor visitor);
 
-    public void setStrength(double newStrength) {
-        strength = newStrength;
+    public void setBaseStrength(double newStrength) {
+        baseStrength = newStrength;
     }
 
-    public double getStrength() {
-        return this.strength;
+    public double getBaseStrength() {
+        return this.baseStrength;
     }
 
     public List<MagicSocket> getSockets() {
