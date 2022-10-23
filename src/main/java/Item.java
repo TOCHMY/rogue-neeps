@@ -6,7 +6,7 @@ public abstract class Item {
     private static final double MIN_STRENGTH = 1;
     private static final double MAX_AMOUNT_OF_SOCKETS = 5;
     private double strength;
-    private List<MagicSocket> sockets;
+    private final List<MagicSocket> sockets;
 
     public Item(double strength, List<MagicSocket> sockets) {
         if (strength < MIN_STRENGTH || strength > MAX_STRENGTH)
@@ -60,5 +60,4 @@ public abstract class Item {
         return sockets.stream().filter(socket -> socket.getColor() == color).count();
     }
     abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
-
 }

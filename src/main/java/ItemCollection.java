@@ -2,23 +2,27 @@ import java.util.*;
 
 public class ItemCollection {
 
+    private static AttackVisitor ATTACK_VISITOR;
+    private static DefenceVisitor DEFENCE_VISITOR;
     private Item leftHandItem;
     private Item rightHandItem;
     private Armor armor;
     private MagicBag magicBag;
 
     public ItemCollection() {
+        ATTACK_VISITOR = new AttackVisitor();
+        DEFENCE_VISITOR = new DefenceVisitor();
     }
 
     public double attackWithItems() {
         return getAllItems().stream()
-                .mapToDouble(item -> item.accept(new AttackVisitor()))
+                .mapToDouble(item -> item.accept(ATTACK_VISITOR))
                 .sum();
     }
 
     public double defendWithItems() {
         return getAllItems().stream()
-                .mapToDouble(item -> item.accept(new DefenceVisitor()))
+                .mapToDouble(item -> item.accept(DEFENCE_VISITOR))
                 .sum();
     }
 
