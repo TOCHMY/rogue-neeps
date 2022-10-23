@@ -33,7 +33,7 @@ public class ItemCollection {
     public Optional<Armor> removeArmor() {
         Armor armorToRemove = this.armor;
         this.armor = null;
-        return Optional.of(armorToRemove);
+        return Optional.ofNullable(armorToRemove);
     }
 
     public void addRightHandItem(Item item) {
@@ -81,13 +81,13 @@ public class ItemCollection {
     public Optional<Item> removeRightHandItem() {
         Item itemToRemove = this.rightHandItem;
         rightHandItem = null;
-        return Optional.of(itemToRemove);
+        return Optional.ofNullable(itemToRemove);
     }
 
     public Optional<Item> removeLeftHandItem() {
         Item itemToRemove = this.leftHandItem;
         leftHandItem = null;
-        return Optional.of(itemToRemove);
+        return Optional.ofNullable(itemToRemove);
     }
 
     public Item getLeftHandItem() {

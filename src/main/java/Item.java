@@ -40,14 +40,14 @@ public abstract class Item {
                         });
     }
 
-    double getCostFromStonesOfColor(MagicColor color) {
+    protected double getCostFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
                 .filter(socket -> socket.getGemStone() != null && socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getCost())
                 .sum();
     }
 
-    double getStrengthFromStonesOfColor(MagicColor color) {
+    protected double getStrengthFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
                 .filter(socket -> socket.getGemStone() != null && socket.getGemStone().getColor().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().getStrength())

@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.List;
 
@@ -58,20 +60,23 @@ public class WeaponTest {
     }
 
     @Test
-    public void testDefenceWithoutStones() {
+    public void testDefenceOnceWithoutStones() {
         assertEquals(25, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getStrength());
+    }
+
+    @Test
+    void testDefenceTwiceWithoutStones() {
+        WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor);
         assertEquals(24.75, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
         assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getStrength());
     }
 
-    @Test
-    void testCreateWeaponWithWrongStones() {
+    @ParameterizedTest
+    @EnumSource(value = MagicColor.class, names = {"GREEN", "PURPLE"})
+    void testCreateWeaponWithWrongSocket(MagicColor color) {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Weapon(50, GREEN_SOCKET);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Weapon(50, PURPLE_SOCKET);
+            new Weapon(50, List.of(new MagicSocket(color)));
         });
     }
 

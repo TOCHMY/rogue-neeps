@@ -1,6 +1,8 @@
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.List;
 
@@ -17,23 +19,23 @@ public class ArmorTest {
     List<MagicSocket> PURPLE_SOCKET;
 
     @BeforeEach
-    public void createSockets(){
+    public void createSockets() {
         THREE_SOCKETS = List.of
                 (new MagicSocket(MagicColor.RED),
                         new MagicSocket(MagicColor.RED),
                         new MagicSocket(MagicColor.RED));
         ARMOR_WITH_THREE_SOCKETS = new Armor(50, THREE_SOCKETS);
         DEFENCEVISITOR = new DefenceVisitor();
-        BLUE_SOCKET =  List.of
+        BLUE_SOCKET = List.of
                 (new MagicSocket(MagicColor.BLUE));
-        GREEN_SOCKET =  List.of
+        GREEN_SOCKET = List.of
                 (new MagicSocket(MagicColor.GREEN));
-        PURPLE_SOCKET =  List.of
+        PURPLE_SOCKET = List.of
                 (new MagicSocket(MagicColor.PURPLE));
     }
 
     @Test
-    public void testCreateArmor(){
+    public void testCreateArmor() {
         Armor armor = new Armor(50, THREE_SOCKETS);
         assertEquals(50, armor.getStrength());
         assertEquals(THREE_SOCKETS, armor.getSockets());
@@ -44,8 +46,9 @@ public class ArmorTest {
         assertEquals(50, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
         assertEquals(49.5, ARMOR_WITH_THREE_SOCKETS.getStrength());
     }
+
     @Test
-    void testDefendWitStones() {
+    void testDefendOnceWithStones() {
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
         assertEquals(60, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
         assertEquals(47.5, ARMOR_WITH_THREE_SOCKETS.getStrength());
@@ -53,17 +56,20 @@ public class ArmorTest {
         assertEquals(71.25, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
         assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getStrength());
     }
-
     @Test
-    void testCreateArmorWithWrongStones() {
-        assertThrows(IllegalArgumentException.class, ()->{
-            new Armor(50, BLUE_SOCKET);
-        });
-        assertThrows(IllegalArgumentException.class, ()->{
-            new Armor(50, GREEN_SOCKET);
-        });
-        assertThrows(IllegalArgumentException.class, ()->{
-            new Armor(50, PURPLE_SOCKET);
+    void testDefendTwiceWithStones() {
+        ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
+        ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR);
+        ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 30, 20));
+        assertEquals(71.25, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCEVISITOR));
+        assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getStrength());
+    }
+
+    @ParameterizedTest
+    @EnumSource(value = MagicColor.class, names = {"GREEN", "PURPLE", "BLUE"})
+    void testCreateArmorWithWrongSocket(MagicColor color) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Armor(50, List.of(new MagicSocket(color)));
         });
     }
 
