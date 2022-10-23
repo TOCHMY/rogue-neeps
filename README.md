@@ -22,9 +22,9 @@ Mage
 
 ## NPCer:
 Comment för att komma ihåg senare: interface för movement?
-### Snälla NPC
+### Snälla npc.NPC
 
-### Elaka NPC
+### Elaka npc.NPC
 
 ## Magi: 
 - Items har sockets
@@ -56,13 +56,13 @@ Comment för att komma ihåg senare: interface för movement?
  
 
 ## FIGHT: 
-- Pig is in x=50, y=50; 
+- npc.Pig is in x=50, y=50; 
 - player.strike(x=50, y=50);
-- Pig.die(); // give xp osv kanske i dont know 
+- npc.Pig.die(); // give xp osv kanske i dont know 
 
 ## KARTA: 
 - Förslag: Kartan är 100x100 pixlar. Spelare och NPCer rör sig genom att hålla koll på position med hjälp av arrayer. 
- - Så om NPC Randy skapas på position x=50 y=50 och sedan rör sig upp ett steg så är Randys nya position x=50, y=51. 
+ - Så om npc.NPC Randy skapas på position x=50 y=50 och sedan rör sig upp ett steg så är Randys nya position x=50, y=51. 
  
  ## TODO: 
  Tommy ska hitta på en massa roliga magier

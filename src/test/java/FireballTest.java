@@ -1,9 +1,5 @@
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import map.Tile;
 
 public class FireballTest {
     static final Tile playerStartingTile = new Tile(8, 10);
@@ -11,13 +7,13 @@ public class FireballTest {
 
    /* @Test
     void testFireballRange() {
-        Map map = new Map();
+        map.Map map = new map.Map();
         map.initiateDungeon(playerStartingTile);
         map.printDungeon("off", "off", "on");
         Fireball fireball = new Fireball();
-        Player p = new Player();
-        Tile targetTile = map.getPerimeterArray()[4][10];
-        FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
+        player.Player p = new player.Player();
+        map.Tile targetTile = map.getPerimeterArray()[4][10];
+        util.FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
         assertEquals(targetTile.getRow(), fireball.cast(playerStartingTile, playerFacingDirection).getRow());
         assertEquals(targetTile.getColumn(), fireball.cast(playerStartingTile, playerFacingDirection).getColumn());
     }*/
@@ -25,13 +21,13 @@ public class FireballTest {
     /*//Testa att fireball kolliderar med vägg
     @Test
     void testCastFireball_fireballCollideWithWall() {
-        Map map = new Map();
+        map.Map map = new map.Map();
         map.initiateDungeon(playerStartingTileCloseToWall);
         map.printDungeon("off", "off", "on");
         Fireball fireball = new Fireball();
 
-        Player p = new Player();
-        FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
+        player.Player p = new player.Player();
+        util.FacingDirection playerFacingDirection = p.getPlayerFacingDirection();
         assertEquals(1, fireball.cast(playerStartingTileCloseToWall, playerFacingDirection).getRow());
         assertEquals(8, fireball.cast(playerStartingTileCloseToWall, playerFacingDirection).getColumn());
     }*/
