@@ -1,3 +1,8 @@
+import map.Map;
+import map.Tile;
+import util.FacingDirection;
+/*
+
 public class Fireball extends Map {
     int damage = 10;
     int range = 4;
@@ -62,3 +67,4 @@ public class Fireball extends Map {
     }
 
 }
+*/
