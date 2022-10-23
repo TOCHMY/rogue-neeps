@@ -17,6 +17,8 @@ public abstract class Item {
         this.sockets = sockets;
     }
 
+    abstract double accept(ItemVisitor visitor);
+
     public void setStrength(double newStrength) {
         strength = newStrength;
     }
@@ -54,12 +56,9 @@ public abstract class Item {
                 .sum();
     }
 
-    abstract double accept(ItemVisitor visitor);
-
     protected long countSocketsOfColor(List<MagicSocket> sockets, MagicColor color) {
         return sockets.stream().filter(socket -> socket.getColor() == color).count();
     }
-
     abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
 
 }

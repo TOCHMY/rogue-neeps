@@ -10,6 +10,18 @@ public class ItemCollection {
     public ItemCollection() {
     }
 
+    public double attackWithItems() {
+        return getAllItems().stream()
+                .mapToDouble(item -> item.accept(new AttackVisitor()))
+                .sum();
+    }
+
+    public double defendWithItems() {
+        return getAllItems().stream()
+                .mapToDouble(item -> item.accept(new DefenceVisitor()))
+                .sum();
+    }
+
     public List<Item> getHandItems() {
         List<Item> items = new ArrayList<>();
         if (leftHandItem != null)
@@ -17,7 +29,7 @@ public class ItemCollection {
         if (rightHandItem != null)
             items.add(rightHandItem);
 
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
     public void addArmor(Armor armor) {
@@ -64,19 +76,7 @@ public class ItemCollection {
                 .count();
     }
 
-    public List<Item> getAllItems() {
-        List<Item> allItems = new ArrayList<>();
-        if (leftHandItem != null)
-            allItems.add(leftHandItem);
-        if (rightHandItem != null)
-            allItems.add(rightHandItem);
-        if (armor != null)
-            allItems.add(armor);
-        if (magicBag != null)
-            allItems.add(magicBag);
 
-        return Collections.unmodifiableList(allItems);
-    }
 
     public Optional<Item> removeRightHandItem() {
         Item itemToRemove = this.rightHandItem;
@@ -97,4 +97,20 @@ public class ItemCollection {
     public Item getRightHandItem() {
         return rightHandItem;
     }
+
+    public List<Item> getAllItems() {
+        List<Item> allItems = new ArrayList<>();
+        if (leftHandItem != null)
+            allItems.add(leftHandItem);
+        if (rightHandItem != null)
+            allItems.add(rightHandItem);
+        if (armor != null)
+            allItems.add(armor);
+        if (magicBag != null)
+            allItems.add(magicBag);
+
+        return Collections.unmodifiableList(allItems);
+    }
+
+
 }

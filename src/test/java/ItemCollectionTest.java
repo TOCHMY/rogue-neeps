@@ -170,4 +170,26 @@ public class ItemCollectionTest {
         ITEM_COLLECTION.removeRightHandItem();
         assertTrue(ITEM_COLLECTION.getAllItems().isEmpty());
     }
+
+    @Test
+    void testUseAllItemsInAttack() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+        ITEM_COLLECTION.addArmor(ARMOR);
+
+        double expectedStrength = 50;
+
+        assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
+    }
+
+    @Test
+    void testUseAllItemsInDefence() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+        ITEM_COLLECTION.addArmor(ARMOR);
+
+        double expectedStrength = 125;
+
+        assertEquals(expectedStrength, ITEM_COLLECTION.defendWithItems());
+    }
 }
