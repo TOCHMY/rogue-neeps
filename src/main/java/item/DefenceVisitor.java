@@ -1,10 +1,5 @@
 package item;
 
-import item.armor.Armor;
-import item.magic.MagicColor;
-import item.weapon.Shield;
-import item.weapon.Weapon;
-
 public class DefenceVisitor implements ItemVisitor {
 
     @Override
@@ -21,13 +16,14 @@ public class DefenceVisitor implements ItemVisitor {
         return useDefence(item);    }
 
     protected double useDefence(Item item) {
-        double DEFAULT_COST_OF_USE = 0.5;
+        double defaultCostOfUse = 0.5;
         double baseStrength = item.getBaseStrength();
         double strengthFromStones = item.getStrengthFromStonesOfColor(MagicColor.RED);
         double cost = item.getCostFromStonesOfColor(MagicColor.RED);
+        double stoneStrengthFactor = 1 + (strengthFromStones/100);
 
-        item.setBaseStrength(item.getBaseStrength() - DEFAULT_COST_OF_USE - cost);
+        item.setBaseStrength(item.getBaseStrength() - defaultCostOfUse - cost);
 
-        return Math.round(100 * baseStrength * (1 + (strengthFromStones / 100))) / 100.0;
+        return Math.round(100 * baseStrength * stoneStrengthFactor) / 100.0;
     }
 }

@@ -1,13 +1,7 @@
 package item;
 
-import item.armor.Armor;
-import item.magic.MagicColor;
-import item.magic.MagicSocket;
-import item.weapon.Shield;
-import item.weapon.Weapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import item.*;
 
 import java.util.List;
 

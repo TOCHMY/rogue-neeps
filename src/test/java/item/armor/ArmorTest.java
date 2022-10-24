@@ -1,9 +1,9 @@
 package item.armor;
 
-import item.armor.Armor;
-import item.magic.GemStone;
-import item.magic.MagicColor;
-import item.magic.MagicSocket;
+import item.Armor;
+import item.GemStone;
+import item.MagicColor;
+import item.MagicSocket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import item.*;

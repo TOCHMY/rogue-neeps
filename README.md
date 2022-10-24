@@ -89,7 +89,7 @@ Varje MagicSocket har:
 GemStones har:
 -  En MagicColor 
 - Strength (int mellan 1-30)
-- Cost (int mellan 1-30)
+- Cost (double mellan 0-30)
 
 ### MagicColors som hittills finns är:
 - BLUE(Attack)
@@ -127,11 +127,12 @@ Alla stenars strength summeras och Itemets strength ökar procentuellt med stena
 - Röda stenar påverkar enbart vapnets styrka i defence 
 osv.
 - När Weapon används för defence används bara halva vapnets styrka
-- Om armors strength faller under 15 är den dålig och ItemCollections totala attackstyrka halveras 
+- Om armors strength faller under 15 är den dålig och ItemCollections totala attackstyrka halveras och EVENTUELLT påverkas dexterity
 
 Items strength blir svagare varje gång de används
 - I grundfallet minskar strength med 0.5 för varje användning (Efter att användningen skett)
 - Varje sten har också en individuell kostnad som dras från items strength varje gång det används
+- När ett items styrka går under 0 börjar det istället försvaga användningen 
 
 
 När spelaren gör attack eller försvar används ItemCollection.

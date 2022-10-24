@@ -1,7 +1,7 @@
 package player;
 
-import item.weapon.Shield;
-import item.weapon.Weapon;
+import item.Shield;
+import item.Weapon;
 
 import java.util.List;
 

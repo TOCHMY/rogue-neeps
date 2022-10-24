@@ -10,16 +10,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AttackVisitorTest {
+public class DefenceVisitorTest {
 
-    AttackVisitor ATTACK_VISITOR;
+    DefenceVisitor DEFENCE_VISITOR;
     Shield SHIELD;
     Armor ARMOR;
+    Weapon WEAPON;
     MagicBag MAGIC_BAG;
 
     @BeforeEach
     void setup() {
-        ATTACK_VISITOR = new AttackVisitor();
+        DEFENCE_VISITOR = new DefenceVisitor();
         List<MagicSocket> defenceSockets = List.of
                 (new MagicSocket(MagicColor.RED),
                         new MagicSocket(MagicColor.RED),
@@ -29,23 +30,18 @@ public class AttackVisitorTest {
                         new MagicSocket(MagicColor.BLUE),
                         new MagicSocket(MagicColor.RED));
         ARMOR = new Armor(50, defenceSockets);
+        WEAPON = new Weapon(50, attackDefenceSockets);
         SHIELD = new Shield(50, defenceSockets);
         MAGIC_BAG = new MagicBag(50, List.of(new MagicSocket(MagicColor.PURPLE)));
-
     }
 
     @Test
-    void testAttackVisitorVisitArmorReturnsZero() {
-        assertEquals(0.0, ATTACK_VISITOR.visit(ARMOR));
+    void testDefenceVisitorVisitWeaponReturnsHalf() {
+        assertEquals(25, DEFENCE_VISITOR.visit(WEAPON));
     }
 
     @Test
-    void testAttackVisitorVisitShieldReturnsZero() {
-        assertEquals(0.0, ATTACK_VISITOR.visit(SHIELD));
-    }
-
-    @Test
-    void testAttackVisitorVisitMagicBagReturnsZero() {
-        assertEquals(0.0, ATTACK_VISITOR.visit(MAGIC_BAG));
+    void testDefenceVisitorVisitMagicBagReturnsZero() {
+        assertEquals(0.0, DEFENCE_VISITOR.visit(MAGIC_BAG));
     }
 }

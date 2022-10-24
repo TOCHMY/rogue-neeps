@@ -1,4 +1,4 @@
-package item.magic;
+package item;
 
 public class MagicSocket {
 
@@ -10,7 +10,7 @@ public class MagicSocket {
     }
 
     public void addStone(GemStone gemStone) {
-        if (!gemStone.getColor().equals(this.color))
+        if (!gemStone.color().equals(this.color))
             throw new IllegalArgumentException("Gemstone must be of the same color as the socket");
         this.gemStone = gemStone;
     }
