@@ -11,7 +11,7 @@ public class Pig extends EnemyNPC implements Killable, Movement {
     private boolean isDead;
 
     public Pig(){
-        super("npc.Pig", 1, true);
+        super("Pig", 1, true);
         this.xp = 20;
         this.hitPointValue = 10;
         this.isDead = false;
