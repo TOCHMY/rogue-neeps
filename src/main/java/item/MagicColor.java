@@ -1,4 +1,4 @@
-package item.magic;
+package item;
 
 public enum MagicColor {
 

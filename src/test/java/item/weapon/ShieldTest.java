@@ -1,9 +1,9 @@
 package item.weapon;
 
-import item.magic.GemStone;
-import item.magic.MagicColor;
-import item.magic.MagicSocket;
-import item.weapon.Shield;
+import item.GemStone;
+import item.MagicColor;
+import item.MagicSocket;
+import item.Shield;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import item.*;
@@ -43,7 +43,7 @@ public class ShieldTest {
     @Test
     public void testCreateShield(){
         Shield shield = new Shield(50, TWO_DEFENCE_SOCKETS);
-        assertEquals(50, shield.getStrength());
+        assertEquals(50, shield.getBaseStrength());
         assertEquals(TWO_DEFENCE_SOCKETS, shield.getSockets());
     }
 
@@ -58,13 +58,13 @@ public class ShieldTest {
     @Test
     void testDefendWithoutStones() {
         assertEquals(50, SHIELD.accept(DEFENCEVISITOR));
-        assertEquals(49.5, SHIELD.getStrength());
+        assertEquals(49.5, SHIELD.getBaseStrength());
     }
     @Test
     void testDefendOnceWithStones() {
         SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
         assertEquals(60, SHIELD.accept(DEFENCEVISITOR));
-        assertEquals(47.5, SHIELD.getStrength());
+        assertEquals(47.5, SHIELD.getBaseStrength());
     }
 
     @Test
@@ -73,6 +73,6 @@ public class ShieldTest {
         SHIELD.accept(DEFENCEVISITOR);
         SHIELD.addStone(new GemStone(MagicColor.RED, 30, 20));
         assertEquals(71.25, SHIELD.accept(DEFENCEVISITOR));
-        assertEquals(25, SHIELD.getStrength());
+        assertEquals(25, SHIELD.getBaseStrength());
     }
 }

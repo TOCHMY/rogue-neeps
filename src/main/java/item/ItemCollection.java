@@ -1,10 +1,5 @@
 package item;
 
-import item.armor.Armor;
-import item.magic.MagicBag;
-import item.weapon.Shield;
-import item.weapon.Weapon;
-
 import java.util.*;
 
 public class ItemCollection {
@@ -21,16 +16,22 @@ public class ItemCollection {
         DEFENCE_VISITOR = new DefenceVisitor();
     }
 
-    public double attackWithItems() {
-        return getAllItems().stream()
-                .mapToDouble(item -> item.accept(ATTACK_VISITOR))
-                .sum();
-    }
-
     public double defendWithItems() {
         return getAllItems().stream()
                 .mapToDouble(item -> item.accept(DEFENCE_VISITOR))
                 .sum();
+    }
+
+    public double attackWithItems() {
+        double weakArmorImpact = isArmorWeakerThan15() ? 0.5 : 1;
+        return weakArmorImpact * getAllItems().stream()
+                .mapToDouble(item -> item.accept(ATTACK_VISITOR))
+                .sum();
+    }
+
+    private boolean isArmorWeakerThan15() {
+        double THRESHOLD_FOR_WEAK_ARMOR = 15;
+        return (armor.getBaseStrength() + armor.getStrengthFromStonesOfColor(MagicColor.RED) < THRESHOLD_FOR_WEAK_ARMOR);
     }
 
     public List<Item> getHandItems() {
@@ -86,7 +87,6 @@ public class ItemCollection {
                 .filter(item -> item instanceof Shield)
                 .count();
     }
-
 
 
     public Optional<Item> removeRightHandItem() {

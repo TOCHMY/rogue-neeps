@@ -10,8 +10,8 @@ import util.Direction;
 import util.Movement;
 import util.UserInputAsker;
 import item.ItemCollection;
-import item.weapon.Shield;
-import item.weapon.Weapon;
+import item.Shield;
+import item.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;

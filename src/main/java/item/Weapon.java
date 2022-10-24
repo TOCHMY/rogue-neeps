@@ -1,9 +1,4 @@
-package item.weapon;
-
-import item.Item;
-import item.ItemVisitor;
-import item.magic.MagicColor;
-import item.magic.MagicSocket;
+package item;
 
 import java.util.List;
 

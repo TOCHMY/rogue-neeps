@@ -1,10 +1,5 @@
 package item;
 
-import item.armor.Armor;
-import item.magic.MagicBag;
-import item.weapon.Shield;
-import item.weapon.Weapon;
-
 public interface ItemVisitor {
 
     default double visit(Weapon item){

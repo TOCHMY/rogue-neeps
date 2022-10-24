@@ -1,9 +1,9 @@
 package item.magic;
 
 import org.junit.jupiter.api.Test;
-import item.magic.GemStone;
-import item.magic.MagicColor;
-import item.magic.MagicSocket;
+import item.GemStone;
+import item.MagicColor;
+import item.MagicSocket;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

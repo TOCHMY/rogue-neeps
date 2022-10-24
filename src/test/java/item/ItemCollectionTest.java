@@ -1,13 +1,7 @@
 package item;
 
-import item.armor.Armor;
-import item.magic.MagicColor;
-import item.magic.MagicSocket;
-import item.weapon.Shield;
-import item.weapon.Weapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import item.*;
 
 import java.util.List;
 
@@ -56,9 +50,7 @@ public class ItemCollectionTest {
     void testAddTooManyArmors() {
         Armor armor = new Armor(50, DEFENCE_SOCKETS);
         ITEM_COLLECTION.addArmor(armor);
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addArmor(armor);
-        });
+        assertThrows(IllegalStateException.class, () -> ITEM_COLLECTION.addArmor(armor));
     }
 
     @Test
@@ -92,12 +84,10 @@ public class ItemCollectionTest {
         Weapon weapon2 = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
         ITEM_COLLECTION.addLeftHandItem(weapon2);
 
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addLeftHandItem(new Weapon(80, ATTACK_DEFENCE_SOCKETS));
-        });
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addRightHandItem(new Weapon(77.5, ATTACK_DEFENCE_SOCKETS));
-        });
+        assertThrows(IllegalStateException.class, () -> ITEM_COLLECTION.addLeftHandItem(new Weapon(80, ATTACK_DEFENCE_SOCKETS)));
+        assertThrows(IllegalStateException.class, () ->
+            ITEM_COLLECTION.addRightHandItem(new Weapon(77.5, ATTACK_DEFENCE_SOCKETS))
+        );
     }
 
     @Test
@@ -186,7 +176,6 @@ public class ItemCollectionTest {
         ITEM_COLLECTION.addArmor(ARMOR);
 
         double expectedStrength = 50;
-
         assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
     }
 
@@ -200,4 +189,16 @@ public class ItemCollectionTest {
 
         assertEquals(expectedStrength, ITEM_COLLECTION.defendWithItems());
     }
+
+    @Test
+    void testArmorWeakerThan15HalvesAttack() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+
+        ITEM_COLLECTION.addArmor(new Armor(10, DEFENCE_SOCKETS));
+
+        double expectedStrength = 25;
+        assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
+    }
+
 }

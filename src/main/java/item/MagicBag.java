@@ -1,7 +1,4 @@
-package item.magic;
-
-import item.Item;
-import item.ItemVisitor;
+package item;
 
 import java.util.List;
 
