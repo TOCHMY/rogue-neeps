@@ -1,6 +1,5 @@
 package npc;
 
-import npc.FriendlyNPC;
 import org.junit.jupiter.api.Test;
 import player.Human;
 import player.Player;
@@ -22,14 +21,24 @@ public class FriendlyNPCTest {
         assertEquals("Hello adventurer.", npc.nonQuestGiverResponse());
     }
 
-
     //Return QuestDescription for particular quest
     @Test
     void testQuestGiverFriendlyNPC_respondsToPlayerInteraction_ExpectPigQuestDescription() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
+        String questDescription = qdb.getQuest(1).getQuestDescription();
         npc.getQuestFromDatabase(1, qdb);
-        assertEquals("The pigs in this area has developed an attitude. Show them who's boss!", npc.respondWithQuest());
+        assertEquals(questDescription, npc.respondWithQuest());
     }
+
+    @Test
+    void testFriendlyNPC_questIsAssignedToFriendlyNPC() {
+        FriendlyNPC npc = new FriendlyNPC("Kate", true);
+        npc.getQuestFromDatabase(1, qdb);
+        assertEquals(qdb.getQuest(1), npc.getAssignedQuest());
+    }
+
+//    @Test
+//    void testFriendlyNPC_questAssignedToFriendlyNPC
 
     @Test
     void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectAccept() {

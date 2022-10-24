@@ -21,7 +21,7 @@ public class QuestDatabase {
     private void setup() {
         initiatePigMenace();
         initiateFindHerbert();
-        addQuestsToDatabase();
+        addDefinedQuestsToDatabase();
     }
 
     private void initiatePigMenace() {
@@ -44,7 +44,7 @@ public class QuestDatabase {
         findHerbert.setCompleted(false);
     }
 
-    private void addQuestsToDatabase() {
+    private void addDefinedQuestsToDatabase() {
         questList.add(FLAG);
         questList.add(pigMenace);
         questList.add(findHerbert);
