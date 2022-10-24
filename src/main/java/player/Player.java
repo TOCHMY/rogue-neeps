@@ -181,8 +181,6 @@ public abstract class Player implements Movement {
                     break;
                 }
             }
-        }  else {
-            npc.offerQuest();
         }
     }
 

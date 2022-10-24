@@ -224,7 +224,7 @@ public class QuestTest {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         Quest quest2 = qdb.getQuest(2);
         FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
-        npcHerbert.setDialog("Oh I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
+        npcHerbert.setDialog("Oh, I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
         npcHerbert.setQuestGoal();
         npcKate.assignQuestToNPC(quest2);
         when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");

@@ -43,7 +43,7 @@ public class Room {
         return startingTile;
     }
 
-    public void addHostileNpc(EnemyNPC npc, Tile npcTile) throws IllegalArgumentException{
+    public void addHostileNpc(EnemyNPC npc, Tile npcTile) throws IllegalArgumentException {
         Tile t = map.getMap2dArray()[npcTile.getRow()][npcTile.getColumn()];
 
         if(!roomTilesList.contains(npcTile)){

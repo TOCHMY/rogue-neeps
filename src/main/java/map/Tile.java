@@ -18,14 +18,13 @@ public class Tile {
     private EnemyNPC hostileNpc;
     private FriendlyNPC friendlyNpc;
     boolean hasFriendlyNpc = false;
-    Player player;
+    private Player player;
     private Room room;
     private Tunnel tunnel;
     private final int row;
     private final int column;
 
 
-    // +1 för att börja räkna spelplanen från X1Y1 istället för X0Y0.
     public Tile(int row, int column){
         this.row = row;
         this.column = column;
@@ -129,6 +128,7 @@ public class Tile {
         hasFriendlyNpc = true;
         walkable = false;
     }
+
 
     @Override
     public boolean equals(Object o) {

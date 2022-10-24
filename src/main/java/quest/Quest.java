@@ -125,6 +125,9 @@ public class Quest {
     public void setInitiated(boolean initiated) {
         isInitiated = initiated;
     }
+    public String getQuestGoalText() {
+        return questGoalText;
+    }
 
     @Override
     public String toString() {
@@ -132,7 +135,5 @@ public class Quest {
     }
 
 
-    public String getQuestGoalText() {
-        return questGoalText;
-    }
+
 }
