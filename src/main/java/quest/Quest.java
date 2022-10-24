@@ -72,10 +72,6 @@ public class Quest {
         this.amountOfEnemiesToKill = amountOfEnemiesToKill;
     }
 
-    public int getQuestID() {
-        return questID;
-    }
-
     public boolean isReturnedToQuestGiver() {
         return isReturnedToQuestGiver;
     }

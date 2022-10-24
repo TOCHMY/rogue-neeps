@@ -5,8 +5,6 @@ import util.Direction;
 import util.Movement;
 
 public abstract class NPC implements Movement {
-
-    private Map map;
     private Direction npcFacingDirection;
 
     public NPC() {

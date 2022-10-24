@@ -114,7 +114,7 @@ public abstract class Player implements Movement {
         if (quest.isInitiated()) {
             questLog.add(quest);
         } else {
-            throw new IllegalStateException("quest.Quest is not accepted");
+            throw new IllegalStateException("Quest is not accepted.");
         }
     }
 
@@ -152,6 +152,7 @@ public abstract class Player implements Movement {
         }
     }
 
+    //Handles quests with the goal of talking to another NPC
     private void talkQuestHandler(FriendlyNPC npc) {
         for (Quest q : questLog) {
             if (q.getTalkQuestTarget().equals(npc)) {
@@ -179,7 +180,7 @@ public abstract class Player implements Movement {
         if (questLog.contains(quest)) {
             removeQuestFromQuestLog(quest);
         } else {
-            throw new NullPointerException("quest.Quest does not exist in quest log");
+            throw new NullPointerException("Quest does not exist in quest log");
         }
     }
 

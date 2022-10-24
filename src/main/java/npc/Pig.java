@@ -5,8 +5,6 @@ import util.Killable;
 import util.Movement;
 
 public class Pig extends EnemyNPC implements Killable, Movement {
-
-    private String name;
     private final int xp;
     private int hitPointValue;
 

@@ -102,11 +102,6 @@ public class FriendlyNPC extends NPC implements Movement {
         return dialog;
     }
 
-
-    public FriendlyNPC getFriendlyNPC() {
-        return this;
-    }
-
     public String getName() {
         return this.name;
     }
