@@ -21,8 +21,8 @@ public class Tile {
     Player player;
     private Room room;
     private Tunnel tunnel;
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
 
     // +1 för att börja räkna spelplanen från X1Y1 istället för X0Y0.
@@ -75,7 +75,6 @@ public class Tile {
         this.hostileNpc = hostile;
         hasEnemyNPC = true;
         walkable = false;
-        //enemyNPC = null;
     }
 
     public boolean hasEnemyNPC() {
@@ -112,24 +111,14 @@ public class Tile {
         makeWalkable();
     }
 
+    private Tunnel getTunnel(){
+        return tunnel;
+    }
+
     public boolean isWallTile(){
         return wallTile;
     }
 
-    @Override
-    public String toString() {
-        return "map.Tile{" +
-                "row:" + row +
-                ", column:" + column +
-                ", walkable=" + walkable +
-                ", roomTile=" + roomTile +
-                ", hasPlayer=" + hasPlayer +
-                ", hasEnemyNPC=" + hasEnemyNPC +
-                ", horizontalWall=" + horizontalWall +
-                ", verticalWall=" + verticalWall +
-                ", room=" + room +
-                '}';
-    }
 
     public boolean isTunnelTile() {
         return tunnelTile;
@@ -155,10 +144,7 @@ public class Tile {
     }
 
     public boolean isOccupied() {
-        if(hasFriendlyNpc || hasPlayer || hasEnemyNPC){
-            return true;
-        }
-        return false;
+        return hasFriendlyNpc || hasPlayer || hasEnemyNPC;
     }
 
     public EnemyNPC getHostileNPC() {
@@ -170,9 +156,22 @@ public class Tile {
             player = null;
     }
 
-    // använd denna när vi har en klass för enemyNPC
-    /*public void setEnemyNpcOnTile(Enemy enemyNPC) {
-        hasEnemyNPC = true;
-        this.enemyNPC = enemyNPC;
-    }*/
+    public FriendlyNPC getFriendlyNpc(){
+        return friendlyNpc;
+    }
+
+    @Override
+    public String toString() {
+        return "map.Tile{" +
+                "row:" + row +
+                ", column:" + column +
+                ", walkable=" + walkable +
+                ", roomTile=" + roomTile +
+                ", hasPlayer=" + hasPlayer +
+                ", hasEnemyNPC=" + hasEnemyNPC +
+                ", horizontalWall=" + horizontalWall +
+                ", verticalWall=" + verticalWall +
+                ", room=" + room +
+                '}';
+    }
 }

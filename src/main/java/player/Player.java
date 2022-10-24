@@ -8,6 +8,7 @@ import npc.FriendlyNPC;
 import quest.Quest;
 import util.Direction;
 import util.Movement;
+import util.Position;
 import util.UserInputAsker;
 import item.ItemCollection;
 import item.Shield;
@@ -28,6 +29,7 @@ public abstract class Player implements Movement {
     ItemCollection items;
     NicoMap nm;
     int hp;
+    Position position;
 
     Player(int strength, int dexterity, int intelligence, int hp) {
         this.hp = hp;
@@ -51,6 +53,14 @@ public abstract class Player implements Movement {
 
     public void bindMap(NicoMap nicoMap) {
         nm = nicoMap;
+    }
+
+    public void setPosition(Position pos) {
+        position = pos;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 
     static class Experience {

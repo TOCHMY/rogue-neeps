@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    private String name;
-    private int width;
-    private int height;
-    private Tile startingTile;
-    private List<NPC> friendlyNpcList = new ArrayList<>();
-    private List<NPC> hostileNpcList = new ArrayList<>();
-    private Map map;
-    private List<Tile> roomTilesList = new ArrayList<>();
+    private final String name;
+    private final int width;
+    private final int height;
+    private final Tile startingTile;
+    private final List<NPC> friendlyNpcList = new ArrayList<>();
+    private final List<NPC> hostileNpcList = new ArrayList<>();
+    private final Map map;
+    private final List<Tile> roomTilesList = new ArrayList<>();
 
 
     public Room(String name, int width, int height, Tile startingTile, Map map) {
@@ -48,7 +48,7 @@ public class Room {
 
         if(!roomTilesList.contains(npcTile)){
             throw new IllegalArgumentException("tile is not a room tile");
-        };
+        }
         if(t.isOccupied()){
             throw new IllegalArgumentException("tile is already occupied");
         }
@@ -57,7 +57,6 @@ public class Room {
     }
 
     public List<NPC> getHostileNpcList(){
-
         return hostileNpcList;
     }
 
@@ -65,7 +64,7 @@ public class Room {
         Tile t = map.getMap2dArray()[npcTile.getRow()][npcTile.getColumn()];
         if(!roomTilesList.contains(npcTile)){
             throw new IllegalArgumentException("tile is not a room tile");
-        };
+        }
         if(t.isOccupied()){
             throw new IllegalArgumentException("tile is already occupied");
         }

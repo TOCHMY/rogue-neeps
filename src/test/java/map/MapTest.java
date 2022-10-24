@@ -201,9 +201,9 @@ class MapTest {
     }
 
     @Test
-    void When_newMapCreated_Expect_playerPositionToBeNull(){
+    void When_newMapCreated_Expect_playerToBeNull(){
         Map map = new Map();
-        assertNull(map.getPlayerPosition());
+        assertNull(map.getPlayer());
     }
 
 

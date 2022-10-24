@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tunnel {
-    private String fromRoom;
-    private String toRoom;
-    private Tile tunnelStart;
-    private Tile tunnelEnd;
-    private List<Tile> tileList = new ArrayList<>();
-    private int length;
+    private final String fromRoom;
+    private final String toRoom;
+    private final Tile tunnelStart;
+    private final Tile tunnelEnd;
+    private final List<Tile> tileList = new ArrayList<>();
+    private final int length;
     private boolean horizontalTunnel;
     private boolean verticalTunnel;
 
@@ -26,7 +26,7 @@ public class Tunnel {
                 length = tunnelEnd.getRow() - tunnelStart.getRow();
             } else {
                 horizontalTunnel = true;
-                length = tunnelEnd.getColumn() - tunnelEnd.getColumn();
+                length = tunnelEnd.getColumn() - tunnelStart.getColumn();
             }
         } else{
             throw new IllegalArgumentException("A tunnel must be initiated from a walltile");
