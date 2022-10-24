@@ -97,7 +97,7 @@ public class Quest {
     }
 
     public void printQuestCompleted() {
-        System.out.println("quest.Quest " + getQuestName() + " is completed. Return to " + getQuestGiver().getName() + ".");
+        System.out.println("Quest " + getQuestName() + " is completed. Return to " + getQuestGiver().getName() + ".");
 
     }
 
@@ -128,7 +128,7 @@ public class Quest {
 
     @Override
     public String toString() {
-        return "quest.Quest name: " + questName + ". QuestID: " + questID;
+        return "Quest name: " + questName + ". QuestID: " + questID;
     }
 
 

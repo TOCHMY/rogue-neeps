@@ -85,12 +85,12 @@ public class FriendlyNPC extends NPC implements Movement {
 
     public void completeQuest(Quest quest, Player player) {
         if (quest.equals(questToGive) && questToGive.isCompleted()) {
-            System.out.println("quest.Quest \"" + quest.getQuestName() + "\" completed.");
+            System.out.println("Quest \"" + quest.getQuestName() + "\" completed.");
             quest.setReturnedToQuestGiver(true);
             player.addFinishedQuestToFinishedQuestLog(quest);
             player.removeQuestFromQuestLog(quest);
         } else {
-            System.out.println("quest.Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
+            System.out.println("Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
         }
     }
 

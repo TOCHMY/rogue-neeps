@@ -12,7 +12,7 @@ public class QuestDatabase {
     //Flag existerar endast för att fylla plats 0 i arrayen i syfte att kunna hämta quest från questList genom questID
     // där questID alltid == questList index.
     private static final Quest FLAG = new Quest(0, "");
-    private final Quest pigMenace = new Quest(1, "npc.Pig Menace");
+    private final Quest pigMenace = new Quest(1, "Pig Menace");
     private final Quest findHerbert = new Quest(2, "Find Herbert");
     public QuestDatabase() {
         setup();

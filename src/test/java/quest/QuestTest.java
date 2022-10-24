@@ -65,8 +65,6 @@ public class QuestTest {
                 npcKate.askToAcceptQuest(userInputAsker, player));
     }
 
-    //gör assertThrows av asktoaccept
-//    void testQuest
     @Test
     void testQuestAddedToPlayerQuestLog() {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
@@ -98,7 +96,7 @@ public class QuestTest {
 
     @Test
     void testPigQuestGoalIsUpdated_WhenPigIsKilled() {
-        EnemyNPC pig = new EnemyNPC("npc.Pig", 1, true);
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         assertEquals("0 of 5 pigs killed.", quest.printKillQuestStatus());
@@ -112,7 +110,7 @@ public class QuestTest {
     // andra skulle vara tex Octopus -> Octopi, Mantis -> Mantises osv
     @Test
     void testPigQuestStatusTextDisplaysCorrectText_WhenPigsGetKilled_AfterQuestGoalIsCompleted() {
-        EnemyNPC pig = new EnemyNPC("npc.Pig", 1, true);
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         player.killTarget(pig);
@@ -129,7 +127,7 @@ public class QuestTest {
 
     @Test
     void testKillQuestDoesNotIncrementBeyondQuestGoal() {
-        EnemyNPC pig = new EnemyNPC("npc.Pig", 1, true);
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         player.killTarget(pig);
@@ -143,7 +141,7 @@ public class QuestTest {
 
     @Test
     void testPigQuestGoalIsSetToCompleted_WhenQuestGoalIsReached() {
-        EnemyNPC pig = new EnemyNPC("npc.Pig", 1, true);
+        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         assertFalse(quest.isCompleted());
