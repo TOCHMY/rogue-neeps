@@ -1,5 +1,11 @@
 package item;
 
+import item.items.Armor;
+import item.items.Shield;
+import item.items.Weapon;
+import item.stonesystem.GemStone;
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -8,8 +8,8 @@ import npc.FriendlyNPC;
 import quest.Quest;
 import util.*;
 import item.ItemCollection;
-import item.Shield;
-import item.Weapon;
+import item.items.Shield;
+import item.items.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;

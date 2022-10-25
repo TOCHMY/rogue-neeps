@@ -1,4 +1,8 @@
-package item;
+package item.items;
+
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
+import item.visitors.ItemVisitor;
 
 import java.util.List;
 

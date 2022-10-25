@@ -1,4 +1,4 @@
-package item;
+package item.stonesystem;
 
 public record GemStone(MagicColor color, int strength, double cost) {
     private static final int MIN_STRENGTH = 1;

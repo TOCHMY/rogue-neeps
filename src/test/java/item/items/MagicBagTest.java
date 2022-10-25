@@ -1,4 +1,4 @@
-package item.magic;
+package item.items;
 
 public class MagicBagTest {
 }

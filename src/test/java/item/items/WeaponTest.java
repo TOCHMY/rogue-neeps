@@ -1,13 +1,13 @@
-package item.weapon;
+package item.items;
 
-import item.GemStone;
-import item.MagicColor;
-import item.MagicSocket;
-import item.Weapon;
+import item.stonesystem.GemStone;
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
+import item.visitors.AttackVisitor;
+import item.visitors.DefenceVisitor;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import item.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -64,8 +64,8 @@ public class WeaponTest {
         });
     }
 
+    //("TestID AT1")
     @Test
-    @Description("TestID AT1")
     void testAcceptAttackVisitor5MixedStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -84,8 +84,8 @@ public class WeaponTest {
         assertEquals(46.5, weapon.getBaseStrength());
     }
 
+    //("TestID AT2")
     @Test
-    @Description("TestID AT2")
     void testAttackNoSockets() {
         Weapon weapon = new Weapon(50, List.of(
                 new MagicSocket(MagicColor.BLUE)));
@@ -93,8 +93,8 @@ public class WeaponTest {
         assertEquals(49.5, weapon.getBaseStrength());
     }
 
+    //("TestID AT3")
     @Test
-    @Description("TestID AT3")
     void testAttackSocketsNegativeBaseStrength() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -110,8 +110,8 @@ public class WeaponTest {
         assertEquals(-4, weapon.getBaseStrength());
     }
 
+    //("TestID AT4")
     @Test
-    @Description("TestID AT4")
     void testAcceptAttackVisitorOnlyBlueStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.BLUE),
@@ -126,8 +126,8 @@ public class WeaponTest {
         assertEquals(46.5, weapon.getBaseStrength());
     }
 
+    //("TestID AT5")
     @Test
-    @Description("TestID AT5")
     void testAcceptAttackVisitorOnlyRedStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -139,22 +139,14 @@ public class WeaponTest {
         assertEquals(49.5, weapon.getBaseStrength());
     }
 
+    //("TestID AT6, DT6")
     @Test
-    @Description("TestID AT6, DT6")
     void testAcceptNullVisitor() {
         assertThrows(NullPointerException.class, () -> WEAPON_WITH_THREE_SOCKETS.accept(null));
     }
 
-    /*
-    DT1	BS=50, Sockets med stenar BLÅ10RÖD10BLÅ10
-    DT2	BS=-2,5, Sockets med stenar RÖD5RÖD10(COST=2)BLÅ10
-    DT3	BS=50, Sockets med stenar BLÅ10BLÅ10
-    DT4	BS=50, Sockets med stenar RÖD10RÖD10
-    DT5	BS=50, TVÅ RÖDA TOMMA SOCKETS
-     */
-
+    //("TestID DT1")
     @Test
-    @Description("TestID DT1")
     void testDefenceWithMixedSockets() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.BLUE),
@@ -169,8 +161,8 @@ public class WeaponTest {
         assertEquals(48.5, weapon.getBaseStrength());
     }
 
+    //("TestID DT2")
     @Test
-    @Description("TestID DT2")
     void testDefenceNegativeStrengthOrderedSocketsDifferentStrengthAndCost() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -186,8 +178,8 @@ public class WeaponTest {
         assertEquals(-6, weapon.getBaseStrength(),0.05);
     }
 
+    //("TestID DT3")
     @Test
-    @Description("TestID DT3")
     void testDefenceBlueStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.BLUE),
@@ -200,8 +192,8 @@ public class WeaponTest {
         assertEquals(49.5, weapon.getBaseStrength(),0.05);
     }
 
+    //("TestID DT4")
     @Test
-    @Description("TestID DT4")
     void testDefenceRedStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -214,8 +206,8 @@ public class WeaponTest {
         assertEquals(47.5, weapon.getBaseStrength(),0.05);
     }
 
+    //("TestID DT5")
     @Test
-    @Description("TestID DT5")
     void testDefenceEmptySockets() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),

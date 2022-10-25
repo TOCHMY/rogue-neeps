@@ -1,4 +1,10 @@
-package item;
+package item.visitors;
+
+import item.items.Armor;
+import item.items.Item;
+import item.items.Shield;
+import item.items.Weapon;
+import item.stonesystem.MagicColor;
 
 public class DefenceVisitor implements ItemVisitor {
 

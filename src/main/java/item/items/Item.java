@@ -1,4 +1,9 @@
-package item;
+package item.items;
+
+import item.stonesystem.GemStone;
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
+import item.visitors.ItemVisitor;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +25,7 @@ public abstract class Item {
         this.sockets = sockets;
     }
 
-    abstract double accept(ItemVisitor visitor);
+    public abstract double accept(ItemVisitor visitor);
 
     public void setBaseStrength(double newStrength) {
         baseStrength = newStrength;
@@ -45,14 +50,14 @@ public abstract class Item {
                         });
     }
 
-    protected double getCostFromStonesOfColor(MagicColor color) {
+    public double getCostFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
                 .filter(socket -> socket.getGemStone() != null && socket.getGemStone().color().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().cost())
                 .sum();
     }
 
-    protected double getStrengthFromStonesOfColor(MagicColor color) {
+    public double getStrengthFromStonesOfColor(MagicColor color) {
         return getSockets().stream()
                 .filter(socket -> socket.getGemStone() != null && socket.getGemStone().color().equals(color))
                 .mapToDouble(socket -> socket.getGemStone().strength())
