@@ -55,15 +55,16 @@ public class NicoMap {
     public void placePlayer(Player p){
         playerPosition = new Position(1,1);
         tiles[1][1].setPlayer(p);
-        System.out.println(tiles[1][1].isOccupied());
 
     }
     public void placePlayer(Player p, Position pos){
         NicoTile target = tiles[pos.row()][pos.col()];
-        if(target.isWalkable()){
+
+        if(p.canMove(target)){
             target.setPlayer(p);
             playerPosition = new Position(pos.row(),pos.col());
         }
+
         else{
             throw new IllegalArgumentException("Cannot be placed here");
         }
@@ -71,20 +72,10 @@ public class NicoMap {
     public void move(Direction dir){
         if(dir == Direction.RIGHT){
             NicoTile target = tiles[playerPosition.row()][playerPosition.col()+1];
-            if(target.isWalkable()){
+            if(player.canMove(target)){
                 target.setPlayer(player);
                 tiles[playerPosition.row()][playerPosition.col()].removePlayer();
                 playerPosition = playerPosition.newPosition(Direction.RIGHT);
-            }
-            if(target.isClimbable()){
-                target.setPlayer(player);
-                if(target.isOccupied()){
-                    tiles[playerPosition.row()][playerPosition.col()].removePlayer();
-                    playerPosition = playerPosition.newPosition(Direction.RIGHT);
-                }
-            }
-            else{
-                System.out.println("cannot move there");
             }
         }
     }
@@ -95,8 +86,6 @@ public class NicoMap {
                 for(int row = pos.row(); row < pos.row() + length; row++){
                     tiles[row][pos.col()] = new NicoWall(row, pos.col());
                 }
-
-
         }
     }
 }

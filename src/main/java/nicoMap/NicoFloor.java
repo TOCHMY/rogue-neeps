@@ -8,20 +8,18 @@ public class NicoFloor extends NicoTile{
         super(row, col);
     }
 
-    @Override
+
     void setPlayer(Player p) {
-        if(isWalkable()){
+        if(!isOccupied()){
             player = p;
         }
     }
 
-    @Override
     void removePlayer() {
         player = null;
     }
 
-    @Override
-    public boolean isOccupied(){
+    protected boolean isOccupied(){
         if(player != null){
             return true;
         }
@@ -36,13 +34,4 @@ public class NicoFloor extends NicoTile{
         return " ";
     }
 
-    @Override
-    boolean isWalkable() {
-        return true;
-    }
-
-    @Override
-    boolean isClimbable() {
-        return false;
-    }
 }
