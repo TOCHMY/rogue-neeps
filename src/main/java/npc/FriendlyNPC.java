@@ -1,33 +1,32 @@
 package npc;
 
+import map.Tile;
 import player.Player;
 import quest.Quest;
 import quest.QuestDatabase;
 import util.UserInputAsker;
 
 public class FriendlyNPC extends NPC {
-
-    private final String name;
-    private String dialog = "";
     private final boolean isQuestGiver;
+    private String dialog = "";
     private Quest questToGive;
-
     private boolean isQuestGoal = false;
 
     public FriendlyNPC(String name) {
-        this.name = name;
+        super(name, 50);
         isQuestGiver = false;
     }
 
 
     public FriendlyNPC(String name, boolean isQuestGiver) {
-        this.name = name;
+        super(name, 50);
         this.isQuestGiver = isQuestGiver;
     }
 
     //Give npc.NPC a quest by questID
     public void getQuestFromDatabase(int questID, QuestDatabase qdb) {
         Quest q = qdb.getQuest(questID);
+        setDialog(q.getQuestDescription());
         assignQuestToNPC(q);
     }
 
@@ -93,6 +92,10 @@ public class FriendlyNPC extends NPC {
         } else {
             System.out.println("Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
         }
+    }
+    @Override
+    boolean canMove(Tile tile) {
+        return tile.isRoomTile();
     }
 
     public void setDialog(String text) {

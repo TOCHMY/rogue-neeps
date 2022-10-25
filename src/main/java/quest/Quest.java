@@ -6,12 +6,11 @@ import npc.FriendlyNPC;
 public class Quest {
 
     private final int questID;
+    private final String questName;
     private boolean isInitiated;
     private boolean isCompleted;
-
-    private boolean isReturnedToQuestGiver;
+    private boolean isReturnedToQuestGiver; // == means the quest is finished
     private String questDescription;
-    private final String questName;
     private String questGoalText;
     private int killQuestCurrentKilled;
     private int amountOfEnemiesToKill;
@@ -35,6 +34,9 @@ public class Quest {
     public void setKillQuestTarget(EnemyNPC npc) {
         this.killQuestTarget = npc;
     }
+    public EnemyNPC getKillQuestTarget() {
+        return killQuestTarget;
+    }
 
     public void setTalkQuestTarget(FriendlyNPC npc) {
         this.talkQuestTarget = npc;
@@ -44,12 +46,12 @@ public class Quest {
         return talkQuestTarget;
     }
 
-    public EnemyNPC getKillQuestTarget() {
-        return killQuestTarget;
-    }
-
     public String getQuestName() {
         return questName;
+    }
+
+    public int getQuestID() {
+        return questID;
     }
 
     public int getKillQuestCurrentKilled() {
@@ -68,8 +70,16 @@ public class Quest {
         this.questGoalText = questGoalText;
     }
 
-    public void setKillQuestGoal(int amountOfEnemiesToKill) {
+    public String getQuestGoalText() {
+        return questGoalText;
+    }
+
+    public void setAmountOfEnemiesToKill(int amountOfEnemiesToKill) {
         this.amountOfEnemiesToKill = amountOfEnemiesToKill;
+    }
+
+    public int getAmountOfEnemiesToKill() {
+        return amountOfEnemiesToKill;
     }
 
     public boolean isReturnedToQuestGiver() {
@@ -98,7 +108,12 @@ public class Quest {
 
     public void printQuestCompleted() {
         System.out.println("Quest " + getQuestName() + " is completed. Return to " + getQuestGiver().getName() + ".");
+    }
 
+    public void resetKillQuest() {
+        isInitiated = false;
+        isCompleted = false;
+        killQuestCurrentKilled = 0;
     }
 
     public void updateTalkQuestStatus(FriendlyNPC npc) {
@@ -125,9 +140,7 @@ public class Quest {
     public void setInitiated(boolean initiated) {
         isInitiated = initiated;
     }
-    public String getQuestGoalText() {
-        return questGoalText;
-    }
+
 
     @Override
     public String toString() {

@@ -1,7 +1,7 @@
 package quest;
 
-import npc.EnemyNPC;
 import npc.FriendlyNPC;
+import npc.Pig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.Human;
@@ -12,19 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-//Tänkte göra tillståndsmaskin på quest.QuestTest, fråga till Henke -> När man skriver testfallen till tillståndsmaskinen
-// ska alla test vara samlade i samma Testklass, eller kan man hoppa mellan? Huruvida ett quest accepteras eller ej styrs
-// i npc.FriendlyNPC klassen nu, så tillstånd styrs i quest.QuestTest medan bågar kan styras i npc.FriendlyNPC och npc.EnemyNPC
-
-
 //quest.setInitated() och setCompleted() kallas ibland istället för att gå igenom hela processen att spelaren ska
 // acceptera quest av npc.NPC
 public class QuestTest {
 
-    Player player = new Human();
+    private final Player player = new Human();
     private final FriendlyNPC npcKate = new FriendlyNPC("Kate", true);
-    private Quest quest = new Quest(0, "");
+    private final Pig pig = new Pig();
     private final QuestDatabase qdb = new QuestDatabase();
+    private Quest quest = new Quest(0, "");
 
     @BeforeEach
     void defineQuestAndAssignPigQuestToNPCKate() {
@@ -92,18 +88,29 @@ public class QuestTest {
                 -> player.abandonQuest(quest)); // "quest.Quest does not exist in quest log"
     }
 
-//    @Test
-//    void testPlayerAbandonQuest_questIsSetToQuestGiver() {
-//        UserInputAsker userInputAsker = mock(UserInputAsker.class);
-//        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
-//        npcKate.askToAcceptQuest(userInputAsker, player);
-//        player.abandonQuest(quest);
-//        assertEquals(quest, npcKate.getAssignedQuest());
-//    }
+    @Test
+    void testPlayerAbandonQuest_questIsSetToQuestGiver() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        player.abandonQuest(quest);
+        assertEquals(quest, npcKate.getAssignedQuest());
+    }
+
+    @Test
+    void testPlayerAbandonQuestAfterKillingEnemyPig_questStatusIsReset() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        player.killTarget(pig);
+        assertEquals("1 of 5 pigs killed.", quest.printKillQuestStatus());
+        player.abandonQuest(quest);
+        npcKate.askToAcceptQuest(userInputAsker, player);
+        assertEquals("0 of 5 pigs killed.", quest.printKillQuestStatus());
+    }
 
     @Test
     void testPigQuestGoalIsUpdated_WhenPigIsKilled() {
-        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         assertEquals("0 of 5 pigs killed.", quest.printKillQuestStatus());
@@ -117,7 +124,6 @@ public class QuestTest {
     // andra skulle vara tex Octopus -> Octopi, Mantis -> Mantises osv
     @Test
     void testPigQuestStatusTextDisplaysCorrectText_WhenPigsGetKilled_AfterQuestGoalIsCompleted() {
-        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         player.killTarget(pig);
@@ -134,7 +140,6 @@ public class QuestTest {
 
     @Test
     void testKillQuestDoesNotIncrementBeyondQuestGoal() {
-        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         player.killTarget(pig);
@@ -148,7 +153,6 @@ public class QuestTest {
 
     @Test
     void testPigQuestGoalIsSetToCompleted_WhenQuestGoalIsReached() {
-        EnemyNPC pig = new EnemyNPC("Pig", 1, true);
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         assertFalse(quest.isCompleted());
@@ -234,35 +238,4 @@ public class QuestTest {
         assertTrue(quest2.isCompleted());
     }
 
-    //Gör denna till tillståndsmaskin?
-    @Test
-    void testInteractionWithNPCsForHerbertQuest_fromStartToFinish() {
-        UserInputAsker userInputAsker = mock(UserInputAsker.class);
-        Quest quest2 = qdb.getQuest(2);
-        FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
-        npcHerbert.setDialog("Oh, I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
-        npcHerbert.setQuestGoal();
-        npcKate.getQuestFromDatabase(2, qdb);
-        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
-        player.interactWithFriendlyNPC(userInputAsker, npcKate);
-        assertFalse(player.getQuestLog().contains(quest2));
-        assertFalse(quest2.isInitiated());
-        assertFalse(quest2.isCompleted());
-        assertFalse(quest2.isReturnedToQuestGiver());
-        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
-        npcKate.askToAcceptQuest(userInputAsker, player);
-        assertTrue(player.getQuestLog().contains(quest2));
-        assertTrue(quest2.isInitiated());
-        assertFalse(quest2.isCompleted());
-        assertFalse(quest2.isReturnedToQuestGiver());
-        when(userInputAsker.ask("Talk to " + npcHerbert.getName() + "? y / n")).thenReturn("y");
-        player.interactWithFriendlyNPC(userInputAsker, npcHerbert);
-        assertTrue(quest2.isCompleted());
-        assertFalse(quest2.isReturnedToQuestGiver());
-        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
-        npcKate.completeQuest(quest2, player);
-        assertTrue(quest2.isReturnedToQuestGiver());
-        assertFalse(player.getQuestLog().contains(quest2));
-        assertTrue(player.getFinishedQuestsLog().contains(quest2));
-    }
 }

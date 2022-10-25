@@ -1,4 +1,8 @@
-package item;
+package item.visitors;
+
+import item.items.Item;
+import item.stonesystem.MagicColor;
+import item.items.Weapon;
 
 public class AttackVisitor implements ItemVisitor {
 

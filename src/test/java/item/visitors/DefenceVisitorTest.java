@@ -1,11 +1,15 @@
-package item;
+package item.visitors;
 
+import item.items.Armor;
+import item.items.MagicBag;
+import item.items.Shield;
+import item.items.Weapon;
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
+import item.visitors.DefenceVisitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

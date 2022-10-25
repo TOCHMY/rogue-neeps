@@ -1,12 +1,11 @@
-package item.armor;
+package item.items;
 
-import item.Armor;
-import item.GemStone;
-import item.MagicColor;
-import item.MagicSocket;
+import item.stonesystem.GemStone;
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
+import item.visitors.DefenceVisitor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import item.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 

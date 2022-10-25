@@ -8,17 +8,14 @@ import npc.FriendlyNPC;
 import quest.Quest;
 import util.*;
 import item.ItemCollection;
-import item.Shield;
-import item.Weapon;
-
+import item.items.Shield;
+import item.items.Weapon;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public abstract class Player {
+public abstract class Player implements Movable {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
-
     private Player.Experience xp;
     Stats stats;
     private Direction playerFacingDirection;
@@ -67,10 +64,10 @@ public abstract class Player {
         return position;
     }
 
-
     public void moveTo(Position pos){
         position = pos;
     }
+
     public void move(Direction dir) {
         if(map == null){
             throw new IllegalStateException("Cannot move without a map");
@@ -82,16 +79,14 @@ public abstract class Player {
         setPlayerFacingDirection(dir);
     }
 
-    private void move(Tile target){
+    public void move(Tile target){
         if(map == null){
             throw new IllegalStateException("Cannot move without a map");
         }
         if(canMove(target)){
             position = target.getPosition();
         }
-
     }
-
     private void setPlayerFacingDirection(Direction direction) {
         playerFacingDirection = direction;
     }
@@ -113,7 +108,6 @@ public abstract class Player {
             }
         }
     }
-
 
     public ArrayList<Quest> getQuestLog() {
         return questLog;
@@ -185,7 +179,7 @@ public abstract class Player {
 
     public void abandonQuest(Quest quest) {
         if (questLog.contains(quest)) {
-//            quest.setQuestGiver(quest.getQuestGiver());
+            quest.resetKillQuest();
             removeQuestFromQuestLog(quest);
         } else {
             throw new NullPointerException("Quest does not exist in quest log");
@@ -229,6 +223,5 @@ public abstract class Player {
     public void addXp(int amount) {
         xp.updateXp(amount);
     }
-
 
 }

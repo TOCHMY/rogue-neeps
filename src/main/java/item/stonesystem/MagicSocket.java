@@ -1,4 +1,4 @@
-package item;
+package item.stonesystem;
 
 public class MagicSocket {
 
