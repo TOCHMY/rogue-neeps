@@ -62,5 +62,5 @@ public abstract class Item {
     protected long countSocketsOfColor(List<MagicSocket> sockets, MagicColor color) {
         return sockets.stream().filter(socket -> socket.getColor() == color).count();
     }
-    abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
+    protected abstract boolean anySocketOfWrongColor(List<MagicSocket> sockets);
 }
