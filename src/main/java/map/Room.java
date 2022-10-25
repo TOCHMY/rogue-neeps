@@ -15,8 +15,9 @@ public class Room {
     private final Tile startingTile;
     private final List<NPC> friendlyNpcList = new ArrayList<>();
     private final List<NPC> hostileNpcList = new ArrayList<>();
-    private final Map map;
+    private final List<Tile> waterTileList = new ArrayList<>();
     private final List<Tile> roomTilesList = new ArrayList<>();
+    private final Map map;
 
 
     public Room(String name, int width, int height, Tile startingTile, Map map) {
@@ -70,6 +71,30 @@ public class Room {
         }
         friendlyNpcList.add(npc);
 
+    }
+
+    public void addWaterTile(Position requestedWaterPosition){
+        Tile requesteWaterTile = map.getMap2dArray()[requestedWaterPosition.row()][requestedWaterPosition.col()];
+        if(!roomTilesList.contains(requesteWaterTile)){
+            throw new IllegalArgumentException("tile is not a room tile");
+        }
+        if(requesteWaterTile.isOccupied()){
+            throw new IllegalArgumentException("tile is already occupied");
+        }
+        requesteWaterTile.makeWaterTile();
+        waterTileList.add(requesteWaterTile);
+    }
+
+    public void addSwampTile(Position requestedSwampPosition){
+        Tile requestedSwampTile = map.getMap2dArray()[requestedSwampPosition.row()][requestedSwampPosition.col()];
+        if(!roomTilesList.contains(requestedSwampTile)){
+            throw new IllegalArgumentException("tile is not a room tile");
+        }
+        if(requestedSwampTile.isOccupied()){
+            throw new IllegalArgumentException("tile is already occupied");
+        }
+        requestedSwampTile.makeSwampTile();
+        waterTileList.add(requestedSwampTile);
     }
 
     public List<NPC> getFriendlyNpc(){

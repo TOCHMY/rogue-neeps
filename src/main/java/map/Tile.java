@@ -14,6 +14,8 @@ public class Tile {
     private boolean wallTile = false;
     private boolean horizontalWall = false;
     private boolean verticalWall = false;
+    private boolean swampTile = false;
+    private boolean waterTile = false;
     private Room room;
     private Tunnel tunnel;
     private Position pos;
@@ -21,21 +23,23 @@ public class Tile {
 
 
     // +1 för att börja räkna spelplanen från X1Y1 istället för X0Y0.
-    public Tile(Position pos){
+    public Tile(Position pos) {
         this.pos = pos;
     }
-    public Tile(int row, int col){
+
+    public Tile(int row, int col) {
         this.pos = new Position(row, col);
     }
 
-    public int getRow(){
+    public int getRow() {
         return pos.row();
     }
 
-    public int getColumn(){
+    public int getColumn() {
         return pos.col();
     }
-    public void makeRoomTile(Room room){
+
+    public void makeRoomTile(Room room) {
         roomTile = true;
         wallTile = false;
         horizontalWall = false;
@@ -61,7 +65,7 @@ public class Tile {
         return horizontalWall;
     }
 
-    public boolean isRoomTile(){
+    public boolean isRoomTile() {
         return roomTile;
     }
 
@@ -88,11 +92,11 @@ public class Tile {
         roomTile = false;
     }
 
-    private Tunnel getTunnel(){
+    private Tunnel getTunnel() {
         return tunnel;
     }
 
-    public boolean isWallTile(){
+    public boolean isWallTile() {
         return wallTile;
     }
 
@@ -101,7 +105,34 @@ public class Tile {
         return tunnelTile;
     }
 
+    public boolean isSwampTile() {
+        return swampTile;
+    }
 
+    public boolean isWaterTile() {
+        return waterTile;
+    }
+
+    public void makeWaterTile() {
+        waterTile = true;
+        roomTile = false;
+        wallTile = false;
+        verticalWall = false;
+        horizontalWall = false;
+        tunnelTile = false;
+        swampTile = false;
+    }
+
+    public void makeSwampTile() {
+        swampTile = true;
+        roomTile = false;
+        wallTile = false;
+        verticalWall = false;
+        horizontalWall = false;
+        tunnelTile = false;
+        waterTile = false;
+
+    }
 
 
     @Override
@@ -115,5 +146,21 @@ public class Tile {
     @Override
     public int hashCode() {
         return Objects.hash(pos);
+    }
+
+    @Override
+    public String toString() {
+        if (isRoomTile()) {
+            return " ";
+        } else if (isHorizontalWallTile()) {
+            return "=";
+        } else if (isVerticalWallTile()) {
+            return "|";
+        } else if (isSwampTile()) {
+            return "#";
+        } else if (isWaterTile()) {
+            return "~";
+        }
+        else return " ";
     }
 }

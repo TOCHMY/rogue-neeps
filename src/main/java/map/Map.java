@@ -184,8 +184,11 @@ public class Map {
 
                 if(playerPos.row() == col && playerPos.col() == row) {
                     System.out.print("P");
+                } else {
+                    System.out.print(map2dArray[col][row].toString());;
                 }
-                 else if(map2dArray[col][row].isRoomTile()){
+            }
+                 /*else if(map2dArray[col][row].isRoomTile()){
                     Room room = map2dArray[col][row].getRoom();
                     printRoomTiles(room, roomTilesOnOrOff);
                  }
@@ -219,7 +222,7 @@ public class Map {
 
                 }
 
-            }
+            }*/
             System.out.println();
         }
         System.out.println();

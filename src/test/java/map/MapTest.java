@@ -34,7 +34,49 @@ class MapTest {
         Room roomF = new Room("F", 40,9, new Tile(new Position(27,55)), map);
         map.addRoom(roomF);
 
-        // Enemy 1 map.Room A new version
+        roomE.addSwampTile(new Position(24,13));
+        roomE.addSwampTile(new Position(24,14));
+        roomE.addSwampTile(new Position(24,15));
+
+        roomE.addSwampTile(new Position(25,13));
+        roomE.addSwampTile(new Position(25,14));
+        roomE.addSwampTile(new Position(25,15));
+
+
+        roomE.addWaterTile(new Position(28,17));
+        roomE.addWaterTile(new Position(28,18));
+        roomE.addWaterTile(new Position(28,19));
+        roomE.addWaterTile(new Position(28,20));
+        roomE.addWaterTile(new Position(28,21));
+        roomE.addWaterTile(new Position(28,22));
+        roomE.addWaterTile(new Position(28,23));
+
+        roomE.addWaterTile(new Position(29,17));
+        roomE.addWaterTile(new Position(29,18));
+        roomE.addWaterTile(new Position(29,19));
+        roomE.addWaterTile(new Position(29,20));
+        roomE.addWaterTile(new Position(29,21));
+        roomE.addWaterTile(new Position(29,22));
+        roomE.addWaterTile(new Position(29,23));
+
+        roomE.addWaterTile(new Position(30,17));
+        roomE.addWaterTile(new Position(30,18));
+        roomE.addWaterTile(new Position(30,19));
+        roomE.addWaterTile(new Position(30,20));
+        roomE.addWaterTile(new Position(30,21));
+        roomE.addWaterTile(new Position(30,22));
+        roomE.addWaterTile(new Position(30,23));
+
+        roomE.addWaterTile(new Position(31,17));
+        roomE.addWaterTile(new Position(31,18));
+        roomE.addWaterTile(new Position(31,19));
+        roomE.addWaterTile(new Position(31,20));
+        roomE.addWaterTile(new Position(31,21));
+        roomE.addWaterTile(new Position(31,22));
+        roomE.addWaterTile(new Position(31,23));
+
+
+        /*// Enemy 1 map.Room A new version
         EnemyNPC npc1 = new EnemyNPC("hostile1melee",1,true); // nuvarande
         Position npcPos = new Position(3,15);
         roomA.addHostileNpc(npc1, npcPos);
@@ -116,7 +158,7 @@ class MapTest {
 
         FriendlyNPC npc17 = new FriendlyNPC("Friendly3"); // nuvarande
         npcPos = new Position(4,80);
-        roomB.addFriendlyNpc(npc17,npcPos);
+        roomB.addFriendlyNpc(npc17,npcPos);*/
 
 
         // map.Tunnel A till C
