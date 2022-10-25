@@ -21,18 +21,15 @@ public class Tunnel {
             this.tunnelEnd = tunnelEnd;
             if(tunnelStart.isHorizontalWallTile()){
                 verticalTunnel = true;
-                length = tunnelEnd.getPosition().row() - tunnelStart.getPosition().row();
+                length = tunnelEnd.getPosition().row()+1 - tunnelStart.getPosition().row();
             } else {
                 horizontalTunnel = true;
-                length = tunnelEnd.getPosition().col() - tunnelStart.getPosition().col();
+                length = tunnelEnd.getPosition().col()+1 - tunnelStart.getPosition().col();
             }
         } else{
             throw new IllegalArgumentException("A tunnel must be initiated from a walltile & end on a walltile");
         }
 
-    }
-    public boolean isHorizontalTunnel() {
-        return horizontalTunnel;
     }
 
     public boolean isVerticalTunnel() {

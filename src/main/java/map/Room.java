@@ -46,7 +46,7 @@ public class Room {
     }
 
     public void addHostileNpc(EnemyNPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
-        Tile requestedTileForNpc = map.getMap2dArray()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
+        Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
 
         if(!roomTilesList.contains(requestedTileForNpc)){
             throw new IllegalArgumentException("tile is not a room tile");
@@ -62,7 +62,7 @@ public class Room {
     }
 
     public void addFriendlyNpc(FriendlyNPC npc, Position requestedNpcPosition)throws IllegalArgumentException{
-        Tile requestedNpcTile = map.getMap2dArray()[requestedNpcPosition.row()][requestedNpcPosition.col()];
+        Tile requestedNpcTile = map.getMap()[requestedNpcPosition.row()][requestedNpcPosition.col()];
         if(!roomTilesList.contains(requestedNpcTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
@@ -74,7 +74,7 @@ public class Room {
     }
 
     public void addWaterTile(Position requestedWaterPosition){
-        Tile requesteWaterTile = map.getMap2dArray()[requestedWaterPosition.row()][requestedWaterPosition.col()];
+        Tile requesteWaterTile = map.getMap()[requestedWaterPosition.row()][requestedWaterPosition.col()];
         if(!roomTilesList.contains(requesteWaterTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
@@ -86,7 +86,7 @@ public class Room {
     }
 
     public void addSwampTile(Position requestedSwampPosition){
-        Tile requestedSwampTile = map.getMap2dArray()[requestedSwampPosition.row()][requestedSwampPosition.col()];
+        Tile requestedSwampTile = map.getMap()[requestedSwampPosition.row()][requestedSwampPosition.col()];
         if(!roomTilesList.contains(requestedSwampTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
@@ -99,16 +99,6 @@ public class Room {
 
     public List<NPC> getFriendlyNpc(){
         return friendlyNpcList;
-    }
-
-    @Override
-    public String toString() {
-        return "map.Room{" +
-                "name='" + name + '\'' +
-                ", width=" + width +
-                ", height=" + height +
-                ", startingTile=" + startingTile +
-                '}';
     }
 
     public List<Tile> getRoomTilesList() {

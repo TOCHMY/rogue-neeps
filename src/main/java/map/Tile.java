@@ -148,8 +148,8 @@ public class Tile {
         return Objects.hash(pos);
     }
 
-    @Override
-    public String toString() {
+
+    public String symbolPrint() {
         if (isRoomTile()) {
             return " ";
         } else if (isHorizontalWallTile()) {
