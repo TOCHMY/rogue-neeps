@@ -1,7 +1,8 @@
 package player;
 
-import item.Shield;
-import item.Weapon;
+
+import item.items.Shield;
+import item.items.Weapon;
 import map.Tile;
 
 
