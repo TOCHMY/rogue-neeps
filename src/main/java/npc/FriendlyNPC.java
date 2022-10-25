@@ -1,27 +1,25 @@
 package npc;
 
+import map.Tile;
 import player.Player;
 import quest.Quest;
 import quest.QuestDatabase;
 import util.UserInputAsker;
 
 public class FriendlyNPC extends NPC {
-
-    private final String name;
     private String dialog = "";
     private final boolean isQuestGiver;
     private Quest questToGive;
-
     private boolean isQuestGoal = false;
 
     public FriendlyNPC(String name) {
-        this.name = name;
+        super(name, 50);
         isQuestGiver = false;
     }
 
 
     public FriendlyNPC(String name, boolean isQuestGiver) {
-        this.name = name;
+        super(name, 50);
         this.isQuestGiver = isQuestGiver;
     }
 
@@ -93,6 +91,10 @@ public class FriendlyNPC extends NPC {
         } else {
             System.out.println("Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
         }
+    }
+    @Override
+    boolean canMove(Tile tile) {
+        return tile.isRoomTile();
     }
 
     public void setDialog(String text) {

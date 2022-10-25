@@ -1,33 +1,23 @@
 package npc;
 
+import map.Tile;
 import npc.NPC;
+import util.Direction;
+import util.Movable;
+import util.Position;
 
 public class EnemyNPC extends NPC {
-
-
     private final int level; //Hook up with player level for balance during map-gen
     private final boolean isMeleeEnemy; //True = melee fighter, false = ranged fighter
-    private final String name;
-    private int hitPointValue;
     private boolean isDead;
 
     public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
-        this.name = name;
+        super(name, 10*level);
         this.level = level;
-        setEnemyStats(level);
         this.isMeleeEnemy = isMeleeEnemy;
     }
-
-    //Numbers used are arbitrary for now, needs adjusting for balance purpose.
-    private void setEnemyStats(int level) {
-//        attackValue = level;
-//        defenseValue = level;
-        hitPointValue = 10 * level;
-    }
-
-
     public void die() {
-        hitPointValue = 0;
+        hp = 0;
         isDead = true;
     }
 
@@ -35,11 +25,14 @@ public class EnemyNPC extends NPC {
         return isMeleeEnemy;
     }
 
-    public String getName() {
-        return name;
-    }
+
 
     public String toString() {
-        return "EnemyNPC: \n" + "Name: " + name + " \nLevel: " + level + "\nHP: " + hitPointValue;
+        return "EnemyNPC: \n" + "Name: " + name + " \nLevel: " + level + "\nHP: " + hp;
+    }
+
+    @Override
+    boolean canMove(Tile tile) {
+        return tile.isRoomTile();
     }
 }

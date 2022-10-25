@@ -1,7 +1,9 @@
 package map;
 
+import npc.NPC;
 import player.Player;
 import util.Direction;
+import util.Movable;
 import util.Position;
 
 import java.util.ArrayList;
@@ -13,14 +15,21 @@ public class Map {
     private final ArrayList<Room> roomList = new ArrayList<>();
     private final ArrayList<Tunnel> tunnelList = new ArrayList<>();
     private Player player;
+    private ArrayList<NPC> npcs;
 
     public Map(){
         fillMapWithTiles();
     }
+
+    public void addNPC(NPC npc){
+        npcs.add(npc);
+    }
     public void setPlayer(Player p) {
         player = p;
     }
+    public void movement(Movable entity){
 
+    }
     public Tile getTile(Position pos){
         return map2dArray[pos.row()][pos.col()];
     }
@@ -185,6 +194,7 @@ public class Map {
                 if(playerPos.row() == col && playerPos.col() == row) {
                     System.out.print("P");
                 }
+
                  else if(map2dArray[col][row].isRoomTile()){
                     Room room = map2dArray[col][row].getRoom();
                     printRoomTiles(room, roomTilesOnOrOff);

@@ -1,6 +1,3 @@
-import map.Map;
-import map.Tile;
-import util.FacingDirection;
 /*
 
 public class Fireball extends Map {
