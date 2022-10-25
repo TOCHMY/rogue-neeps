@@ -1,8 +1,8 @@
-package item.magic;
+package item.stonesystem;
 
 import org.junit.jupiter.api.Test;
-import item.GemStone;
-import item.MagicColor;
+import item.stonesystem.GemStone;
+import item.stonesystem.MagicColor;
 
 import static org.junit.jupiter.api.Assertions.*;
 

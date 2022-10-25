@@ -1,5 +1,10 @@
 package item;
 
+import item.items.*;
+import item.stonesystem.MagicColor;
+import item.visitors.AttackVisitor;
+import item.visitors.DefenceVisitor;
+
 import java.util.*;
 
 public class ItemCollection {

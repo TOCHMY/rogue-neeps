@@ -1,4 +1,8 @@
-package item;
+package item.items;
+
+import item.stonesystem.MagicColor;
+import item.stonesystem.MagicSocket;
+import item.visitors.ItemVisitor;
 
 import java.util.List;
 
@@ -11,12 +15,12 @@ public class MagicBag extends Item {
     }
 
     @Override
-    protected double accept(ItemVisitor visitor) {
+    public double accept(ItemVisitor visitor) {
         return visitor.visit(this);
     }
 
     @Override
     protected boolean anySocketOfWrongColor(List<MagicSocket> sockets) {
-        return sockets.size() - countSocketsOfColor(sockets,MagicColor.PURPLE) > 0;
+        return sockets.size() - countSocketsOfColor(sockets, MagicColor.PURPLE) > 0;
     }
 }

@@ -11,8 +11,8 @@ import util.Movement;
 import util.Position;
 import util.UserInputAsker;
 import item.ItemCollection;
-import item.Shield;
-import item.Weapon;
+import item.items.Shield;
+import item.items.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
