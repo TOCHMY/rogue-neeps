@@ -2,6 +2,9 @@ package player;
 
 import item.Shield;
 import item.Weapon;
+import nicoMap.NicoFloor;
+import nicoMap.NicoTile;
+import nicoMap.Swamp;
 
 import java.util.List;
 
@@ -16,6 +19,17 @@ public class Ogre extends Player{
         super(5, 1, 1, 100);
     }
 
+
+    @Override
+    public boolean canMove(NicoTile tile) {
+            if(tile instanceof NicoFloor){
+                return true;
+            }
+            if(tile instanceof Swamp && stats.getStrength() > 10){
+                return true;
+            }
+            return false;
+    }
 
     @Override
     void equip(Weapon weapon){

@@ -3,13 +3,11 @@ package player;
 
 import map.Map;
 import nicoMap.NicoMap;
+import nicoMap.NicoTile;
 import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import quest.Quest;
-import util.Direction;
-import util.Movement;
-import util.Position;
-import util.UserInputAsker;
+import util.*;
 import item.ItemCollection;
 import item.Shield;
 import item.Weapon;
@@ -38,6 +36,16 @@ public abstract class Player implements Movement {
         setPlayerFacingDirection(Direction.UP);
     }
 
+    private double attackDamage(){
+      int playerStrength = stats.getStrength();
+      double attackFromItem = items.attackWithItems();
+      double dmg = playerStrength + (playerStrength * (.1 * attackFromItem));
+      return dmg;
+    }
+    public void attack(Killable target){
+        target.takeDmg(this, attackDamage());
+    }
+    public abstract boolean canMove(NicoTile tile);
     abstract void equip(Weapon weapon);
     abstract void equip(Shield shield);
 
