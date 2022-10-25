@@ -3,6 +3,7 @@ package map;
 import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import npc.NPC;
+import util.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +44,16 @@ public class Room {
         return startingTile;
     }
 
-    public void addHostileNpc(EnemyNPC npc, Tile npcTile) throws IllegalArgumentException{
-        Tile t = map.getMap2dArray()[npcTile.getRow()][npcTile.getColumn()];
+    public void addHostileNpc(EnemyNPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
+        Tile requestedTileForNpc = map.getMap2dArray()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
 
-        if(!roomTilesList.contains(npcTile)){
+        if(!roomTilesList.contains(requestedTileForNpc)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
-        if(t.isOccupied()){
+        if(requestedTileForNpc.isOccupied()){
             throw new IllegalArgumentException("tile is already occupied");
         }
-        t.setEnemyNpcOnTile(npc);
+        requestedTileForNpc.setEnemyNpcOnTile(npc);
         hostileNpcList.add(npc);
     }
 
@@ -60,15 +61,15 @@ public class Room {
         return hostileNpcList;
     }
 
-    public void addFriendlyNpc(FriendlyNPC npc, Tile npcTile)throws IllegalArgumentException{
-        Tile t = map.getMap2dArray()[npcTile.getRow()][npcTile.getColumn()];
-        if(!roomTilesList.contains(npcTile)){
+    public void addFriendlyNpc(FriendlyNPC npc, Position requestedNpcPosition)throws IllegalArgumentException{
+        Tile requestedNpcTile = map.getMap2dArray()[requestedNpcPosition.row()][requestedNpcPosition.col()];
+        if(!roomTilesList.contains(requestedNpcTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
-        if(t.isOccupied()){
+        if(requestedNpcTile.isOccupied()){
             throw new IllegalArgumentException("tile is already occupied");
         }
-        t.setFriendlyNpcOnTile(npc);
+        requestedNpcTile.setFriendlyNpcOnTile(npc);
         friendlyNpcList.add(npc);
 
     }

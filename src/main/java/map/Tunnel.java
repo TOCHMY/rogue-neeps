@@ -13,9 +13,7 @@ public class Tunnel {
     private boolean horizontalTunnel;
     private boolean verticalTunnel;
 
-
-
-    public Tunnel(String fromRoom, String toRoom, Tile tunnelStart, Tile tunnelEnd) throws IllegalArgumentException{
+    public Tunnel(String fromRoom, String toRoom, Tile tunnelStart, Tile tunnelEnd) {
         if(tunnelStart.isWallTile() && tunnelEnd.isWallTile()){
             this.fromRoom = fromRoom;
             this.toRoom = toRoom;
@@ -29,11 +27,17 @@ public class Tunnel {
                 length = tunnelEnd.getColumn() - tunnelStart.getColumn();
             }
         } else{
-            throw new IllegalArgumentException("A tunnel must be initiated from a walltile");
+            throw new IllegalArgumentException("A tunnel must be initiated from a walltile & end on a walltile");
         }
 
     }
+    public boolean isHorizontalTunnel() {
+        return horizontalTunnel;
+    }
 
+    public boolean isVerticalTunnel() {
+        return verticalTunnel;
+    }
 
     public Tile getStartTile() {
         return tunnelStart;
@@ -51,20 +55,8 @@ public class Tunnel {
         return toRoom;
     }
 
-    public boolean isHorizontalTunnel() {
-        return horizontalTunnel;
-    }
-
-    public boolean isVerticalTunnel() {
-        return verticalTunnel;
-    }
-
     public int getLength() {
-        if(verticalTunnel){
-            return 1 + (tunnelEnd.getRow() - tunnelStart.getRow());
-        } else {
-            return 1 + (tunnelEnd.getColumn() - tunnelStart.getColumn());
-        }
+       return length;
     }
 
     public void addTile(Tile tile) {

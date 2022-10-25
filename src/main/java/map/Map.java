@@ -18,15 +18,24 @@ public class Map {
         fillMapWithTiles();
     }
 
-    private void bindPlayer(Player p){
-        player = p;
-        p.setMap(this);
+    private void fillMapWithTiles(){
+        for (int row = 0; row < map2dArray.length; row++) {
+            for (int col = 0; col < map2dArray[row].length; col++) {
+                map2dArray[row][col] = new Tile(row,col);
+            }
+        }
     }
 
+
     public void setPlayer(Player p, Position pos){
-        bindPlayer(p);
+        player = p;
+        p.setMap(this);
         player.setPosition(pos);
         map2dArray[pos.row()][pos.col()].setPlayerOnTile(p);
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
 
@@ -34,12 +43,14 @@ public class Map {
     public void updatePlayerPosition(Direction direction, Player player) {
         Position newPos = player.getPosition().newPosition(direction);
         if(map2dArray[newPos.row()][newPos.col()].isWalkable()){
-            map2dArray[player.getPosition().row()][player.getPosition().row()].removePlayerFromTile();
-            player.map.setPlayer(player, newPos);
+            map2dArray[player.getPosition().row()][player.getPosition().col()].removePlayerFromTile();
+            setPlayer(player, newPos);
         }
     }
 
-
+    public Position getPlayerPosition() {
+        return player.getPosition();
+    }
 
     public void addRoom(Room room) {
         makeTilesBelongToRoom(room);
@@ -47,26 +58,18 @@ public class Map {
 
     }
 
-
-    public Position getPlayerPosition() {
-        return player.getPosition();
-    }
-
-
     public void addTunnel(Tunnel tunnel){
-        makeTilesBelongToTunnel(tunnel);
+        constructTunnelAndTunnelWalls(tunnel);
         tunnelList.add(tunnel);
 
     }
 
-
-    private void makeTilesBelongToTunnel(Tunnel tunnel) {
-        makeTilesInTunnelToTunnelTiles(tunnel);
-        makeTilesAroundTunnelToTunnelWallTiles(tunnel);
-
+    private void constructTunnelAndTunnelWalls(Tunnel tunnel) {
+        makeTunnelTiles(tunnel);
+        makeTunnelWalls(tunnel);
     }
 
-    private void makeTilesAroundTunnelToTunnelWallTiles(Tunnel tunnel) {
+    private void makeTunnelWalls(Tunnel tunnel) {
         if(tunnel.isVerticalTunnel()){
             makeVerticalTunnelWalls(tunnel);
         } else {
@@ -99,9 +102,7 @@ public class Map {
         }
     }
 
-
-
-    private void makeTilesInTunnelToTunnelTiles(Tunnel tunnel) {
+    private void makeTunnelTiles(Tunnel tunnel) {
         Tile start = tunnel.getStartTile();
         Tile end = tunnel.getEndingTile();
         if(tunnel.isVerticalTunnel()){
@@ -117,18 +118,6 @@ public class Map {
             }
         }
     }
-
-
-    private void fillMapWithTiles(){
-        for (int row = 0; row < map2dArray.length; row++) {
-            for (int col = 0; col < map2dArray[row].length; col++) {
-                map2dArray[row][col] = new Tile(row,col);
-            }
-        }
-
-
-    }
-
 
     private void makeTilesBelongToRoom(Room room) {
         createWallsAroundRoom(room);
@@ -153,9 +142,6 @@ public class Map {
         }
     }
 
-
-
-
     private void createWallsAroundRoom(Room room) {
         int height = room.getHeight();
         int width = room.getWidth();
@@ -178,28 +164,23 @@ public class Map {
                     map2dArray[j][i].makeVerticalWallTile();
                 }
             } else{
-                // annars gå igenom raden nedåt.
+                map2dArray[startOfRow-1][i].makeHorizontalWallTile();
+                map2dArray[endOfRow][i].makeHorizontalWallTile();
+
+                /*// annars gå igenom raden nedåt.
                 for (int j = startOfRow - 1; j < endOfRow + 1; j++) {
                     // om det är den första eller sista platsen i raden, gör den till walltile horizontal
                     if(j == startOfRow - 1|| j == endOfRow){
                         map2dArray[j][i].makeHorizontalWallTile();
                     }
-                }
-
+                }*/
             }
-
-
         }
-
     }
 
 
     public Tile[][] getMap2dArray() {
         return map2dArray;
-    }
-
-    public Player getPlayer(){
-        return player;
     }
 
 
@@ -216,7 +197,7 @@ public class Map {
                          } else {
                              System.out.print("R");
                          }
-                     } else if(map2dArray[col][row].hasFriendlyNpc){
+                     } else if(map2dArray[col][row].hasFriendlyNPC()){
                          System.out.print("F");
                      } else {
                          printRoomTiles(room, roomTilesOnOrOff);
