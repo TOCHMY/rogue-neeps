@@ -36,92 +36,87 @@ class MapTest {
 
         // Enemy 1 map.Room A new version
         EnemyNPC npc1 = new EnemyNPC("hostile1melee",1,true); // nuvarande
-        Tile npcPos = new Tile(3,15);
+        Position npcPos = new Position(3,15);
         roomA.addHostileNpc(npc1, npcPos);
 
         // HostileNPC 2 map.Room A NEW
         EnemyNPC npc2 = new EnemyNPC("hostile2melee",1,true); // nuvarande
-        npcPos = new Tile(4,28);
+        npcPos = new Position(4,28);
         roomA.addHostileNpc(npc2, npcPos);
 
         // HostileNPC 3 map.Room B NEW
         EnemyNPC npc3 = new EnemyNPC("hostile3melee",1,true); // nuvarande
-        npcPos = new Tile(4,65);
+        npcPos = new Position(4,65);
         roomB.addHostileNpc(npc3,npcPos);
 
         // HostileNPC 4 map.Room B NEW
         EnemyNPC npc4 = new EnemyNPC("hostile4NotMelee",1,false); // nuvarande
-        npcPos = new Tile(7,66);
+        npcPos = new Position(7,66);
         roomB.addHostileNpc(npc4, npcPos);
 
         // HostileNPC 5 map.Room B NEW
         EnemyNPC npc5 = new EnemyNPC("hostile5NotMelee",1,false); // nuvarande
-        npcPos = new Tile(9,70);
+        npcPos = new Position(9,70);
         roomB.addHostileNpc(npc5, npcPos);
 
         // HostileNPC 6 map.Room D NEW
         EnemyNPC npc6 = new EnemyNPC("hostile6NotMelee",1,false); // nuvarande
-        npcPos = new Tile(16,70);
+        npcPos = new Position(16,70);
         roomD.addHostileNpc(npc6, npcPos);
 
         // HostileNPC 7 map.Room F NEW
         EnemyNPC npc7 = new EnemyNPC("hostile7NotMelee",1,false); // nuvarande
-        npcPos = new Tile(30,75);
+        npcPos = new Position(30,75);
         roomF.addHostileNpc(npc7, npcPos);
 
         // HostileNPC 8 map.Room E NEW
         EnemyNPC npc8 = new EnemyNPC("hostile8NotMelee",1,false); // nuvarande
-        npcPos = new Tile(34,70);
+        npcPos = new Position(34,70);
         roomF.addHostileNpc(npc8, npcPos);
 
         // HostileNPC 9 map.Room D NEW
         EnemyNPC npc9 = new EnemyNPC("hostile9NotMelee",1,false); // nuvarande
-        npcPos = new Tile(19,70);
+        npcPos = new Position(19,70);
         roomD.addHostileNpc(npc9, npcPos);
 
         // HostileNPC 10 map.Room E NEW
         EnemyNPC npc10 = new EnemyNPC("hostile10melee",1,true); // nuvarande
-        npcPos = new Tile(34,19);
+        npcPos = new Position(34,19);
         roomE.addHostileNpc(npc10, npcPos);
 
         // HostileNPC 11 map.Room E NEW
         EnemyNPC npc11 = new EnemyNPC("hostile11melee",1,true); // nuvarande
-        npcPos = new Tile(27,15);
+        npcPos = new Position(27,15);
         roomE.addHostileNpc(npc11, npcPos);
 
         // HostileNPC 12 map.Room E NEW
         EnemyNPC npc12 = new EnemyNPC("hostile12melee",1,true); // nuvarande
-        npcPos = new Tile(25,13);
+        npcPos = new Position(25,13);
         roomE.addHostileNpc(npc12, npcPos);
 
         // HostileNPC 13 map.Room D NEW
         EnemyNPC npc13 = new EnemyNPC("hostile13melee",1,true); // nuvarande
-        npcPos = new Tile(15,30);
+        npcPos = new Position(15,30);
         roomC.addHostileNpc(npc13, npcPos);
 
         // HostileNPC 13 map.Room D NEW
         EnemyNPC npc14 = new EnemyNPC("hostile14melee",1,true); // nuvarande
-        npcPos = new Tile(17,44);
+        npcPos = new Position(17,44);
         roomC.addHostileNpc(npc14, npcPos);
 
         // Friendly 1 map.Room A NEW
         FriendlyNPC npc15 = new FriendlyNPC("Friendly1"); // nuvarande
-        npcPos = new Tile(9,8);
+        npcPos = new Position(9,8);
         roomA.addFriendlyNpc(npc15,npcPos);
 
         // Friendly 2 map.Room A NEW
         FriendlyNPC npc16 = new FriendlyNPC("Friendly2"); // nuvarande
-        npcPos = new Tile(9,10);
+        npcPos = new Position(9,10);
         roomA.addFriendlyNpc(npc16,npcPos);
 
         FriendlyNPC npc17 = new FriendlyNPC("Friendly3"); // nuvarande
-        npcPos = new Tile(4,80);
+        npcPos = new Position(4,80);
         roomB.addFriendlyNpc(npc17,npcPos);
-
-        // Friendly 4 map.Room E NEW
-        FriendlyNPC npc18 = new FriendlyNPC("Friendly4"); // nuvarande
-        npcPos = new Tile(37,8);
-        roomE.addFriendlyNpc(npc18,npcPos);
 
 
         // map.Tunnel A till C
