@@ -181,13 +181,12 @@ public abstract class Player implements Movement {
                     break;
                 }
             }
-        }  else {
-            npc.offerQuest();
         }
     }
 
     public void abandonQuest(Quest quest) {
         if (questLog.contains(quest)) {
+//            quest.setQuestGiver(quest.getQuestGiver());
             removeQuestFromQuestLog(quest);
         } else {
             throw new NullPointerException("Quest does not exist in quest log");

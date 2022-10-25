@@ -70,6 +70,7 @@ public class FriendlyNPC extends NPC implements Movement {
         player.addQuestToQuestLog(questToGive);
     }
 
+    //Return value could be used in some sort of chat-UI
     public String askToAcceptQuest(UserInputAsker uia, Player player) throws IllegalArgumentException {
         offerQuest();
         String response = uia.ask("Do you accept this quest? y / n");
@@ -87,6 +88,7 @@ public class FriendlyNPC extends NPC implements Movement {
         if (quest.equals(questToGive) && questToGive.isCompleted()) {
             System.out.println("Quest \"" + quest.getQuestName() + "\" completed.");
             quest.setReturnedToQuestGiver(true);
+            questToGive = null;
             player.addFinishedQuestToFinishedQuestLog(quest);
             player.removeQuestFromQuestLog(quest);
         } else {
