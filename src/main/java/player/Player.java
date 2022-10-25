@@ -179,7 +179,7 @@ public abstract class Player implements Movable {
 
     public void abandonQuest(Quest quest) {
         if (questLog.contains(quest)) {
-//            quest.setQuestGiver(quest.getQuestGiver());
+            quest.resetKillQuest();
             removeQuestFromQuestLog(quest);
         } else {
             throw new NullPointerException("Quest does not exist in quest log");

@@ -9,7 +9,8 @@ import util.Position;
 public class EnemyNPC extends NPC {
     private final int level; //Hook up with player level for balance during map-gen
     private final boolean isMeleeEnemy; //True = melee fighter, false = ranged fighter
-    private boolean isDead;
+    private boolean isDead; // Might be used to check if it should be removed from Map
+
 
     public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
         super(name, 10*level);

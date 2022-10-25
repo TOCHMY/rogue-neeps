@@ -7,8 +7,8 @@ import quest.QuestDatabase;
 import util.UserInputAsker;
 
 public class FriendlyNPC extends NPC {
-    private String dialog = "";
     private final boolean isQuestGiver;
+    private String dialog = "";
     private Quest questToGive;
     private boolean isQuestGoal = false;
 
@@ -26,6 +26,7 @@ public class FriendlyNPC extends NPC {
     //Give npc.NPC a quest by questID
     public void getQuestFromDatabase(int questID, QuestDatabase qdb) {
         Quest q = qdb.getQuest(questID);
+        setDialog(q.getQuestDescription());
         assignQuestToNPC(q);
     }
 
