@@ -53,7 +53,6 @@ public class Room {
         if(requestedTileForNpc.isOccupied()){
             throw new IllegalArgumentException("tile is already occupied");
         }
-        requestedTileForNpc.setEnemyNpcOnTile(npc);
         hostileNpcList.add(npc);
     }
 
@@ -69,7 +68,6 @@ public class Room {
         if(requestedNpcTile.isOccupied()){
             throw new IllegalArgumentException("tile is already occupied");
         }
-        requestedNpcTile.setFriendlyNpcOnTile(npc);
         friendlyNpcList.add(npc);
 
     }

@@ -2,9 +2,8 @@ package npc;
 
 import player.Player;
 import util.Killable;
-import util.Movement;
 
-public class Pig extends EnemyNPC implements Killable, Movement {
+public class Pig extends EnemyNPC implements Killable {
     private final int xp;
     private int hitPointValue;
 
@@ -42,27 +41,6 @@ public class Pig extends EnemyNPC implements Killable, Movement {
     @Override
     public int getHP() {
         return this.hitPointValue;
-    }
-
-    // Definiera movement speed i konstruktor via npc.NPC klass eller npc.EnemyNPC klass
-    @Override
-    public void moveUp() {
-
-    }
-
-    @Override
-    public void moveDown() {
-
-    }
-
-    @Override
-    public void moveRight() {
-
-    }
-
-    @Override
-    public void moveLeft() {
-
     }
 
 

@@ -21,10 +21,10 @@ public class Tunnel {
             this.tunnelEnd = tunnelEnd;
             if(tunnelStart.isHorizontalWallTile()){
                 verticalTunnel = true;
-                length = tunnelEnd.getRow() - tunnelStart.getRow();
+                length = tunnelEnd.getPosition().row() - tunnelStart.getPosition().row();
             } else {
                 horizontalTunnel = true;
-                length = tunnelEnd.getColumn() - tunnelStart.getColumn();
+                length = tunnelEnd.getPosition().col() - tunnelStart.getPosition().col();
             }
         } else{
             throw new IllegalArgumentException("A tunnel must be initiated from a walltile & end on a walltile");

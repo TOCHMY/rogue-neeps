@@ -4,6 +4,7 @@ import map.Map;
 import map.Room;
 import map.Tile;
 import org.junit.jupiter.api.Test;
+import util.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +12,7 @@ class TileTest {
 
     @Test
     void When_NewTileIsCreated_Expect_tileGetXandYCorrectFormat(){
-        Tile testtile = new Tile(39,99);
+        Tile testtile = new Tile(new Position(39,99));
         assertEquals(39, testtile.getRow());
         assertEquals(99, testtile.getColumn());
     }
@@ -26,11 +27,7 @@ class TileTest {
 
     }
 
-    @Test
-    void When_NewTileIsCreated_Expect_tileIsWalkableFalse(){
-        Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isWalkable());
-    }
+
 
     @Test
     void When_NewTileIsCreated_Expect_isRoomTileFalse(){
@@ -45,19 +42,7 @@ class TileTest {
     }
 
 
-    @Test
-    void When_tileIsSetToRoomTile_Expect_tileIsWalkableTrue(){
-        Tile tile = new Tile(0,0);
-        tile.makeWalkable();
-        assertEquals(true, tile.isWalkable());
-    }
 
-    @Test
-    void When_tileIsSetToRoomTile_Expect_isRoomTileTrue(){
-        Tile tile = new Tile(0,0);
-        tile.makeWalkable();
-        assertNull( tile.getRoom());
-    }
 
     @Test
     void When_tileIsSetToRoomTile_Expect_getRoomNotNull(){

@@ -2,9 +2,8 @@ package player;
 
 import item.Shield;
 import item.Weapon;
-import nicoMap.NicoFloor;
-import nicoMap.NicoTile;
-import nicoMap.Swamp;
+import map.Tile;
+
 
 import java.util.List;
 
@@ -17,14 +16,9 @@ public class Human extends Player{
     }
 
     @Override
-    public boolean canMove(NicoTile tile) {
-        if(tile instanceof NicoFloor){
-            return true;
-        }
-        if(tile instanceof Swamp && stats.getStrength() > 20){
-            return true;
-        }
-        return false;
+    public boolean canMove(Tile tile) {
+        return true;
+
     }
 
     @Override
