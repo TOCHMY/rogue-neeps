@@ -238,35 +238,4 @@ public class QuestTest {
         assertTrue(quest2.isCompleted());
     }
 
-    //Gör denna till tillståndsmaskin?
-    @Test
-    void testInteractionWithNPCsForHerbertQuest_fromStartToFinish() {
-        UserInputAsker userInputAsker = mock(UserInputAsker.class);
-        Quest quest2 = qdb.getQuest(2);
-        FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
-        npcHerbert.setDialog("Oh, I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
-        npcHerbert.setQuestGoal();
-        npcKate.getQuestFromDatabase(2, qdb);
-        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
-        player.interactWithFriendlyNPC(userInputAsker, npcKate);
-        assertFalse(player.getQuestLog().contains(quest2));
-        assertFalse(quest2.isInitiated());
-        assertFalse(quest2.isCompleted());
-        assertFalse(quest2.isReturnedToQuestGiver());
-        when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
-        npcKate.askToAcceptQuest(userInputAsker, player);
-        assertTrue(player.getQuestLog().contains(quest2));
-        assertTrue(quest2.isInitiated());
-        assertFalse(quest2.isCompleted());
-        assertFalse(quest2.isReturnedToQuestGiver());
-        when(userInputAsker.ask("Talk to " + npcHerbert.getName() + "? y / n")).thenReturn("y");
-        player.interactWithFriendlyNPC(userInputAsker, npcHerbert);
-        assertTrue(quest2.isCompleted());
-        assertFalse(quest2.isReturnedToQuestGiver());
-        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
-        npcKate.completeQuest(quest2, player);
-        assertTrue(quest2.isReturnedToQuestGiver());
-        assertFalse(player.getQuestLog().contains(quest2));
-        assertTrue(player.getFinishedQuestsLog().contains(quest2));
-    }
 }
