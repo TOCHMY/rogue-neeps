@@ -11,7 +11,6 @@ import item.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,7 +21,7 @@ public class WeaponTest {
     List<MagicSocket> GREEN_SOCKET;
     List<MagicSocket> PURPLE_SOCKET;
     AttackVisitor ATTACK_VISITOR;
-    DefenceVisitor defenceVisitor;
+    DefenceVisitor DEFENCE_VISITOR;
 
 
     @BeforeEach
@@ -38,7 +37,7 @@ public class WeaponTest {
         PURPLE_SOCKET = List.of
                 (new MagicSocket(MagicColor.PURPLE));
         ATTACK_VISITOR = new AttackVisitor();
-        defenceVisitor = new DefenceVisitor();
+        DEFENCE_VISITOR = new DefenceVisitor();
 
 
     }
@@ -46,14 +45,14 @@ public class WeaponTest {
 
     @Test
     public void testDefenceOnceWithoutStones() {
-        assertEquals(25, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
+        assertEquals(25, WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
     void testDefenceTwiceWithoutStones() {
-        WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor);
-        assertEquals(24.75, WEAPON_WITH_THREE_SOCKETS.accept(defenceVisitor));
+        WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+        assertEquals(24.75, WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
         assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
@@ -66,7 +65,7 @@ public class WeaponTest {
     }
 
     @Test
-    @Description("TestID T1")
+    @Description("TestID AT1")
     void testAcceptAttackVisitor5MixedStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -86,7 +85,7 @@ public class WeaponTest {
     }
 
     @Test
-    @Description("TestID T2")
+    @Description("TestID AT2")
     void testAttackNoSockets() {
         Weapon weapon = new Weapon(50, List.of(
                 new MagicSocket(MagicColor.BLUE)));
@@ -95,7 +94,7 @@ public class WeaponTest {
     }
 
     @Test
-    @Description("TestID T3")
+    @Description("TestID AT3")
     void testAttackSocketsNegativeBaseStrength() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -112,7 +111,7 @@ public class WeaponTest {
     }
 
     @Test
-    @Description("TestID T4")
+    @Description("TestID AT4")
     void testAcceptAttackVisitorOnlyBlueStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.BLUE),
@@ -128,7 +127,7 @@ public class WeaponTest {
     }
 
     @Test
-    @Description("TestID T5")
+    @Description("TestID AT5")
     void testAcceptAttackVisitorOnlyRedStones() {
         List<MagicSocket> sockets = List.of(
                 new MagicSocket(MagicColor.RED),
@@ -141,8 +140,91 @@ public class WeaponTest {
     }
 
     @Test
-    @Description("TestID T6")
+    @Description("TestID AT6, DT6")
     void testAcceptNullVisitor() {
         assertThrows(NullPointerException.class, () -> WEAPON_WITH_THREE_SOCKETS.accept(null));
     }
+
+    /*
+    DT1	BS=50, Sockets med stenar BLÅ10RÖD10BLÅ10
+    DT2	BS=-2,5, Sockets med stenar RÖD5RÖD10(COST=2)BLÅ10
+    DT3	BS=50, Sockets med stenar BLÅ10BLÅ10
+    DT4	BS=50, Sockets med stenar RÖD10RÖD10
+    DT5	BS=50, TVÅ RÖDA TOMMA SOCKETS
+     */
+
+    @Test
+    @Description("TestID DT1")
+    void testDefenceWithMixedSockets() {
+        List<MagicSocket> sockets = List.of(
+                new MagicSocket(MagicColor.BLUE),
+                new MagicSocket(MagicColor.RED),
+                new MagicSocket(MagicColor.BLUE));
+        Weapon weapon = new Weapon(50, sockets);
+        weapon.addStone(new GemStone(MagicColor.BLUE, 10, 1));
+        weapon.addStone(new GemStone(MagicColor.BLUE, 10, 1));
+        weapon.addStone(new GemStone(MagicColor.RED, 10, 1));
+
+        assertEquals(27.5, weapon.accept(DEFENCE_VISITOR));
+        assertEquals(48.5, weapon.getBaseStrength());
+    }
+
+    @Test
+    @Description("TestID DT2")
+    void testDefenceNegativeStrengthOrderedSocketsDifferentStrengthAndCost() {
+        List<MagicSocket> sockets = List.of(
+                new MagicSocket(MagicColor.RED),
+                new MagicSocket(MagicColor.RED),
+                new MagicSocket(MagicColor.BLUE));
+        Weapon weapon = new Weapon(1, sockets);
+        weapon.addStone(new GemStone(MagicColor.RED, 5, 1));
+        weapon.addStone(new GemStone(MagicColor.RED, 10, 2));
+        weapon.addStone(new GemStone(MagicColor.BLUE, 10, 1));
+        weapon.accept(DEFENCE_VISITOR);
+
+        assertEquals(-1.4375, weapon.accept(DEFENCE_VISITOR),0.05);
+        assertEquals(-6, weapon.getBaseStrength(),0.05);
+    }
+
+    @Test
+    @Description("TestID DT3")
+    void testDefenceBlueStones() {
+        List<MagicSocket> sockets = List.of(
+                new MagicSocket(MagicColor.BLUE),
+                new MagicSocket(MagicColor.BLUE));
+        Weapon weapon = new Weapon(50, sockets);
+        weapon.addStone(new GemStone(MagicColor.BLUE, 10, 1));
+        weapon.addStone(new GemStone(MagicColor.BLUE, 10, 1));
+
+        assertEquals(25, weapon.accept(DEFENCE_VISITOR),0.05);
+        assertEquals(49.5, weapon.getBaseStrength(),0.05);
+    }
+
+    @Test
+    @Description("TestID DT4")
+    void testDefenceRedStones() {
+        List<MagicSocket> sockets = List.of(
+                new MagicSocket(MagicColor.RED),
+                new MagicSocket(MagicColor.RED));
+        Weapon weapon = new Weapon(50, sockets);
+        weapon.addStone(new GemStone(MagicColor.RED, 10, 1));
+        weapon.addStone(new GemStone(MagicColor.RED, 10, 1));
+
+        assertEquals(30, weapon.accept(DEFENCE_VISITOR),0.05);
+        assertEquals(47.5, weapon.getBaseStrength(),0.05);
+    }
+
+    @Test
+    @Description("TestID DT5")
+    void testDefenceEmptySockets() {
+        List<MagicSocket> sockets = List.of(
+                new MagicSocket(MagicColor.RED),
+                new MagicSocket(MagicColor.RED));
+        Weapon weapon = new Weapon(50, sockets);
+
+        assertEquals(25, weapon.accept(DEFENCE_VISITOR),0.05);
+        assertEquals(49.5, weapon.getBaseStrength(),0.05);
+    }
+
+
 }
