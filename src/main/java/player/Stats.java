@@ -5,14 +5,10 @@ public class Stats {
     private int dexterity;
     private int intelligence;
 
-
-
     Stats(int strength, int dexterity, int intelligence){
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
-
-
     }
 
     public int getStrength() {
