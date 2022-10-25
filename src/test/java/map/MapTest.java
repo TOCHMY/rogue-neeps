@@ -21,17 +21,17 @@ class MapTest {
     @Test
     void createMapVersion1_and_printMap(){
         Map map = new Map();
-        Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
+        Room roomA = new Room("A", 27,8, new Tile(2,7), map);
         map.addRoom(roomA);
-        Room roomB = new Room("B", 31,8, new Tile(2, 56), map);
+        Room roomB = new Room("B", 31,8, new Tile(new Position(2,56)), map);
         map.addRoom(roomB);
-        Room roomC = new Room("C", 23,6, new Tile(14, 26), map);
+        Room roomC = new Room("C", 23,6, new Tile(new Position(14,26)), map);
         map.addRoom(roomC);
-        Room roomD = new Room("D", 23,9, new Tile(14, 60), map);
+        Room roomD = new Room("D", 23,9, new Tile(new Position(14, 60)), map);
         map.addRoom(roomD);
-        Room roomE = new Room("E", 25,14, new Tile(24, 7), map);
+        Room roomE = new Room("E", 25,14, new Tile(new Position(24, 7)), map);
         map.addRoom(roomE);
-        Room roomF = new Room("F", 40,9, new Tile(27, 55), map);
+        Room roomF = new Room("F", 40,9, new Tile(new Position(27,55)), map);
         map.addRoom(roomF);
 
         // Enemy 1 map.Room A new version
@@ -150,13 +150,16 @@ class MapTest {
         map.addTunnel(tunnel5);
 
         Player player = new Ogre();
-
-        map.setPlayer(player, playerStartingPosition);
+        player.setMap(map);
+        player.moveTo(playerStartingPosition);
+        player.
+    
+    
         map.printDungeon("off","on","off");
 
-        player.moveDown();
+        player.move(Direction.DOWN);
         map.printDungeon("off","on","off");
-        player.moveRight();
+        player.move(Direction.RIGHT);
         map.printDungeon("off","on","off");
     }
 
@@ -179,8 +182,8 @@ class MapTest {
     void When_newMapCreated_And_MapSizeIs40x100_Expect_firstTile0X0Y(){
         Map map = new Map();
         Tile firstTile = map.getMap2dArray()[0][0];
-        assertEquals(0, firstTile.getRow());
-        assertEquals(0, firstTile.getColumn());
+        assertEquals(0, firstTile.getPosition().row());
+        assertEquals(0, firstTile.getPosition().col());
     }
 
 
@@ -191,8 +194,8 @@ class MapTest {
         int width = map.getMap2dArray()[0].length;
         int height = map.getMap2dArray().length;
         Tile lastTile = map.getMap2dArray()[height-1][width-1];
-        assertEquals(39, lastTile.getRow());
-        assertEquals(99, lastTile.getColumn());
+        assertEquals(39, lastTile.getPosition().row());
+        assertEquals(99, lastTile.getPosition().col());
     }
 
     @Test
@@ -207,7 +210,10 @@ class MapTest {
     void When_newMapCreated_Expect_playerPositionRow5Col20(){
         Map map = new Map();
         Player player = new Ogre();
-        map.setPlayer(player, playerStartingPosition);
+        player.setMap(map);
+        player.moveTo(playerStartingPosition);
+
+
 
         assertEquals(playerStartingPosition, map.getPlayerPosition());
     }
@@ -215,57 +221,62 @@ class MapTest {
     @Test
     void When_playerMoveUp_Expect_playerPositionCorrect(){
         Map map = new Map();
-        Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
+        Room roomA = new Room("A", 27,8, new Tile(new Position(2, 7)), map);
         map.addRoom(roomA);
 
         Position expectedPosition = playerStartingPosition.newPosition(Direction.UP);
 
         Player player = new Ogre();
-        map.setPlayer(player, playerStartingPosition);
+        player.setMap(map);
+        player.moveTo(playerStartingPosition);
+
         assertEquals(playerStartingPosition, map.getPlayerPosition());
-        player.moveUp();
+        player.move(Direction.UP);
         assertEquals(expectedPosition, map.getPlayerPosition());
     }
 
     @Test
     void When_playerMoveDown_Expect_playerPositionCorrect(){
         Map map = new Map();
-        Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
+        Room roomA = new Room("A", 27,8, new Tile(new Position(2, 7)), map);
         map.addRoom(roomA);
 
         Position expectedPosition = playerStartingPosition.newPosition(Direction.DOWN);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartingPosition);
+        player.setMap(map);
+        player.moveTo(playerStartingPosition);
         assertEquals(playerStartingPosition, map.getPlayerPosition());
-        player.moveDown();
+        player.move(Direction.DOWN);
         assertEquals(expectedPosition , map.getPlayerPosition());
     }
 
     @Test
     void When_playerMoveRight_Expect_playerPositionCorrect(){
         Map map = new Map();
-        Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
+        Room roomA = new Room("A", 27,8, new Tile(new Position(2,7)), map);
         map.addRoom(roomA);
 
         Position expectedPosition = playerStartingPosition.newPosition(Direction.RIGHT);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartingPosition);
+        player.setMap(map);
+        player.moveTo(playerStartingPosition);
         assertEquals(playerStartingPosition, map.getPlayerPosition());
-        player.moveRight();
+        player.move(Direction.RIGHT);
         assertEquals(expectedPosition , map.getPlayerPosition());
     }
 
     @Test
     void When_playerMoveLeft_Expect_playerPositionCorrect(){
         Map map = new Map();
-        Room roomA = new Room("A", 27,8, new Tile(2, 7), map);
+        Room roomA = new Room("A", 27,8, new Tile(new Position(2,7)), map);
         map.addRoom(roomA);
 
         Position expectedPosition = playerStartingPosition.newPosition(Direction.LEFT);
         Player player = new Ogre();
-        map.setPlayer(player, playerStartingPosition);
+        player.setMap(map);
+        player.moveTo(playerStartingPosition);
         assertEquals(playerStartingPosition, map.getPlayerPosition());
-        player.moveLeft();
+        player.move(Direction.LEFT);
         assertEquals(expectedPosition , map.getPlayerPosition());
     }
 
@@ -323,8 +334,8 @@ class MapTest {
         Map map = new Map();
        /* map.initiateDungeon(playerStartingTile);
         map.Tile knownEnemyNpcTile = map.getPerimeterArray()[3][15];
-        assertEquals(3, knownEnemyNpcTile.getRow());
-        assertEquals(15, knownEnemyNpcTile.getColumn());*/
+        assertEquals(3, knownEnemyNpcTile.getPosition().row());
+        assertEquals(15, knownEnemyNpcTile.getPosition().col());*/
     }
 
     @Test
@@ -353,8 +364,8 @@ class MapTest {
        /* map.initiateDungeon(playerStartingTile);
         map.Tunnel tunnelAtoD = map.getTunnelList().get(0);
         map.Tile startTile = tunnelAtoD.getStartTile();
-        int col = startTile.getColumn();
-        int row = startTile.getRow();
+        int col = startTile.getPosition().col();
+        int row = startTile.getPosition().row();
         System.out.println("Tunnellängd: " + tunnelAtoD.getLength());
 
         // tunneln A till C är 4 lång
@@ -404,8 +415,8 @@ class MapTest {
      /*   map.initiateDungeon(playerStartingTile);
         map.Tunnel tunnelCtoD = map.getTunnelList().get(4);
         map.Tile startTile = tunnelCtoD.getStartTile();
-        int col = startTile.getColumn();
-        int row = startTile.getRow();
+        int col = startTile.getPosition().col();
+        int row = startTile.getPosition().row();
         System.out.println("Tunnellängd: " + tunnelCtoD.getLength());
 
         // tunneln C till D är 11 lång

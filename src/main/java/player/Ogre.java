@@ -1,7 +1,9 @@
 package player;
 
-import item.items.Shield;
-import item.items.Weapon;
+import item.Shield;
+import item.Weapon;
+import map.Tile;
+
 
 import java.util.List;
 
@@ -16,6 +18,11 @@ public class Ogre extends Player{
         super(5, 1, 1, 100);
     }
 
+
+    @Override
+    public boolean canMove(Tile tile) {
+        return true;
+    }
 
     @Override
     void equip(Weapon weapon){

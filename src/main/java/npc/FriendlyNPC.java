@@ -3,10 +3,9 @@ package npc;
 import player.Player;
 import quest.Quest;
 import quest.QuestDatabase;
-import util.Movement;
 import util.UserInputAsker;
 
-public class FriendlyNPC extends NPC implements Movement {
+public class FriendlyNPC extends NPC {
 
     private final String name;
     private String dialog = "";

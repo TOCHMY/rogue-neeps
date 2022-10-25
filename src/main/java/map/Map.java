@@ -8,46 +8,38 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Map {
+    public static Position STARTING_POS = new Position(1,1);
     private final Tile[][] map2dArray = new Tile[40][100];
     private final ArrayList<Room> roomList = new ArrayList<>();
     private final ArrayList<Tunnel> tunnelList = new ArrayList<>();
     private Player player;
 
-
     public Map(){
         fillMapWithTiles();
+    }
+    public void setPlayer(Player p) {
+        player = p;
+    }
+
+    public Tile getTile(Position pos){
+        return map2dArray[pos.row()][pos.col()];
+    }
+    public Tile getTile(Direction direction){
+        Position targetTile = player.getPosition().newPosition(direction);
+        return map2dArray[targetTile.row()][targetTile.col()];
     }
 
     private void fillMapWithTiles(){
         for (int row = 0; row < map2dArray.length; row++) {
             for (int col = 0; col < map2dArray[row].length; col++) {
-                map2dArray[row][col] = new Tile(row,col);
+                map2dArray[row][col] = new Tile(new Position(row, col));
             }
         }
-    }
-
-
-    public void setPlayer(Player p, Position pos){
-        player = p;
-        p.setMap(this);
-        player.setPosition(pos);
-        map2dArray[pos.row()][pos.col()].setPlayerOnTile(p);
     }
 
     public Player getPlayer(){
         return player;
     }
-
-
-
-    public void updatePlayerPosition(Direction direction, Player player) {
-        Position newPos = player.getPosition().newPosition(direction);
-        if(map2dArray[newPos.row()][newPos.col()].isWalkable()){
-            map2dArray[player.getPosition().row()][player.getPosition().col()].removePlayerFromTile();
-            setPlayer(player, newPos);
-        }
-    }
-
     public Position getPlayerPosition() {
         return player.getPosition();
     }
@@ -79,9 +71,9 @@ public class Map {
     }
 
     private void makeVerticalTunnelWalls(Tunnel tunnel) {
-        int tunnelStartRow = tunnel.getStartTile().getRow();
-        int tunnelEndRow = tunnel.getEndingTile().getRow();
-        int col = tunnel.getStartTile().getColumn();
+        int tunnelStartRow = tunnel.getStartTile().getPosition().row();
+        int tunnelEndRow = tunnel.getEndingTile().getPosition().row();
+        int col = tunnel.getStartTile().getPosition().col();
         for (int i = tunnelStartRow; i <= tunnelEndRow; i++) {
             if(i != tunnelStartRow && i != tunnelEndRow){
                 map2dArray[i][col+1].makeVerticalWallTile();
@@ -91,9 +83,9 @@ public class Map {
     }
 
     private void makeHorizontalTunnelWalls(Tunnel tunnel) {
-        int tunnelStartCol = tunnel.getStartTile().getColumn();
-        int tunnelEndCol = tunnel.getEndingTile().getColumn();
-        int row = tunnel.getStartTile().getRow();
+        int tunnelStartCol = tunnel.getStartTile().getPosition().col();
+        int tunnelEndCol = tunnel.getEndingTile().getPosition().col();
+        int row = tunnel.getStartTile().getPosition().row();
         for (int i = tunnelStartCol; i <= tunnelEndCol; i++) {
             if(i != tunnelStartCol && i != tunnelEndCol){
                 map2dArray[row-1][i].makeHorizontalWallTile();
@@ -106,15 +98,15 @@ public class Map {
         Tile start = tunnel.getStartTile();
         Tile end = tunnel.getEndingTile();
         if(tunnel.isVerticalTunnel()){
-            for (int i = start.getRow(); i < end.getRow()+1; i++) {
-                map2dArray[i][start.getColumn()].makeTunnelTile(tunnel);
-                tunnel.addTile(map2dArray[i][start.getColumn()]);
+            for (int i = start.getPosition().row(); i < end.getPosition().row()+1; i++) {
+                map2dArray[i][start.getPosition().col()].makeTunnelTile(tunnel);
+                tunnel.addTile(map2dArray[i][start.getPosition().col()]);
             }
         } else {
             // en horisontell tunnel
-            for (int i = start.getColumn(); i < end.getColumn()+1; i++) {
-                map2dArray[start.getRow()][i].makeTunnelTile(tunnel);
-                tunnel.addTile(map2dArray[start.getRow()][i]);
+            for (int i = start.getPosition().col(); i < end.getPosition().col()+1; i++) {
+                map2dArray[start.getPosition().row()][i].makeTunnelTile(tunnel);
+                tunnel.addTile(map2dArray[start.getPosition().row()][i]);
             }
         }
     }
@@ -129,11 +121,11 @@ public class Map {
         int width = room.getWidth();
         Tile sT = room.getStartingTile();
 
-        int startOfCol = sT.getColumn();
-        int endOfCol = sT.getColumn() + width;
+        int startOfCol = sT.getPosition().col();
+        int endOfCol = sT.getPosition().col() + width;
 
-        int startOfRow = sT.getRow();
-        int endOfRow = sT.getRow() + height;
+        int startOfRow = sT.getPosition().row();
+        int endOfRow = sT.getPosition().row() + height;
         for (int i = startOfCol; i < endOfCol; i++) {
                 for (int j = startOfRow; j < endOfRow; j++) {
                     map2dArray[j][i].makeRoomTile(room);
@@ -147,11 +139,11 @@ public class Map {
         int width = room.getWidth();
         Tile sT = room.getStartingTile();
 
-        int startOfCol = sT.getColumn();
-        int endOfCol = sT.getColumn() + width;
+        int startOfCol = sT.getPosition().col();
+        int endOfCol = sT.getPosition().col() + width;
 
-        int startOfRow = sT.getRow();
-        int endOfRow = sT.getRow() + height;
+        int startOfRow = sT.getPosition().row();
+        int endOfRow = sT.getPosition().row() + height;
         for (int i = startOfCol - 1; i < endOfCol + 1; i++) {
             // om det är första raden nedåt
             if(i == startOfCol - 1){
@@ -185,25 +177,20 @@ public class Map {
 
 
     public void printDungeon(String roomTilesOnOrOff, String backroundOnOrOff, String numbered) {
+        Position playerPos = getPlayerPosition();
+
         for (int col = 0; col < map2dArray.length; col++) {
             for (int row = 0; row < map2dArray[col].length-1; row++) {
-                 if(map2dArray[col][row].isRoomTile()){
-                    Room room = map2dArray[col][row].getRoom();
-                     if(map2dArray[col][row].hasPlayer()){
-                         System.out.print("P");
-                     }else if(map2dArray[col][row].hasEnemyNPC()) {
-                         if(map2dArray[col][row].getHostileNPC().isMeleeEnemy()){
-                             System.out.print("M");
-                         } else {
-                             System.out.print("R");
-                         }
-                     } else if(map2dArray[col][row].hasFriendlyNPC()){
-                         System.out.print("F");
-                     } else {
-                         printRoomTiles(room, roomTilesOnOrOff);
-                     }
 
-                } else if(map2dArray[col][row].isVerticalWallTile()){
+                if(playerPos.row() == col && playerPos.col() == row) {
+                    System.out.print("P");
+                }
+                 else if(map2dArray[col][row].isRoomTile()){
+                    Room room = map2dArray[col][row].getRoom();
+                    printRoomTiles(room, roomTilesOnOrOff);
+                 }
+
+                 else if(map2dArray[col][row].isVerticalWallTile()){
                      System.out.print("|");
                  }else if(map2dArray[col][row].isHorizontalWallTile()){
                      System.out.print("=");
@@ -238,6 +225,7 @@ public class Map {
         System.out.println();
         System.out.println();
         System.out.println();
+
     }
 
     private void printRoomTiles(Room room, String on) {

@@ -2,14 +2,11 @@ package player;
 
 
 import map.Map;
-import nicoMap.NicoMap;
+import map.Tile;
 import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import quest.Quest;
-import util.Direction;
-import util.Movement;
-import util.Position;
-import util.UserInputAsker;
+import util.*;
 import item.ItemCollection;
 import item.items.Shield;
 import item.items.Weapon;
@@ -18,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class Player implements Movement {
+public abstract class Player {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
 
@@ -27,7 +24,6 @@ public abstract class Player implements Movement {
     private Direction playerFacingDirection;
     public Map map;
     ItemCollection items;
-    NicoMap nm;
     int hp;
     Position position;
 
@@ -38,6 +34,16 @@ public abstract class Player implements Movement {
         setPlayerFacingDirection(Direction.UP);
     }
 
+    private double attackDamage(){
+      int playerStrength = stats.getStrength();
+      double attackFromItem = items.attackWithItems();
+      double dmg = playerStrength + (playerStrength * (.1 * attackFromItem));
+      return dmg;
+    }
+    public void attack(Killable target){
+        target.takeDmg(this, attackDamage());
+    }
+    public abstract boolean canMove(Tile tile);
     abstract void equip(Weapon weapon);
     abstract void equip(Shield shield);
 
@@ -49,10 +55,8 @@ public abstract class Player implements Movement {
 
     public void setMap(Map m){
         map = m;
-    }
-
-    public void bindMap(NicoMap nicoMap) {
-        nm = nicoMap;
+        m.setPlayer(this);
+        moveTo(map.STARTING_POS);
     }
 
     public void setPosition(Position pos) {
@@ -63,31 +67,37 @@ public abstract class Player implements Movement {
         return position;
     }
 
-    static class Experience {
-        private int lvl;
-        private int currentXp;
-        private int cap;
 
-        Experience() {
-            this.lvl = 1;
-            this.currentXp = 0;
-            this.cap = lvl * 100;
+    public void moveTo(Position pos){
+        position = pos;
+    }
+    public void move(Direction dir) {
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
+        Tile tile = map.getTile(dir);
+        if(!tile.isOccupied()){
+            move(tile);
+        }
+        setPlayerFacingDirection(dir);
+    }
+
+    private void move(Tile target){
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
+        if(canMove(target)){
+            position = target.getPosition();
         }
 
-        int getRemainingXp() {
-            return cap - currentXp;
-        }
+    }
 
-        void updateXp(int amount) {
-            currentXp += amount;
+    private void setPlayerFacingDirection(Direction direction) {
+        playerFacingDirection = direction;
+    }
 
-            if (currentXp >= cap) {
-                int rest = currentXp - cap;
-                lvl += 1;
-                currentXp = rest;
-                cap = lvl * 100;
-            }
-        }
+    public Direction getPlayerFacingDirection() {
+        return playerFacingDirection;
     }
 
     //temporary method to kill enemey npc
@@ -104,17 +114,6 @@ public abstract class Player implements Movement {
         }
     }
 
-    public int getLvl() {
-        return xp.lvl;
-    }
-
-    public int getRemainingXp() {
-        return xp.getRemainingXp();
-    }
-
-    public void addXp(int amount) {
-        xp.updateXp(amount);
-    }
 
     public ArrayList<Quest> getQuestLog() {
         return questLog;
@@ -193,55 +192,43 @@ public abstract class Player implements Movement {
         }
     }
 
-    @Override
-    public void moveUp(){
+    static class Experience {
+        private int lvl;
+        private int currentXp;
+        private int cap;
 
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
+        Experience() {
+            this.lvl = 1;
+            this.currentXp = 0;
+            this.cap = lvl * 100;
         }
 
-        map.updatePlayerPosition(Direction.UP, this);
-        setPlayerFacingDirection(Direction.UP);
-    }
-
-    @Override
-    public void moveDown() {
-
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
+        int getRemainingXp() {
+            return cap - currentXp;
         }
-        map.updatePlayerPosition(Direction.DOWN, this);
-        setPlayerFacingDirection(Direction.DOWN);
-    }
 
-    @Override
-    public void moveRight() {
+        void updateXp(int amount) {
+            currentXp += amount;
 
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
+            if (currentXp >= cap) {
+                int rest = currentXp - cap;
+                lvl += 1;
+                currentXp = rest;
+                cap = lvl * 100;
+            }
         }
-        map.updatePlayerPosition(Direction.RIGHT, this);
-        setPlayerFacingDirection(Direction.RIGHT);
-
-        // nm.move(util.Direction.RIGHT);
+    }
+    public int getLvl() {
+        return xp.lvl;
     }
 
-    @Override
-    public void moveLeft() {
-
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
-        }
-        map.updatePlayerPosition(Direction.LEFT, this);
-        setPlayerFacingDirection(Direction.LEFT);
+    public int getRemainingXp() {
+        return xp.getRemainingXp();
     }
 
-    private void setPlayerFacingDirection(Direction direction) {
-        playerFacingDirection = direction;
+    public void addXp(int amount) {
+        xp.updateXp(amount);
     }
 
-    public Direction getPlayerFacingDirection() {
-        return playerFacingDirection;
-    }
 
 }

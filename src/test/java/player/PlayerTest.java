@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import player.Human;
 import player.Ogre;
 import player.Player;
+import util.Direction;
 import util.Position;
 
 public class PlayerTest {
@@ -66,15 +67,16 @@ public class PlayerTest {
     @Test
     public void WhenNoMapExpectErrorOnMove(){
         Player p = new Ogre();
-        assertThrows(IllegalStateException.class, () ->  p.moveUp());
+        assertThrows(IllegalStateException.class, () ->  p.move(Direction.UP));
     }
 
     @Test
     public void WhenMapExpectCanMove(){
         Player player = new Ogre();
         Map map = new Map();
-        map.setPlayer(player, new Position(0, 0));
-        assertDoesNotThrow(() -> player.moveRight());
+        player.setMap(map);
+        player.moveTo(new Position(0,0));
+        assertDoesNotThrow(() -> player.move(Direction.RIGHT));
     }
 
 }
