@@ -18,7 +18,7 @@ public class Pig extends EnemyNPC implements Killable, Movement {
     }
 
     @Override
-    public void takeDmg(Player p, int amount) {
+    public void takeDmg(Player p, double amount) {
         hitPointValue -= amount;
         if(hitPointValue <= 0){
             hitPointValue = 0;
@@ -26,6 +26,7 @@ public class Pig extends EnemyNPC implements Killable, Movement {
             die();
         }
     }
+
 
     @Override
     public void die() {
