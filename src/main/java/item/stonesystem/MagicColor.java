@@ -2,6 +2,6 @@ package item.stonesystem;
 
 public enum MagicColor {
 
-    BLUE,GREEN,RED,PURPLE;
+    BLUE,GREEN,RED,PURPLE
 
 }

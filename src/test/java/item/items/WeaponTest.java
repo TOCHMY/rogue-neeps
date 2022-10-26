@@ -207,5 +207,4 @@ public class WeaponTest {
         assertEquals(49.5, weapon.getBaseStrength(),0.05);
     }
 
-
 }
