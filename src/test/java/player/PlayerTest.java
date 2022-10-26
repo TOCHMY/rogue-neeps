@@ -11,10 +11,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Assertions;
-//import org.testng.annotations.Test;
-import player.Human;
-import player.Ogre;
-import player.Player;
 import util.Direction;
 import util.Position;
 

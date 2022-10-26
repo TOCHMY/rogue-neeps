@@ -12,7 +12,13 @@ public class Ogre extends Player{
 
     @Override
     public boolean canMove(Tile tile) {
-        return tile.isRoomTile() || tile.isTunnelTile();
+        if(tile.isTunnelTile() || tile.isRoomTile()){
+            return true;
+        }
+        else if(tile.isSwampTile()){
+            return stats.getStrength() >= 10;
+        }
+        return false;
     }
 
     @Override
