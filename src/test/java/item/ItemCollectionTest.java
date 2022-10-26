@@ -32,7 +32,7 @@ public class ItemCollectionTest {
                         new MagicSocket(MagicColor.RED));
         ARMOR_SOCKETS = List.of
                 (new MagicSocket(MagicColor.RED),
-                        new MagicSocket(MagicColor.RED),
+                        new MagicSocket(MagicColor.GREEN),
                         new MagicSocket(MagicColor.RED));
         ATTACK_DEFENCE_SOCKETS = List.of
                 (new MagicSocket(MagicColor.BLUE),
@@ -253,5 +253,40 @@ public class ItemCollectionTest {
         double expectedStrength = 50;
         assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
     }
+
+    @Test
+    void testUseIntelligenceWithoutStones() {
+        ITEM_COLLECTION.addArmor(ARMOR);
+        assertEquals(0, ITEM_COLLECTION.useItemIntelligence());
+    }
+
+    @Test
+    void testUseIntelligenceCostWithoutStones() {
+        ITEM_COLLECTION.addArmor(ARMOR);
+        ITEM_COLLECTION.useItemIntelligence();
+        assertEquals(50, ITEM_COLLECTION.getArmor().getBaseStrength());
+    }
+
+    @Test
+    void testUseIntelligenceWithStones() {
+        ITEM_COLLECTION.addArmor(ARMOR);
+        ITEM_COLLECTION.getArmor().addStone(new GemStone(MagicColor.GREEN, 13, 0.2));
+
+        double expectedIntelligence = 50 * 13 / 100.0;
+        assertEquals(expectedIntelligence, ITEM_COLLECTION.useItemIntelligence());
+    }
+
+    @Test
+    void testUseIntelligenceCostWithStones() {
+        ITEM_COLLECTION.addArmor(ARMOR);
+        ITEM_COLLECTION.getArmor().addStone(new GemStone(MagicColor.GREEN, 13, 0.2));
+
+        ITEM_COLLECTION.useItemIntelligence();
+
+        double expectedRemainingStrength = 50 - 0.2;
+        assertEquals(expectedRemainingStrength, ITEM_COLLECTION.getArmor().getBaseStrength());
+    }
+
+
 
 }
