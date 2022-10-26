@@ -62,7 +62,7 @@ public class EnemyNPC extends NPC implements Killable {
     }
 
     @Override
-    boolean canMove(Tile tile) {
+    public boolean canMove(Tile tile) {
         return tile.isRoomTile();
     }
 

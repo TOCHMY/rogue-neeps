@@ -1,5 +1,9 @@
 package map;
 
+import npc.EnemyNPC;
+import npc.FriendlyNPC;
+import npc.NPC;
+import npc.Pig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,10 +21,15 @@ public class TruthTableForPlayerMovement {
     Room roomA;
     Position tileToTest;
     Position tunnelPosition;
+    EnemyNPC enemy;
+    FriendlyNPC friendly;
     Player ogre;
 
     @BeforeEach
     public void initEach(){
+        enemy = new Pig();
+        friendly = new FriendlyNPC("Friendly NPC");
+
         human = new Human();
         ogre = new Ogre();
         map = new Map();
@@ -78,14 +87,14 @@ public class TruthTableForPlayerMovement {
 
     @Test
     // Testcase ID 7
-    public void Human_StrBelow10_SwampTile_Expect_True(){
+    public void Human_StrBelow10_SwampTile_Expect_False(){
         roomA.addSwampTile(tileToTest);
         assertFalse(human.canMove(map.getTile(tileToTest)));
     }
 
     @Test
     // Testcase ID 8
-    public void Human_StrAbove10Below20_SwampTile_Expect_True(){
+    public void Human_StrAbove10Below20_SwampTile_Expect_False(){
         roomA.addSwampTile(tileToTest);
         human.getStats().addStrength(10);
         assertFalse(human.canMove(map.getTile(tileToTest)));
@@ -210,4 +219,56 @@ public class TruthTableForPlayerMovement {
 
 
 
+
+    @Test
+    // Testcase ID 25
+    public void NPC_Friendly_RoomTile_Expect_True(){
+        assertTrue(friendly.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 26
+    public void NPC_Friendly_TunnelTile_Expect_False(){
+        assertFalse(friendly.canMove(map.getTile(tunnelPosition)));
+    }
+
+    @Test
+    // Testcase ID 27
+    public void NPC_Friendly_SwampTile_Expect_False(){
+        roomA.addSwampTile(tileToTest);
+        assertFalse(friendly.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 28
+    public void NPC_Friendly_WaterTile_Expect_False(){
+        roomA.addWaterTile(tileToTest);
+        assertFalse(friendly.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 29
+    public void NPC_Enemy_RoomTile_Expect_True(){
+        assertTrue(enemy.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 30
+    public void NPC_Enemy_TunnelTile_Expect_False(){
+        assertFalse(enemy.canMove(map.getTile(tunnelPosition)));
+    }
+
+    @Test
+    // Testcase ID 31
+    public void NPC_Enemy_SwampTile_Expect_False(){
+        roomA.addSwampTile(tileToTest);
+        assertFalse(enemy.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 32
+    public void NPC_Enemy_WaterTile_Expect_False(){
+        roomA.addWaterTile(tileToTest);
+        assertFalse(enemy.canMove(map.getTile(tileToTest)));
+    }
 }

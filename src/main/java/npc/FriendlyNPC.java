@@ -95,7 +95,7 @@ public class FriendlyNPC extends NPC {
         }
     }
     @Override
-    boolean canMove(Tile tile) {
+    public boolean canMove(Tile tile) {
         return tile.isRoomTile();
     }
 

@@ -23,7 +23,7 @@ public abstract class NPC implements Movable {
         m.addNPC(this);
         //moveTo(RandomPos);
     }
-    abstract boolean canMove(Tile tile);
+    abstract public boolean canMove(Tile tile);
 
     @Override
     public void move(Direction dir) {
