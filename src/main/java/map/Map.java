@@ -15,7 +15,7 @@ public class Map {
     private final ArrayList<Room> rooms = new ArrayList<>();
     private final ArrayList<Tunnel> tunnels = new ArrayList<>();
     private Player player;
-    private ArrayList<NPC> npcs = new ArrayList<>();
+    public ArrayList<NPC> npcs = new ArrayList<>();
 
     public Map(){
         fillMapWithTiles();
@@ -34,6 +34,7 @@ public class Map {
         return map[pos.row()][pos.col()];
     }
 
+    //för player eller för npcs
     public Tile getTile(Direction direction){
         Position targetTile = player.getPosition().newPosition(direction);
         return map[targetTile.row()][targetTile.col()];

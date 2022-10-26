@@ -1,7 +1,6 @@
 package quest;
 
 import npc.Albatross;
-import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import npc.Pig;
 import org.junit.jupiter.api.DisplayName;

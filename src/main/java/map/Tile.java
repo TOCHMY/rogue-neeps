@@ -1,6 +1,5 @@
 package map;
 
-import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import player.Player;
 import util.Position;
@@ -19,6 +18,11 @@ public class Tile {
     private Room room;
     private Tunnel tunnel;
     private Position pos;
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
+    }
+
     private boolean occupied = false;
 
 

@@ -30,20 +30,22 @@ public abstract class NPC implements Movable {
         if(map == null){
             throw new IllegalStateException("Cannot move without a map");
         }
+        Tile current = map.getTile(position);
         Tile tile = map.getTile(dir);
         if(!tile.isOccupied()){
-            move(tile);
+            move(tile, current);
         }
         setFacingDirection(dir);
     }
 
-    @Override
-    public void move(Tile tile) {
+    public void move(Tile target, Tile current) {
         if(map == null){
             throw new IllegalStateException("Cannot move without a map");
         }
-        if(canMove(tile)){
-            position = tile.getPosition();
+        if(canMove(target)){
+            position = target.getPosition();
+            target.setOccupied(true);
+            current.setOccupied(false);
         }
     }
 

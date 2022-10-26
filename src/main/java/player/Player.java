@@ -78,19 +78,23 @@ public abstract class Player implements Movable {
         if (map == null) {
             throw new IllegalStateException("Cannot move without a map");
         }
+        Tile current = map.getTile(position);
         Tile tile = map.getTile(dir);
         if (!tile.isOccupied()) {
-            move(tile);
+            move(tile, current);
+
         }
         setPlayerFacingDirection(dir);
     }
 
-    public void move(Tile target) {
+    public void move(Tile target, Tile current) {
         if (map == null) {
             throw new IllegalStateException("Cannot move without a map");
         }
         if (canMove(target)) {
             position = target.getPosition();
+            target.setOccupied(true);
+            current.setOccupied(false);
         }
     }
 
