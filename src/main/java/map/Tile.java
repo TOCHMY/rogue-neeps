@@ -26,7 +26,6 @@ public class Tile {
     private boolean occupied = false;
 
 
-    // +1 för att börja räkna spelplanen från X1Y1 istället för X0Y0.
     public Tile(Position pos) {
         this.pos = pos;
     }
@@ -96,7 +95,7 @@ public class Tile {
         roomTile = false;
     }
 
-    private Tunnel getTunnel() {
+    public Tunnel getTunnel() {
         return tunnel;
     }
 

@@ -70,7 +70,7 @@ class TunnelTest {
         Tile tunnelEnd = new Tile(13, 31);
         tunnelEnd.makeHorizontalWallTile();
         Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);
-        assertEquals("A", tunnel.getToRoom());
+        assertEquals("C", tunnel.getToRoom());
     }
 
     @Test
@@ -105,13 +105,23 @@ class TunnelTest {
 
 
     @Test
-    void When_TunnelIsCreated_Expect_lengthToBeCorrect(){
+    void When_HorizontalTunnelIsCreated_Expect_lengthToBeCorrect(){
         Tile tunnelStart = new Tile(10, 31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13, 31);
         tunnelEnd.makeHorizontalWallTile();
         Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);
         assertEquals(4, tunnel.getLength());
+    }
+
+    @Test
+    void When_VerticalTunnelIsCreated_Expect_lengthToBeCorrect(){
+        Tile tunnelStart = new Tile(10, 30);
+        tunnelStart.makeVerticalWallTile();
+        Tile tunnelEnd = new Tile(10, 35);
+        tunnelEnd.makeVerticalWallTile();
+        Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);
+        assertEquals(6, tunnel.getLength());
     }
 
 
