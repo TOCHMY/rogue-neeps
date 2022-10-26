@@ -26,14 +26,17 @@ public class EnemyNPC extends NPC {
         return isMeleeEnemy;
     }
 
-
-
-    public String toString() {
-        return "EnemyNPC: \n" + "Name: " + name + " \nLevel: " + level + "\nHP: " + hp;
+    public boolean isDead() {
+        return isDead;
     }
+
 
     @Override
     boolean canMove(Tile tile) {
         return tile.isRoomTile();
+    }
+
+    public String toString() {
+        return "EnemyNPC:\n" + "Name: " + name + "\nLevel: " + level + "\nHP: " + hp;
     }
 }

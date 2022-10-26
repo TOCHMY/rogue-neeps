@@ -35,12 +35,17 @@ public class Albatross extends EnemyNPC implements Killable {
 
     @Override
     public int getXP() {
-        return 0;
+        return this.xp;
     }
 
     @Override
     public double getHP() {
-        return 0;
+        return this.hitPointValue;
+    }
+
+    @Override
+    public boolean isDead() {
+        return isDead;
     }
 
 }

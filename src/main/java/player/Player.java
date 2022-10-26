@@ -10,6 +10,7 @@ import util.*;
 import item.ItemCollection;
 import item.items.Shield;
 import item.items.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,26 +33,30 @@ public abstract class Player implements Movable {
         items = new ItemCollection();
     }
 
-    private double attackDamage(){
-      int playerStrength = stats.getStrength();
-      double attackFromItem = items.attackWithItems();
-      double dmg =  playerStrength * (1 + attackFromItem /100);  //playerStrength + (playerStrength * (.1 * attackFromItem));
-      return dmg;
+    private double attackDamage() {
+        int playerStrength = stats.getStrength();
+        double attackFromItem = items.attackWithItems();
+        double dmg = playerStrength * (1 + attackFromItem / 100);  //playerStrength + (playerStrength * (.1 * attackFromItem));
+        return dmg;
     }
-    public void attack(Killable target){
+
+    public void attack(Killable target) {
         target.takeDmg(this, attackDamage());
     }
+
     public abstract boolean canMove(Tile tile);
+
     abstract void equip(Weapon weapon);
+
     abstract void equip(Shield shield);
 
     abstract List<Weapon> canEquip();
 
-    public Stats getStats(){
+    public Stats getStats() {
         return stats;
     }
 
-    public void setMap(Map m){
+    public void setMap(Map m) {
         map = m;
         m.setPlayer(this);
         moveTo(map.STARTING_POS);
@@ -65,29 +70,30 @@ public abstract class Player implements Movable {
         return position;
     }
 
-    public void moveTo(Position pos){
+    public void moveTo(Position pos) {
         position = pos;
     }
 
     public void move(Direction dir) {
-        if(map == null){
+        if (map == null) {
             throw new IllegalStateException("Cannot move without a map");
         }
         Tile tile = map.getTile(dir);
-        if(!tile.isOccupied()){
+        if (!tile.isOccupied()) {
             move(tile);
         }
         setPlayerFacingDirection(dir);
     }
 
-    public void move(Tile target){
-        if(map == null){
+    public void move(Tile target) {
+        if (map == null) {
             throw new IllegalStateException("Cannot move without a map");
         }
-        if(canMove(target)){
+        if (canMove(target)) {
             position = target.getPosition();
         }
     }
+
     private void setPlayerFacingDirection(Direction direction) {
         playerFacingDirection = direction;
     }
@@ -96,7 +102,7 @@ public abstract class Player implements Movable {
         return playerFacingDirection;
     }
 
-    //temporary method to kill enemey npc
+    //temporary method to kill enemey npc - used in QuestTest
     public void killTarget(EnemyNPC target) {
         target.die();
 
@@ -201,6 +207,9 @@ public abstract class Player implements Movable {
         int getRemainingXp() {
             return cap - currentXp;
         }
+        int getCurrentXp() {
+            return currentXp;
+        }
 
         void updateXp(int amount) {
             currentXp += amount;
@@ -213,6 +222,7 @@ public abstract class Player implements Movable {
             }
         }
     }
+
     public int getLvl() {
         return xp.lvl;
     }
@@ -223,6 +233,10 @@ public abstract class Player implements Movable {
 
     public void addXp(int amount) {
         xp.updateXp(amount);
+    }
+
+    public int getCurrentXp() {
+        return xp.getCurrentXp();
     }
 
 }

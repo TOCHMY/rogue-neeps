@@ -1,0 +1,25 @@
+package npc;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class EnemyNPCTest {
+
+    //Using this class to test abstract NPC class
+
+    @Test
+    void testEnemyNPCDie_isDead() {
+        EnemyNPC npc = new EnemyNPC("Pig", 1, true);
+
+        assertFalse(npc.isDead());
+        npc.die();
+        assertTrue(npc.isDead());
+    }
+
+    @Test
+    void testEnemyNPC_toStringFormat() {
+        EnemyNPC npc = new EnemyNPC("Spöket Laban", 2, true);
+        assertEquals("EnemyNPC:\nName: Spöket Laban\nLevel: 2\nHP: 20.0", npc.toString());
+    }
+}

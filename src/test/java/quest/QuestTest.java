@@ -214,7 +214,7 @@ public class QuestTest {
     }
 
 
-    //Herbert quest.Quest
+    //Herbert Quest
     @Test
     void testHerbertQuestName() {
         Quest quest2 = qdb.getQuest(2);

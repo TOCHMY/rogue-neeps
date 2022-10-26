@@ -43,5 +43,9 @@ public class Pig extends EnemyNPC implements Killable {
         return this.hitPointValue;
     }
 
+    @Override
+    public boolean isDead() {
+        return isDead;
+    }
 
 }
