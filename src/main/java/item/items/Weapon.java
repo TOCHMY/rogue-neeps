@@ -21,7 +21,7 @@ public class Weapon extends Item {
     }
 
     @Override
-    public boolean anySocketOfWrongColor(List<MagicSocket> sockets) {
+    protected boolean anySocketOfWrongColor(List<MagicSocket> sockets) {
         return sockets.size() - countSocketsOfColor(sockets, MagicColor.BLUE) - countSocketsOfColor(sockets, MagicColor.RED) > 0;
     }
 }

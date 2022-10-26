@@ -69,8 +69,8 @@ public class FriendlyNPC extends NPC {
     }
 
     //Return value could be used in some sort of chat-UI
-    public String askToAcceptQuest(UserInputAsker uia, Player player) throws IllegalArgumentException {
-        offerQuest();
+    public String askToAcceptQuest(UserInputAsker uia, Player player) {
+        offerQuest(); //Print quest description
         String response = uia.ask("Do you accept this quest? y / n");
         if (response.equals("y")) {
             handleQuestAccepted(player);
@@ -91,7 +91,7 @@ public class FriendlyNPC extends NPC {
             player.removeQuestFromQuestLog(quest);
         } else {
             //Code to indicate quest is not completed
-            System.out.println("Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
+            System.out.println("Quest goal " + quest.getQuestGoalText() + " not completed yet.");
         }
     }
     @Override

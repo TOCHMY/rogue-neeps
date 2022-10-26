@@ -67,7 +67,7 @@ public class PigTest {
     void pigDies_playerReceivesCorrectAmountOfExperiencePoints() {
         Human player = new Human();
         pig.takeDmg(player, 10);
-        assertEquals(10, player.getCurrentXp());
+        assertEquals(20, player.getCurrentXp());
     }
 
 

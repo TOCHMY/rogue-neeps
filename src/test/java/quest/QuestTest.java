@@ -40,6 +40,16 @@ public class QuestTest {
     }
 
     @Test
+    void testCorrectQuestFetchedFromPlayerQuestLog() {
+        Quest albatrossQuest = qdb.getQuest(3);
+        quest.setInitiated(true);
+        albatrossQuest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        player.addQuestToQuestLog(albatrossQuest);
+        assertEquals(albatrossQuest, player.getQuestFromQuestLog(albatrossQuest));
+    }
+
+    @Test
     void testCorrectToStringFormat() {
         assertEquals("Quest name: Pig Menace. QuestID: 1", quest.toString());
     }
@@ -83,6 +93,11 @@ public class QuestTest {
     }
 
     @Test
+    void testQuestDoesNotExistInPlayerQuestLog_expectNull() {
+        assertNull(player.getQuestFromQuestLog(quest));
+    }
+
+    @Test
     void testPlayerAbandonQuest_questIsRemovedFromQuestLog() {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
@@ -112,10 +127,10 @@ public class QuestTest {
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
         npcKate.askToAcceptQuest(userInputAsker, player);
         player.killTarget(pig);
-        assertEquals("1 of 5 pigs killed.", quest.printKillQuestStatus());
+        assertEquals(1, quest.getKillQuestCurrentKilled());
         player.abandonQuest(quest);
         npcKate.askToAcceptQuest(userInputAsker, player);
-        assertEquals("0 of 5 pigs killed.", quest.printKillQuestStatus());
+        assertEquals(0, quest.getKillQuestCurrentKilled());
     }
 
     @Test
@@ -146,6 +161,15 @@ public class QuestTest {
         player.killTarget(pig);
         player.killTarget(pig); //6
         assertEquals("5 of 5 pigs killed.", quest.printKillQuestStatus());
+    }
+
+    @Test
+    void testKillPigWithoutHavingPigQuest_whileOtherQuestExistsInQuestLog() {
+        Quest herbertQuest = qdb.getQuest(2);
+        herbertQuest.setInitiated(true);
+        player.addQuestToQuestLog(herbertQuest);
+        player.killTarget(pig);
+
     }
 
     @Test
@@ -188,6 +212,16 @@ public class QuestTest {
         quest.setCompleted(true);
         npcKate.completeQuest(quest, player);
         assertTrue(quest.isReturnedToQuestGiver());
+    }
+
+    @Test
+    void testInteractWithQuestGiver_whenQuestGiverQuestToGive_isInPlayerQuestLog() {
+        UserInputAsker userInputAsker = mock(UserInputAsker.class);
+        quest.setInitiated(true);
+        player.addQuestToQuestLog(quest);
+        when(userInputAsker.ask("Talk to " + npcKate.getName() + "? y / n")).thenReturn("y");
+        player.interactWithFriendlyNPC(userInputAsker, npcKate);
+        assertEquals(player.getQuestFromQuestLog(quest), npcKate.getAssignedQuest());
     }
 
     @Test
@@ -241,7 +275,8 @@ public class QuestTest {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         Quest quest2 = qdb.getQuest(2);
         FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
-        npcHerbert.setDialog("Oh I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
+        npcHerbert.setDialog("Oh I am so lost... You found me! " +
+                "I will return to " + npcKate.getName() + " now.");
         npcHerbert.setQuestGoal();
         quest2.setQuestGiver(npcKate);
         quest2.setInitiated(true);

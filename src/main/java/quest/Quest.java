@@ -146,7 +146,4 @@ public class Quest {
     public String toString() {
         return "Quest name: " + questName + ". QuestID: " + questID;
     }
-
-
-
 }

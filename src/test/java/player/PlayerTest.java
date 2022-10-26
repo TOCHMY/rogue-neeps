@@ -1,5 +1,6 @@
 package player;
 
+import item.items.Armor;
 import item.items.Weapon;
 import item.stonesystem.GemStone;
 import item.stonesystem.MagicColor;
@@ -82,8 +83,8 @@ public class PlayerTest {
     void when_AttackWithWeapon_Expect_CorrectDamageOnPig() {
         Player player = new Ogre();
         Pig pig = new Pig();
-        player.items.addRightHandItem(new Weapon(10, List.of(new MagicSocket(MagicColor.BLUE))));
-        player.items.getRightHandItem().addStone(new GemStone(MagicColor.BLUE, 20, 2));
+        player.getItems().addRightHandItem(new Weapon(10, List.of(new MagicSocket(MagicColor.BLUE))));
+        player.getItems().getRightHandItem().addStone(new GemStone(MagicColor.BLUE, 20, 2));
 
         player.attack(pig);
 
@@ -96,8 +97,8 @@ public class PlayerTest {
         Player player = new Ogre();
         Pig pig1 = new Pig();
         Pig pig2 = new Pig();
-        player.items.addRightHandItem(new Weapon(10, List.of(new MagicSocket(MagicColor.BLUE))));
-        player.items.getRightHandItem().addStone(new GemStone(MagicColor.BLUE, 20, 2));
+        player.getItems().addRightHandItem(new Weapon(10, List.of(new MagicSocket(MagicColor.BLUE))));
+        player.getItems().getRightHandItem().addStone(new GemStone(MagicColor.BLUE, 20, 2));
 
         player.attack(pig1);
         player.attack(pig2);
@@ -106,8 +107,17 @@ public class PlayerTest {
         assertEquals(expectedPig2Strength, pig2.getHP(),0.01);
     }
 
+    @Test
+    void when_PlayerHasIntelligenceItem_Expect_IncreasedIntelligence() {
+        Player player = new Human();
+        player.getItems().addArmor(new Armor(40, List.of(new MagicSocket(MagicColor.GREEN), new MagicSocket(MagicColor.RED))));
+        player.getItems().getArmor().addStone(new GemStone(MagicColor.GREEN, 30, 0.2));
 
+        assertEquals(17, player.getIntelligenceWithItems());
+    }
 
+/*    @Test
+    void testKillTarget() {
 
-
+    }*/
 }

@@ -20,7 +20,6 @@ public class EnemyNPC extends NPC implements Killable {
         super(name, 20);
         this.level = level;
         this.isMeleeEnemy = isMeleeEnemy;
-        this.xp = xp;
     }
 
     @Override

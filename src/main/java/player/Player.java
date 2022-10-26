@@ -17,11 +17,11 @@ import java.util.List;
 public abstract class Player {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
+    private final ItemCollection items;
     private Player.Experience xp;
     protected Stats stats;
     private Direction playerFacingDirection;
     public Map map;
-    ItemCollection items;
     int hp;
     Position position;
 
@@ -40,7 +40,7 @@ public abstract class Player {
     private double attackDamage() {
         int playerStrength = stats.getStrength();
         double attackFromItem = items.attackWithItems();
-        double dmg = playerStrength * (1 + attackFromItem / 100);  //playerStrength + (playerStrength * (.1 * attackFromItem));
+        double dmg = playerStrength * (1 + attackFromItem / 100);
         return dmg;
     }
 
@@ -268,4 +268,7 @@ public abstract class Player {
         return xp.getCurrentXp();
     }
 
+    public ItemCollection getItems() {
+        return items;
+    }
 }
