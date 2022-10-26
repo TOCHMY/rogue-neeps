@@ -1,14 +1,10 @@
 package map;
 
-import map.Map;
-import map.Room;
-import map.Tile;
+
 import npc.Albatross;
 import npc.EnemyNPC;
 import org.junit.jupiter.api.Test;
 import util.Position;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,8 +28,7 @@ class TileTest {
     }
 
     @Test
-    void When_twoTilesWithSameRowAndColAreCompared_Expect_equalsToBeTrue(){
-        Map map = new Map();
+    void When_TwoTilesWithSameRowAndColAreCompared_Expect_equalsToBeTrue(){
         Tile tile1 = new Tile(0,0);
         Tile tile2 = new Tile(0,0);
         assertEquals(true, tile1.equals(tile2));
@@ -140,12 +135,10 @@ class TileTest {
         map.addRoom(roomA);
         Room roomC = new Room("C", 23,6, new Tile(new Position(14,26)), map);
         map.addRoom(roomC);
-
         Tile tunnelStart = map.getMap()[10][31];
         Tile tunnelEnd = map.getMap()[13][31];
         Tunnel tunnel1 = new Tunnel("A", "C",tunnelStart,tunnelEnd);
         map.addTunnel(tunnel1);
-
         assertEquals(true,map.getMap()[10][31].isTunnelTile());
         assertEquals(true,map.getMap()[11][31].isTunnelTile());
         assertEquals(true,map.getMap()[12][31].isTunnelTile());
@@ -159,12 +152,10 @@ class TileTest {
         map.addRoom(roomA);
         Room roomC = new Room("C", 23,6, new Tile(new Position(14,26)), map);
         map.addRoom(roomC);
-
         Tile tunnelStart = map.getMap()[10][31];
         Tile tunnelEnd = map.getMap()[13][31];
         Tunnel tunnel = new Tunnel("A", "C",tunnelStart,tunnelEnd);
         map.addTunnel(tunnel);
-
         assertEquals(tunnel, map.getMap()[10][31].getTunnel());
     }
 
@@ -191,12 +182,10 @@ class TileTest {
         map.addRoom(roomA);
         Room roomC = new Room("C", 23,6, new Tile(new Position(14,26)), map);
         map.addRoom(roomC);
-
         Tile tunnelStart = map.getMap()[10][31];
         Tile tunnelEnd = map.getMap()[13][31];
         Tunnel tunnel = new Tunnel("A", "C",tunnelStart,tunnelEnd);
         map.addTunnel(tunnel);
-
         assertEquals(" ", tunnelStart.symbolPrint());
     }
 
@@ -231,29 +220,36 @@ class TileTest {
     }
 
     @Test
-    void When_newTileIsCreated_Exepct_isOccupiedTrue(){
-        // Enemy 1 map.Room A new version
-
+    void When_NewTileIsCreated_And_tileIsSetToOccupied_Exepct_isOccupiedTrue(){
         Tile tile = new Tile(0,0);
         tile.setOccupied(true);
-
         assertEquals(true, tile.isOccupied());
+    }
+    @Test
+    void When_NewTileIsCreated_And_TileIsSetToRoomTile_Expect_isRoomTileTrue(){
+        Tile tile = new Tile(0,0);
+        tile.makeRoomTile();
+        assertEquals(true, tile.isRoomTile());
     }
 
     @Test
-    void When_NPCisPlaced_Exepct_NPCTileToBeOccupied(){
-        // Enemy 1 map.Room A new version
+    void When_NewTileIsCreated_And_TileIsSetToTunnelTile_Expect_isTunnelTileTrue(){
+        Tile tile = new Tile(0,0);
+        tile.makeTunnelTile();
+        assertEquals(true, tile.isTunnelTile());
+    }
 
+
+
+    @Test
+    void When_NPCisPlaced_Exepct_NPCTileToBeOccupied(){
         Map map = new Map();
         Room roomA = new Room("A", 27,8, new Tile(2,7), map);
         map.addRoom(roomA);
-
         EnemyNPC npc1 = new Albatross(); // nuvarande
-
         npc1.setMap(map);
         Position npcPos = new Position(3,15);
         roomA.addHostileNpc(npc1, npcPos);
-
        assertEquals(true, map.getMap()[3][15].isOccupied());
     }
 

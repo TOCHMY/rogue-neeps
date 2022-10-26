@@ -1,6 +1,5 @@
 package map;
 
-import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import npc.NPC;
 import util.Position;
@@ -49,8 +48,6 @@ public class Room {
         for(NPC npcloop : map.npcs){
             if(npcloop.equals(npc)){
                 Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
-
-
                 if(!roomTilesList.contains(requestedTileForNpc)){
                     throw new IllegalArgumentException("tile is not a room tile");
                 }
@@ -59,7 +56,6 @@ public class Room {
                 }
                 npc.moveTo(requestedPositionForNpc);
                 hostileNpcList.add(npc);
-                break;
             }
         }
 
@@ -69,16 +65,20 @@ public class Room {
         return hostileNpcList;
     }
 
-    public void addFriendlyNpc(FriendlyNPC npc, Position requestedNpcPosition)throws IllegalArgumentException{
-        Tile requestedNpcTile = map.getMap()[requestedNpcPosition.row()][requestedNpcPosition.col()];
-        if(!roomTilesList.contains(requestedNpcTile)){
-            throw new IllegalArgumentException("tile is not a room tile");
+    public void addFriendlyNpc(FriendlyNPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
+        for(NPC npcloop : map.npcs){
+            if(npcloop.equals(npc)) {
+                Tile requestedNpcTile = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
+                if (!roomTilesList.contains(requestedNpcTile)) {
+                    throw new IllegalArgumentException("tile is not a room tile");
+                }
+                if (requestedNpcTile.isOccupied()) {
+                    throw new IllegalArgumentException("tile is already occupied");
+                }
+                npc.moveTo(requestedPositionForNpc);
+                friendlyNpcList.add(npc);
+            }
         }
-        if(requestedNpcTile.isOccupied()){
-            throw new IllegalArgumentException("tile is already occupied");
-        }
-        friendlyNpcList.add(npc);
-
     }
 
     public void addWaterTile(Position requestedWaterPosition){
@@ -86,9 +86,10 @@ public class Room {
         if(!roomTilesList.contains(requesteWaterTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
-        if(requesteWaterTile.isOccupied()){
-            throw new IllegalArgumentException("tile is already occupied");
+        if(requesteWaterTile.isWaterTile() || requesteWaterTile.isSwampTile()){
+            throw new IllegalArgumentException("tile is already a swamp or a watertile");
         }
+
         requesteWaterTile.makeWaterTile();
         waterTileList.add(requesteWaterTile);
     }
@@ -98,14 +99,14 @@ public class Room {
         if(!roomTilesList.contains(requestedSwampTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
-        if(requestedSwampTile.isOccupied()){
-            throw new IllegalArgumentException("tile is already occupied");
+        if(requestedSwampTile.isWaterTile() || requestedSwampTile.isSwampTile()){
+            throw new IllegalArgumentException("tile is already a swamp or a watertile");
         }
         requestedSwampTile.makeSwampTile();
         waterTileList.add(requestedSwampTile);
     }
 
-    public List<NPC> getFriendlyNpc(){
+    public List<NPC> getFriendlyNpcs(){
         return friendlyNpcList;
     }
 

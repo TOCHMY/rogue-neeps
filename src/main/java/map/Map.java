@@ -170,7 +170,6 @@ public class Map {
         }
     }
 
-
     public Tile[][] getMap() {
         return map;
     }
@@ -184,26 +183,6 @@ public class Map {
     }
 
 
-    public void printDungeon(String roomTilesOnOrOff, String backroundOnOrOff, String numbered) {
-        Position playerPos = getPlayerPosition();
-
-        for (int col = 0; col < map.length; col++) {
-            for (int row = 0; row < map[col].length-1; row++) {
-
-                if(playerPos.row() == col && playerPos.col() == row) {
-                    System.out.print("P");
-                } else {
-                    System.out.print(map[col][row].symbolPrint());;
-                }
-            }
-
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-    }
 
 
 }

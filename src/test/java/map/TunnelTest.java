@@ -1,11 +1,8 @@
 package map;
 
-import map.Tile;
-import map.Tunnel;
 import org.junit.jupiter.api.Test;
 import util.Position;
 
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +19,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_TunnelIsCreated_Expect_tileArrayContainsCorrectTiles(){
+    void When_TunnelIsCreated_Expect_TileArrayContainsCorrectTiles(){
         Map map = new Map();
 
         Room roomA = new Room("A", 27,8, new Tile(2,7), map);
@@ -44,7 +41,7 @@ class TunnelTest {
 
 
     @Test
-    void When_TunnelIsCreated_Expect_endingTileSet(){
+    void When_TunnelIsCreated_Expect_EndingTileSet(){
         Tile tunnelStart = new Tile(10, 31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13, 31);
@@ -54,7 +51,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_TunnelIsCreated_Expect_fromRoomCorrect(){
+    void When_TunnelIsCreated_Expect_FromRoomCorrect(){
         Tile tunnelStart = new Tile(10, 31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13, 31);
@@ -64,7 +61,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_TunnelIsCreated_Expect_expectToRoomCorrect(){
+    void When_TunnelIsCreated_Expect_ExpectToRoomCorrect(){
         Tile tunnelStart = new Tile(10, 31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13, 31);
@@ -74,7 +71,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_tunnelIsCreated_Expect_tunnelTilesListNotEmpty(){
+    void When_TunnelIsCreated_Expect_tunnelTilesListNotEmpty(){
         Tile tunnelStart = new Tile(10, 31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13, 31);
@@ -84,7 +81,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_tunnelIsCreated_Expect_IllegalArgument_If_StartingTileIsNotWallTile() {
+    void When_TunnelIsCreated_Expect_IllegalArgument_If_StartingTileIsNotWallTile() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Tile tunnelStart = new Tile(5, 31);
@@ -94,7 +91,7 @@ class TunnelTest {
     }
 
     @Test
-    void When_tunnelIsCreated_Expect_IllegalArgument_If_endingTileIsNotWallTile() {
+    void When_TunnelIsCreated_Expect_IllegalArgument_If_endingTileIsNotWallTile() {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Tile tunnelStart = new Tile(10, 31);
@@ -105,7 +102,7 @@ class TunnelTest {
 
 
     @Test
-    void When_HorizontalTunnelIsCreated_Expect_lengthToBeCorrect(){
+    void When_HorizontalTunnelIsCreated_Expect_LengthToBeCorrect(){
         Tile tunnelStart = new Tile(10, 31);
         tunnelStart.makeHorizontalWallTile();
         Tile tunnelEnd = new Tile(13, 31);
