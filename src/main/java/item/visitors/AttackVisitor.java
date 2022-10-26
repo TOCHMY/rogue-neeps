@@ -11,17 +11,25 @@ public class AttackVisitor implements ItemVisitor {
         return useAttack(item);
     }
 
-    protected double useAttack(Item item) {
-        double defaultCostOfUse = 0.5;
+    private double useAttack(Item item) {
+        double attackStrength = getAttackStrength(item);
+        subtractCost(item);
+
+        return attackStrength;
+    }
+
+    private double getAttackStrength(Item item) {
         double baseStrength = item.getBaseStrength();
         double strengthFromStones = item.getStrengthFromStonesOfColor(MagicColor.BLUE);
-        double cost = item.getCostFromStonesOfColor(MagicColor.BLUE);
         double stoneStrengthFactor = 1 + (strengthFromStones/100);
-
-        item.setBaseStrength(item.getBaseStrength() - defaultCostOfUse - cost);
 
         return Math.round(100 * baseStrength * stoneStrengthFactor) / 100.0;
     }
 
+    private void subtractCost(Item item){
+        double defaultCostOfUse = 0.5;
+        double cost = item.getCostFromStonesOfColor(MagicColor.BLUE);
+        item.setBaseStrength(item.getBaseStrength() - defaultCostOfUse - cost);
+    }
 
 }

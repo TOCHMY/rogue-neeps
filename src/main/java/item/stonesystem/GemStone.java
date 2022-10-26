@@ -10,7 +10,7 @@ public record GemStone(MagicColor color, int strength, double cost) {
         if (strength < MIN_STRENGTH || strength > MAX_STRENGTH)
             throw new IllegalArgumentException("Strength must be between 1-30");
         if (cost < MIN_COST || cost > MAX_COST)
-            throw new IllegalArgumentException("Cost must be between 1-30");
+            throw new IllegalArgumentException("Cost must be between 0-30");
 
     }
 }
