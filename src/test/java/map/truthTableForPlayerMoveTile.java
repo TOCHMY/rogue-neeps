@@ -2,22 +2,17 @@ package map;
 
 import npc.EnemyNPC;
 import npc.FriendlyNPC;
-import npc.NPC;
 import npc.Pig;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.testng.annotations.BeforeClass;
 import player.Human;
 import player.Ogre;
 import player.Player;
-import util.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TruthTableForPlayerMovement {
+public class truthTableForPlayerMoveTile {
     Player human;
     EnemyNPC enemy;
     FriendlyNPC friendly;
@@ -248,7 +243,6 @@ public class TruthTableForPlayerMovement {
     @Test
     // Testcase ID 31
     public void NPC_Enemy_SwampTile_Expect_False(){
-;
         assertFalse(enemy.canMove(swamp));
     }
 

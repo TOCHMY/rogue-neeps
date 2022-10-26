@@ -3,11 +3,9 @@ package map;
 import npc.NPC;
 import player.Player;
 import util.Direction;
-import util.Movable;
 import util.Position;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Map {
     public static Position STARTING_POS = new Position(1,1);
@@ -27,18 +25,17 @@ public class Map {
     public void setPlayer(Player p) {
         player = p;
     }
-    public void movement(Movable entity){
 
-    }
     public Tile getTile(Position pos){
         return map[pos.row()][pos.col()];
     }
 
     //för player eller för npcs
-    public Tile getTile(Direction direction){
-        Position targetTile = player.getPosition().newPosition(direction);
+    public Tile getTile(Direction direction, Position pos){
+        Position targetTile = pos.newPosition(direction);
         return map[targetTile.row()][targetTile.col()];
     }
+
 
     private void fillMapWithTiles(){
         for (int row = 0; row < map.length; row++) {

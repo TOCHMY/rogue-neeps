@@ -20,11 +20,6 @@ public class PlayerTest {
 
     private static int STARTING_XP = 100;
 
-    @Test
-    public void When_Concrete_Expect_Success() {
-        new Human();
-        new Ogre();
-    }
 
     @Test
     public void When_Concrete_Expect_ExperienceExists() {
@@ -66,7 +61,7 @@ public class PlayerTest {
         Pig pig = new Pig();
         pig.takeDmg(p, 20);
         Assertions.assertEquals(0, pig.getHP());
-        Assertions.assertEquals(80, p.getRemainingXp());
+        Assertions.assertEquals(90, p.getRemainingXp());
     }
 
     @Test
@@ -76,12 +71,11 @@ public class PlayerTest {
     }
 
     @Test
-    public void WhenMapExpectCanMove() {
+    public void WhenMapButNoWalkableTileExpectCanMove() {
         Player player = new Ogre();
         Map map = new Map();
         player.setMap(map);
-        player.moveTo(new Position(0, 0));
-        assertDoesNotThrow(() -> player.move(Direction.RIGHT));
+        assertThrows(IllegalStateException.class, () -> player.moveTo(new Position(0, 0)));
     }
 
     @Test
@@ -111,4 +105,9 @@ public class PlayerTest {
         double expectedPig2Strength = 10 - 5 * 1.09;
         assertEquals(expectedPig2Strength, pig2.getHP(),0.01);
     }
+
+
+
+
+
 }

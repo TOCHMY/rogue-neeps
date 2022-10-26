@@ -21,9 +21,7 @@ public record Position(int row, int col) {
             case LEFT -> {
                 return new Position(row, col - 1);
             }
-            default -> {
-                throw new IllegalArgumentException("Must be a valid direction");
-            }
+            default -> throw new IllegalArgumentException("Must be a valid direction");
         }
 
     }

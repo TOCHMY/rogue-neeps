@@ -27,6 +27,7 @@ public class Human extends Player{
         }
         return false;
     }
+
     @Override
     void equip(Weapon weapon) {
     }

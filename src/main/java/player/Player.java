@@ -14,7 +14,7 @@ import item.items.Weapon;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Player implements Movable {
+public abstract class Player {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
     private Player.Experience xp;
@@ -76,6 +76,12 @@ public abstract class Player implements Movable {
     }
 
     public void moveTo(Position pos) {
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
+        if(!canMove(map.getTile(pos))){
+            throw new IllegalStateException("Cannot move to that tile");
+        }
         if(position == null){
             Tile target = map.getTile(pos);
             move(target);
@@ -94,33 +100,26 @@ public abstract class Player implements Movable {
             throw new IllegalStateException("Cannot move without a map");
         }
         Tile current = map.getTile(position);
-        Tile tile = map.getTile(dir);
+        Tile tile = map.getTile(dir, position);
         if (!tile.isOccupied()) {
             move(tile, current);
-
         }
         setPlayerFacingDirection(dir);
     }
 
-    public void move(Tile target, Tile current) {
-        if (map == null) {
-            throw new IllegalStateException("Cannot move without a map");
-        }
+    private void move(Tile target, Tile current) {
         if (canMove(target)) {
             position = target.getPosition();
             target.setOccupied(true);
             current.setOccupied(false);
         }
     }
-    @Override
-    public void move(Tile target) {
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
-        }
+    private void move(Tile target) {
         if(canMove(target)){
             position = target.getPosition();
             target.setOccupied(true);
         }
+        else throw new IllegalStateException("Cannot move there");
     }
 
 
@@ -223,7 +222,7 @@ public abstract class Player implements Movable {
         }
     }
 
-    static class Experience {
+    private class Experience {
         private int lvl;
         private int currentXp;
         private int cap;

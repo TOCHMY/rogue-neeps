@@ -3,19 +3,20 @@ package npc;
 import map.Map;
 import map.Tile;
 import util.Direction;
-import util.Movable;
 import util.Position;
 
-public abstract class NPC implements Movable {
-    Position position;
-    Direction facingDirection;
-    Map map;
-    public final String name;
-    public double hp;
+public abstract class NPC {
+    private Position position;
+    private Direction facingDirection;
+
+    private Map map;
+    protected final String name;
+    protected double hp;
 
     public NPC(String name, int hp) {
         this.name = name;
         this.hp = hp;
+        this.facingDirection = Direction.UP;
     }
 
     public void setMap(Map m){
@@ -23,46 +24,48 @@ public abstract class NPC implements Movable {
         m.addNPC(this);
         //moveTo(RandomPos);
     }
+    public Map getMap() {
+        return map;
+    }
     abstract public boolean canMove(Tile tile);
 
-    @Override
+
     public void move(Direction dir) {
         if(map == null){
             throw new IllegalStateException("Cannot move without a map");
         }
         Tile current = map.getTile(position);
-        Tile tile = map.getTile(dir);
+        Tile tile = map.getTile(dir, position);
         if(!tile.isOccupied()){
             move(tile, current);
         }
         setFacingDirection(dir);
     }
 
-    @Override
-    public void move(Tile target, Tile current) {
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
-        }
+
+    private void move(Tile target, Tile current) {
+
         if(canMove(target)){
             position = target.getPosition();
             target.setOccupied(true);
             current.setOccupied(false);
         }
     }
-    @Override
-    public void move(Tile target) {
-        if(map == null){
-            throw new IllegalStateException("Cannot move without a map");
-        }
+
+    private void move(Tile target) {
+
         if(canMove(target)){
             position = target.getPosition();
             target.setOccupied(true);
         }
     }
 
-    @Override
+
     public void moveTo(Position pos) {
-        if(position == null){
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
+        else if(position == null){
             Tile target = map.getTile(pos);
             move(target);
         }
@@ -74,6 +77,9 @@ public abstract class NPC implements Movable {
 
     }
     public Position getPosition() {
+        if(position == null){
+            throw new IllegalStateException("Player doesnt have a position");
+        }
         return position;
     }
 
@@ -85,7 +91,7 @@ public abstract class NPC implements Movable {
         return facingDirection;
     }
 
-    public void setFacingDirection(Direction facingDirection) {
+    private void setFacingDirection(Direction facingDirection) {
         this.facingDirection = facingDirection;
     }
     public String getName() {

@@ -1,12 +1,8 @@
 package npc;
 
 import map.Tile;
-import npc.NPC;
 import player.Player;
-import util.Direction;
 import util.Killable;
-import util.Movable;
-import util.Position;
 
 public class EnemyNPC extends NPC implements Killable {
     private final int level; //Hook up with player level for balance during map-gen
