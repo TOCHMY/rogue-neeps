@@ -5,7 +5,6 @@ import item.items.Shield;
 import item.items.Weapon;
 
 public interface ItemVisitor {
-
     default double visit(Weapon item){
         return 0.0;
     }

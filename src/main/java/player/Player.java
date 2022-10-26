@@ -17,11 +17,11 @@ import java.util.List;
 public abstract class Player implements Movable {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
+    private final ItemCollection items;
     private Player.Experience xp;
     protected Stats stats;
     private Direction playerFacingDirection;
     public Map map;
-    private ItemCollection items;
     int hp;
     Position position;
 
