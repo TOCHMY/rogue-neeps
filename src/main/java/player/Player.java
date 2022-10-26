@@ -18,12 +18,12 @@ public abstract class Player {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
     private final ItemCollection items;
-    private Player.Experience xp;
+    private final Player.Experience xp;
     protected Stats stats;
     private Direction playerFacingDirection;
     public Map map;
-    int hp;
-    Position position;
+    protected int hp;
+    private Position position;
 
     Player(int strength, int dexterity, int intelligence, int hp) {
         this.hp = hp;
@@ -40,8 +40,7 @@ public abstract class Player {
     private double attackDamage() {
         int playerStrength = stats.getStrength();
         double attackFromItem = items.attackWithItems();
-        double dmg = playerStrength * (1 + attackFromItem / 100);
-        return dmg;
+        return playerStrength * (1 + attackFromItem / 100);
     }
 
     public double getIntelligenceWithItems(){
@@ -222,7 +221,7 @@ public abstract class Player {
         }
     }
 
-    private class Experience {
+    private static class Experience {
         private int lvl;
         private int currentXp;
         private int cap;
