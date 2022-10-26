@@ -245,4 +245,13 @@ public class ItemCollectionTest {
         assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
     }
 
+    @Test
+    void testNoArmorUnaffectedAttack() {
+        ITEM_COLLECTION.addRightHandItem(WEAPON);
+        ITEM_COLLECTION.addLeftHandItem(SHIELD);
+
+        double expectedStrength = 50;
+        assertEquals(expectedStrength, ITEM_COLLECTION.attackWithItems());
+    }
+
 }

@@ -14,7 +14,6 @@ public class ItemCollection {
     private Item leftHandItem;
     private Item rightHandItem;
     private Armor armor;
-    private MagicBag magicBag;
 
     public ItemCollection() {
         ATTACK_VISITOR = new AttackVisitor();
@@ -36,6 +35,10 @@ public class ItemCollection {
 
     private boolean isArmorWeakerThan15() {
         double THRESHOLD_FOR_WEAK_ARMOR = 15;
+        if (armor == null) {
+            return false;
+        }
+
         return (armor.getBaseStrength() + armor.getStrengthFromStonesOfColor(MagicColor.RED) < THRESHOLD_FOR_WEAK_ARMOR);
     }
 
@@ -122,8 +125,6 @@ public class ItemCollection {
             allItems.add(rightHandItem);
         if (armor != null)
             allItems.add(armor);
-        if (magicBag != null)
-            allItems.add(magicBag);
 
         return Collections.unmodifiableList(allItems);
     }

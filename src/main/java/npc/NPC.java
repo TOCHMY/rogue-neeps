@@ -11,7 +11,7 @@ public abstract class NPC implements Movable {
     Direction facingDirection;
     Map map;
     public final String name;
-    public int hp;
+    public double hp;
 
     public NPC(String name, int hp) {
         this.name = name;

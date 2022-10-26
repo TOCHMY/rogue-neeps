@@ -19,22 +19,12 @@ public class ShieldTest {
     Shield SHIELD;
     DefenceVisitor DEFENCEVISITOR;
     List<MagicSocket> TWO_DEFENCE_SOCKETS;
-    List<MagicSocket> BLUE_SOCKET;
-    List<MagicSocket> GREEN_SOCKET;
-    List<MagicSocket> PURPLE_SOCKET;
-
 
     @BeforeEach
     public void createSockets(){
         TWO_DEFENCE_SOCKETS = List.of
                 (new MagicSocket(MagicColor.RED),
                         new MagicSocket(MagicColor.RED));
-        BLUE_SOCKET =  List.of
-                (new MagicSocket(MagicColor.BLUE));
-        GREEN_SOCKET =  List.of
-                (new MagicSocket(MagicColor.GREEN));
-        PURPLE_SOCKET =  List.of
-                (new MagicSocket(MagicColor.PURPLE));
         SHIELD = new Shield(50, TWO_DEFENCE_SOCKETS);
         DEFENCEVISITOR = new DefenceVisitor();
     }

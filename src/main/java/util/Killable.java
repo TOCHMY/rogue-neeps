@@ -7,5 +7,5 @@ public interface Killable {
 
     void die();
     int getXP();
-    int getHP();
+    double getHP();
 }
