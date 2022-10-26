@@ -5,7 +5,7 @@ import util.Killable;
 
 public class Pig extends EnemyNPC implements Killable {
     private final int xp;
-    private int hitPointValue;
+    private double hitPointValue;
 
     private boolean isDead;
 
@@ -39,7 +39,7 @@ public class Pig extends EnemyNPC implements Killable {
     }
 
     @Override
-    public int getHP() {
+    public double getHP() {
         return this.hitPointValue;
     }
 

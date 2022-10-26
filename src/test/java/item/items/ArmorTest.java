@@ -19,9 +19,6 @@ public class ArmorTest {
     List<MagicSocket> THREE_SOCKETS;
     Armor ARMOR_WITH_THREE_SOCKETS;
     DefenceVisitor DEFENCEVISITOR;
-    List<MagicSocket> BLUE_SOCKET;
-    List<MagicSocket> GREEN_SOCKET;
-    List<MagicSocket> PURPLE_SOCKET;
 
     @BeforeEach
     public void createSockets() {
@@ -31,12 +28,6 @@ public class ArmorTest {
                         new MagicSocket(MagicColor.RED));
         ARMOR_WITH_THREE_SOCKETS = new Armor(50, THREE_SOCKETS);
         DEFENCEVISITOR = new DefenceVisitor();
-        BLUE_SOCKET = List.of
-                (new MagicSocket(MagicColor.BLUE));
-        GREEN_SOCKET = List.of
-                (new MagicSocket(MagicColor.GREEN));
-        PURPLE_SOCKET = List.of
-                (new MagicSocket(MagicColor.PURPLE));
     }
 
     @Test

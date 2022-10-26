@@ -29,12 +29,13 @@ public abstract class Player implements Movable {
         stats = new Stats(strength, dexterity, intelligence);
         xp = new Experience();
         setPlayerFacingDirection(Direction.UP);
+        items = new ItemCollection();
     }
 
     private double attackDamage(){
       int playerStrength = stats.getStrength();
       double attackFromItem = items.attackWithItems();
-      double dmg = playerStrength + (playerStrength * (.1 * attackFromItem));
+      double dmg =  playerStrength * (1 + attackFromItem /100);  //playerStrength + (playerStrength * (.1 * attackFromItem));
       return dmg;
     }
     public void attack(Killable target){

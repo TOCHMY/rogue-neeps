@@ -5,7 +5,6 @@ import item.stonesystem.MagicColor;
 import item.stonesystem.MagicSocket;
 import item.visitors.AttackVisitor;
 import item.visitors.DefenceVisitor;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,11 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WeaponTest {
 
     Weapon WEAPON_WITH_THREE_SOCKETS;
-    List<MagicSocket> GREEN_SOCKET;
-    List<MagicSocket> PURPLE_SOCKET;
     AttackVisitor ATTACK_VISITOR;
     DefenceVisitor DEFENCE_VISITOR;
-
 
     @BeforeEach
     void setup() {
@@ -32,16 +28,9 @@ public class WeaponTest {
                         new MagicSocket(MagicColor.RED));
 
         WEAPON_WITH_THREE_SOCKETS = new Weapon(50, sockets);
-        GREEN_SOCKET = List.of
-                (new MagicSocket(MagicColor.GREEN));
-        PURPLE_SOCKET = List.of
-                (new MagicSocket(MagicColor.PURPLE));
         ATTACK_VISITOR = new AttackVisitor();
         DEFENCE_VISITOR = new DefenceVisitor();
-
-
     }
-
 
     @Test
     public void testDefenceOnceWithoutStones() {

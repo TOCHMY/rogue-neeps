@@ -39,7 +39,7 @@ public class Albatross extends EnemyNPC implements Killable {
     }
 
     @Override
-    public int getHP() {
+    public double getHP() {
         return 0;
     }
 
