@@ -21,7 +21,7 @@ public class Armor extends Item {
     }
 
     @Override
-    public boolean anySocketOfWrongColor(List<MagicSocket> sockets) {
+    protected boolean anySocketOfWrongColor(List<MagicSocket> sockets) {
         return sockets.size()
                 - countSocketsOfColor(sockets, MagicColor.RED)
                 - countSocketsOfColor(sockets, MagicColor.GREEN) > 0;
