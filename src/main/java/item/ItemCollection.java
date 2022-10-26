@@ -4,21 +4,18 @@ import item.items.*;
 import item.stonesystem.MagicColor;
 import item.visitors.AttackVisitor;
 import item.visitors.DefenceVisitor;
+import item.visitors.IntelligenceVisitor;
 
 import java.util.*;
 
 public class ItemCollection {
 
-    private static AttackVisitor ATTACK_VISITOR;
-    private static DefenceVisitor DEFENCE_VISITOR;
+    private static final AttackVisitor ATTACK_VISITOR = new AttackVisitor();
+    private static final DefenceVisitor DEFENCE_VISITOR = new DefenceVisitor();
+    private static final IntelligenceVisitor INTELLIGENCE_VISITOR = new IntelligenceVisitor();
     private Item leftHandItem;
     private Item rightHandItem;
     private Armor armor;
-
-    public ItemCollection() {
-        ATTACK_VISITOR = new AttackVisitor();
-        DEFENCE_VISITOR = new DefenceVisitor();
-    }
 
     public double defendWithItems() {
         return getAllItems().stream()
@@ -35,11 +32,15 @@ public class ItemCollection {
 
     private boolean isArmorWeakerThan15() {
         double THRESHOLD_FOR_WEAK_ARMOR = 15;
-        if (armor == null) {
+        if (armor == null)
             return false;
-        }
-
         return (armor.getBaseStrength() + armor.getStrengthFromStonesOfColor(MagicColor.RED) < THRESHOLD_FOR_WEAK_ARMOR);
+    }
+
+    public double useItemIntelligence() {
+        return getAllItems().stream()
+                .mapToDouble(item -> item.accept(INTELLIGENCE_VISITOR))
+                .sum();
     }
 
     public List<Item> getHandItems() {
@@ -128,6 +129,5 @@ public class ItemCollection {
 
         return Collections.unmodifiableList(allItems);
     }
-
 
 }

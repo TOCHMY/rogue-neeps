@@ -1,7 +1,6 @@
 package item.visitors;
 
 import item.items.Armor;
-import item.items.MagicBag;
 import item.items.Shield;
 import item.items.Weapon;
 
@@ -17,7 +16,4 @@ public interface ItemVisitor {
         return 0.0;
     }
 
-    default double visit(MagicBag item){
-        return 0.0;
-    }
 }

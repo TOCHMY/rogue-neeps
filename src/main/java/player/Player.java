@@ -18,7 +18,7 @@ public abstract class Player implements Movable {
     private final ArrayList<Quest> questLog = new ArrayList<>();
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
     private Player.Experience xp;
-    Stats stats;
+    protected Stats stats;
     private Direction playerFacingDirection;
     public Map map;
     ItemCollection items;
@@ -33,6 +33,10 @@ public abstract class Player implements Movable {
         items = new ItemCollection();
     }
 
+    public void attack(Killable target) {
+        target.takeDmg(this, attackDamage());
+    }
+
     private double attackDamage() {
         int playerStrength = stats.getStrength();
         double attackFromItem = items.attackWithItems();
@@ -40,8 +44,10 @@ public abstract class Player implements Movable {
         return dmg;
     }
 
-    public void attack(Killable target) {
-        target.takeDmg(this, attackDamage());
+    public double getIntelligenceWithItems(){
+        int playerIntelligence = stats.getIntelligence();
+        double intelligenceFromItems = items.useItemIntelligence();
+        return playerIntelligence + intelligenceFromItems;
     }
 
     public abstract boolean canMove(Tile tile);
