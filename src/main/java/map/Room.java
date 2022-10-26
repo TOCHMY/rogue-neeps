@@ -47,7 +47,7 @@ public class Room {
 
     public void addHostileNpc(NPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
         Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
-        npc.move(requestedTileForNpc);
+        npc.moveTo(requestedPositionForNpc);
 
         if(!roomTilesList.contains(requestedTileForNpc)){
             throw new IllegalArgumentException("tile is not a room tile");

@@ -20,6 +20,12 @@ public class EnemyNPC extends NPC implements Killable {
         this.isMeleeEnemy = isMeleeEnemy;
         this.xp = xp;
     }
+    public EnemyNPC(String name, int level, boolean isMeleeEnemy) {
+        super(name, 20);
+        this.level = level;
+        this.isMeleeEnemy = isMeleeEnemy;
+        this.xp = xp;
+    }
 
     @Override
     public void takeDmg(Player p, double amount) {
