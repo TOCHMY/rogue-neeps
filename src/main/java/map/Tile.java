@@ -19,19 +19,19 @@ public class Tile {
     private Tunnel tunnel;
     private Position pos;
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-    }
-
-    private boolean occupied = false;
-
-
     public Tile(Position pos) {
         this.pos = pos;
     }
 
     public Tile(int row, int col) {
         this.pos = new Position(row, col);
+    }
+
+
+    private boolean occupied = false;
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 
     public int getRow() {

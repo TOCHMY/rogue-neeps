@@ -49,12 +49,29 @@ public abstract class NPC implements Movable {
             current.setOccupied(false);
         }
     }
+    @Override
+    public void move(Tile target) {
+        if(map == null){
+            throw new IllegalStateException("Cannot move without a map");
+        }
+        if(canMove(target)){
+            position = target.getPosition();
+            target.setOccupied(true);
+        }
+    }
 
     @Override
     public void moveTo(Position pos) {
-        Tile current = map.getTile(position);
-        Tile target = map.getTile(pos);
-        move(current, target);
+        if(position == null){
+            Tile target = map.getTile(pos);
+            move(target);
+        }
+        else{
+            Tile current = map.getTile(position);
+            Tile target = map.getTile(pos);
+            move(current, target);
+        }
+
     }
     public Position getPosition() {
         return position;
