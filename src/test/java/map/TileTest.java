@@ -239,6 +239,8 @@ class TileTest {
         map.addRoom(roomA);
 
         EnemyNPC npc1 = new Albatross(); // nuvarande
+
+        npc1.setMap(map);
         Position npcPos = new Position(3,15);
         roomA.addHostileNpc(npc1, npcPos);
 
