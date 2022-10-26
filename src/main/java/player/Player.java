@@ -71,7 +71,9 @@ public abstract class Player implements Movable {
     }
 
     public void moveTo(Position pos) {
-        position = pos;
+        Tile current = map.getTile(position);
+        Tile target = map.getTile(pos);
+        move(current, target);
     }
 
     public void move(Direction dir) {

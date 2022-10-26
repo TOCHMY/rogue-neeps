@@ -52,7 +52,9 @@ public abstract class NPC implements Movable {
 
     @Override
     public void moveTo(Position pos) {
-
+        Tile current = map.getTile(position);
+        Tile target = map.getTile(pos);
+        move(current, target);
     }
     public Position getPosition() {
         return position;
