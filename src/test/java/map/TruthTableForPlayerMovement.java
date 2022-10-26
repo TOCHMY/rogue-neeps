@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import player.Human;
+import player.Ogre;
 import player.Player;
 import util.Position;
 
@@ -16,10 +17,12 @@ public class TruthTableForPlayerMovement {
     Room roomA;
     Position tileToTest;
     Position tunnelPosition;
+    Player ogre;
 
     @BeforeEach
     public void initEach(){
         human = new Human();
+        ogre = new Ogre();
         map = new Map();
         human.setMap(map);
         roomA = new Room("A", 27,8, new Tile(2,7), map);
@@ -39,71 +42,172 @@ public class TruthTableForPlayerMovement {
     }
 
     @Test
+    // Testcase ID 1
     public void Human_StrBelow10_FloorTile_Expect_True(){
         assertTrue(human.canMove(map.getTile(tileToTest)));
     }
     @Test
+    // Testcase ID 2
     public void Human_StrAbove10Below20_FloorTile_Expect_True(){
         human.getStats().addStrength(10);
         assertTrue(human.canMove(map.getTile(tileToTest)));
     }
     @Test
+    // Testcase ID 3
     public void Human_StrAbove20_FloorTile_Expect_True(){
         human.getStats().addStrength(21);
         assertTrue(human.canMove(map.getTile(tileToTest)));
     }
-
     @Test
+    // Testcase ID 4
     public void Human_StrBelow10_TunnelTile_Expect_True(){
         assertTrue(human.canMove(map.getTile(tunnelPosition)));
     }
     @Test
+    // Testcase ID 5
     public void Human_StrAbove10Below20_TunnelTile_Expect_True(){
         human.getStats().addStrength(10);
         assertTrue(human.canMove(map.getTile(tunnelPosition)));
     }
     @Test
+    // Testcase ID 6
     public void Human_StrAbove20_TunnelTile_Expect_True(){
         human.getStats().addStrength(21);
         assertTrue(human.canMove(map.getTile(tunnelPosition)));
     }
 
     @Test
+    // Testcase ID 7
     public void Human_StrBelow10_SwampTile_Expect_True(){
         roomA.addSwampTile(tileToTest);
         assertFalse(human.canMove(map.getTile(tileToTest)));
     }
 
     @Test
+    // Testcase ID 8
     public void Human_StrAbove10Below20_SwampTile_Expect_True(){
         roomA.addSwampTile(tileToTest);
         human.getStats().addStrength(10);
         assertFalse(human.canMove(map.getTile(tileToTest)));
     }
+
     @Test
+    // Testcase ID 9
     public void Human_StrAbove20_SwampTile_Expect_True(){
         roomA.addSwampTile(tileToTest);
         human.getStats().addStrength(21);
         assertTrue(human.canMove(map.getTile(tileToTest)));
     }
 
-
     @Test
+    // Testcase ID 10
     public void Human_StrBelow10_WaterTile_Expect_False(){
         roomA.addWaterTile(tileToTest);
         assertFalse(human.canMove(map.getTile(tileToTest)));
     }
 
     @Test
+    // Testcase ID 11
     public void Human_StrAbove10Below20_WaterTile_Expect_True(){
         roomA.addWaterTile(tileToTest);
         human.getStats().addStrength(10);
         assertTrue(human.canMove(map.getTile(tileToTest)));
     }
+
     @Test
+    // Testcase ID 12
     public void Human_StrAbove20_WaterTile_Expect_True(){
         roomA.addWaterTile(tileToTest);
         human.getStats().addStrength(21);
         assertTrue(human.canMove(map.getTile(tileToTest)));
     }
+
+    @Test
+    // Testcase ID 13
+    public void Ogre_StrBelow10_RoomTile_Expect_True(){
+        assertTrue(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 14
+    public void Ogre_StrAbove10_Below20_RoomTile_Expect_True(){
+        ogre.getStats().addStrength(10);
+        assertTrue(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 15
+    public void Ogre_StrAbove20_RoomTile_Expect_True(){
+        ogre.getStats().addStrength(21);
+        assertTrue(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 16
+    public void Ogre_StrBelow10_TunnelTile_Expect_True(){
+        assertTrue(ogre.canMove(map.getTile(tunnelPosition)));
+    }
+
+    @Test
+    // Testcase ID 17
+    public void Ogre_StrAbove10_Below20_TunnelTile_Expect_True(){
+        ogre.getStats().addStrength(10);
+        assertTrue(ogre.canMove(map.getTile(tunnelPosition)));
+    }
+
+    @Test
+    // Testcase ID 18
+    public void Ogre_StrAbove20_TunnelTile_Expect_True(){
+        ogre.getStats().addStrength(21);
+        assertTrue(ogre.canMove(map.getTile(tunnelPosition)));
+    }
+
+    @Test
+    // Testcase ID 19
+    public void Ogre_StrBelow10_SwampTile_Expect_False(){
+        roomA.addSwampTile(tileToTest);
+        assertFalse(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 20
+    public void Ogre_StrAbove10_Below20_SwampTile_Expect_True(){
+        roomA.addSwampTile(tileToTest);
+        ogre.getStats().addStrength(10);
+        assertTrue(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 21
+    public void Ogre_StrAbove20_SwampTile_Expect_True(){
+        roomA.addSwampTile(tileToTest);
+        ogre.getStats().addStrength(21);
+        assertTrue(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 22
+    public void Ogre_StrBelow10_WaterTile_Expect_False(){
+        roomA.addWaterTile(tileToTest);
+        assertFalse(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 23
+    public void Ogre_StrAbove10_Below20_WaterTile_Expect_False(){
+        roomA.addWaterTile(tileToTest);
+        ogre.getStats().addStrength(10);
+        assertFalse(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+    @Test
+    // Testcase ID 24
+    public void Ogre_StrAbove20_WaterTile_Expect_False(){
+        roomA.addWaterTile(tileToTest);
+        ogre.getStats().addStrength(21);
+        assertFalse(ogre.canMove(map.getTile(tileToTest)));
+    }
+
+
+
 }

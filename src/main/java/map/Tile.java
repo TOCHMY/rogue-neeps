@@ -146,11 +146,6 @@ public class Tile {
         return this.pos.row() == otherTile.pos.row() && this.pos.row() == otherTile.pos.col();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(pos);
-    }
-
 
     public String symbolPrint() {
         if (isRoomTile()) {
