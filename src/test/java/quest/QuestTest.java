@@ -34,10 +34,19 @@ public class QuestTest {
     }
 
     @Test
+    void testQuest_correctQuestID() {
+        quest = qdb.getQuest(3);
+        assertEquals(3, quest.getQuestID());
+    }
+
+    @Test
+    void testCorrectToStringFormat() {
+        assertEquals("Quest name: Pig Menace. QuestID: 1", quest.toString());
+    }
+
+    @Test
     void testQuestIsInitiatedByPlayer() {
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
-        npcKate.setDialog(quest.getQuestDescription());
-        System.out.println(npcKate.say());
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("y");
         npcKate.askToAcceptQuest(userInputAsker, player);
         assertTrue(quest.isInitiated());
@@ -70,7 +79,7 @@ public class QuestTest {
     @Test
     void testQuestNotAccepted_NotAddedToPlayerQuestLog() {
         assertThrows(IllegalStateException.class, ()
-                -> player.addQuestToQuestLog(quest)); // "quest.Quest is not accepted"
+                -> player.addQuestToQuestLog(quest)); // "quest is not accepted"
     }
 
     @Test
@@ -110,6 +119,11 @@ public class QuestTest {
     }
 
     @Test
+    void testPigQuest_correctAmountOfEnemiesToKill() {
+        assertEquals(5, quest.getAmountOfEnemiesToKill());
+    }
+
+    @Test
     void testPigQuestGoalIsUpdated_WhenPigIsKilled() {
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
@@ -118,7 +132,6 @@ public class QuestTest {
         assertEquals("1 of 5 pigs killed.", quest.printKillQuestStatus());
     }
 
-    //Detta test skulle kunna slås ihop med testKillQuestDoesNotIncrementBeyondQuestGoal().
     //Testar enbart ett av alla olika format ett ord kan ha blir korrekt format
     //I detta fall ett djur vars böjning av ordet är enklet -> lägg till ett s för att representera npc.Pig i plural
     // andra skulle vara tex Octopus -> Octopi, Mantis -> Mantises osv
@@ -134,9 +147,6 @@ public class QuestTest {
         player.killTarget(pig); //6
         assertEquals("5 of 5 pigs killed.", quest.printKillQuestStatus());
     }
-
-    //Testar enbart ett av alla olika format ett ord kan ha blir korrekt format (i detta fall djur med s i slutet)
-    // andra skulle vara tex Octopus -> Octopi osv
 
     @Test
     void testKillQuestDoesNotIncrementBeyondQuestGoal() {
@@ -174,6 +184,13 @@ public class QuestTest {
     }
 
     @Test
+    void testQuest_isReturnedToQuestGiver_whenPlayerReturnsQuestToNPC() {
+        quest.setCompleted(true);
+        npcKate.completeQuest(quest, player);
+        assertTrue(quest.isReturnedToQuestGiver());
+    }
+
+    @Test
     void testPigQuestReturnedToFriendlyNPC_questCanNotBeAcceptedAgain() {
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
@@ -189,20 +206,18 @@ public class QuestTest {
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         quest.setCompleted(true);
-        assertFalse(quest.isReturnedToQuestGiver());
         player.interactWithFriendlyNPC(userInputAsker, npcKate);
-        assertTrue(quest.isReturnedToQuestGiver());
-        assertTrue(player.getFinishedQuestsLog().contains(quest));
         assertFalse(player.getQuestLog().contains(quest));
     }
 
     @Test
-    void testPigQuest_NotCompleted_questRemainsInQuestLog() {
+    void testPigQuest_notCompleted_questRemainsInQuestLog() {
         quest.setInitiated(true);
         player.addQuestToQuestLog(quest);
         npcKate.completeQuest(quest, player);
         assertTrue(player.getQuestLog().contains(quest));
     }
+
 
     @Test
     void testPigQuest_whenReturnedToQuestGiver_questAddedToFinishedQuestLog() {
@@ -227,7 +242,6 @@ public class QuestTest {
         Quest quest2 = qdb.getQuest(2);
         FriendlyNPC npcHerbert = quest2.getTalkQuestTarget();
         npcHerbert.setDialog("Oh I am so lost... You found me! I will return to " + npcKate.getName() + " now.");
-        System.out.println(npcHerbert.say());
         npcHerbert.setQuestGoal();
         quest2.setQuestGiver(npcKate);
         quest2.setInitiated(true);

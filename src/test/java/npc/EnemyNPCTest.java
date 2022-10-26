@@ -1,7 +1,9 @@
 package npc;
 
+import map.Map;
 import org.junit.jupiter.api.Test;
 import util.Direction;
+import util.Position;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,10 +14,15 @@ public class EnemyNPCTest {
     @Test
     void testEnemyNPCDie_isDead() {
         EnemyNPC npc = new EnemyNPC("Pig", 1, true);
-
         assertFalse(npc.isDead());
         npc.die();
         assertTrue(npc.isDead());
+    }
+
+    @Test
+    void testEnemyNPC_isMeleeEnemy() {
+        EnemyNPC npc = new EnemyNPC("Pig", 1, true);
+        assertTrue(npc.isMeleeEnemy());
     }
 
     @Test

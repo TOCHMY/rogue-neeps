@@ -3,6 +3,7 @@ package npc;
 import org.junit.jupiter.api.Test;
 import player.Human;
 import player.Player;
+import quest.Quest;
 import quest.QuestDatabase;
 import util.UserInputAsker;
 
@@ -11,6 +12,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class FriendlyNPCTest {
+
+    //Testar inte completeQuest() här för att completeQuest() testas i QuestTest
 
     private final QuestDatabase qdb = new QuestDatabase();
     Player player = new Human();
@@ -37,8 +40,24 @@ public class FriendlyNPCTest {
         assertEquals(qdb.getQuest(1), npc.getAssignedQuest());
     }
 
-//    @Test
-//    void testFriendlyNPC_questAssignedToFriendlyNPC
+    @Test
+    void testFriendlyNPC_isQuestGiver() {
+        FriendlyNPC npc = new FriendlyNPC("Kate", true);
+        assertTrue(npc.isQuestGiver());
+    }
+
+    @Test
+    void testFriendlyNPC_hasCorrectName() {
+        FriendlyNPC npc = new FriendlyNPC("Kate", true);
+        assertEquals("Kate", npc.getName());
+    }
+
+    @Test
+    void testFriendlyNPC_hasCorrectDialog() {
+        FriendlyNPC npc = new FriendlyNPC("Kate", true);
+        npc.getQuestFromDatabase(1, qdb);
+        assertEquals(qdb.getQuest(1).getQuestDescription(), npc.say());
+    }
 
     @Test
     void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectAccept() {
@@ -52,7 +71,7 @@ public class FriendlyNPCTest {
     void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectNotAccept() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
-
+        npc.getQuestFromDatabase(1, qdb);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("n");
         assertEquals("Oh, okay...", npc.askToAcceptQuest(userInputAsker, player));
     }
@@ -63,5 +82,13 @@ public class FriendlyNPCTest {
         npc.getQuestFromDatabase(1, qdb);
         when(userInputAsker.ask("Do you accept this quest? y / n")).thenReturn("invalid input");
         assertThrows(IllegalArgumentException.class,  () -> npc.askToAcceptQuest(userInputAsker, player));
+    }
+
+
+    @Test
+    void testFriendlyNPC_isQuestGoal() {
+        FriendlyNPC npc = new FriendlyNPC("Herbert");
+        npc.setQuestGoal();
+        assertTrue(npc.isQuestGoal());
     }
 }

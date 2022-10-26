@@ -90,6 +90,7 @@ public class FriendlyNPC extends NPC {
             player.addFinishedQuestToFinishedQuestLog(quest);
             player.removeQuestFromQuestLog(quest);
         } else {
+            //Code to indicate quest is not completed
             System.out.println("Quest goal " + questToGive.getQuestGoalText() + " not completed yet.");
         }
     }
