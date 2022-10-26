@@ -50,6 +50,13 @@ public class Tile {
         this.room = room;
     }
 
+    public void makeRoomTile() {
+        roomTile = true;
+        wallTile = false;
+        horizontalWall = false;
+        verticalWall = false;
+    }
+
     public void makeVerticalWallTile() {
         wallTile = true;
         verticalWall = true;
@@ -88,6 +95,14 @@ public class Tile {
 
     public void makeTunnelTile(Tunnel tunnel) {
         this.tunnel = tunnel;
+        tunnelTile = true;
+        wallTile = false;
+        verticalWall = false;
+        horizontalWall = false;
+        roomTile = false;
+    }
+
+    public void makeTunnelTile() {
         tunnelTile = true;
         wallTile = false;
         verticalWall = false;
