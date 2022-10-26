@@ -87,7 +87,7 @@ class TunnelTest {
                     Tile tunnelStart = new Tile(5, 31);
                     Tile tunnelEnd = new Tile(13, 31);
                     tunnelEnd.makeHorizontalWallTile();
-                    Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);} );
+                    new Tunnel("A", "C", tunnelStart, tunnelEnd);} );
     }
 
     @Test
@@ -97,7 +97,7 @@ class TunnelTest {
                     Tile tunnelStart = new Tile(10, 31);
                     tunnelStart.makeHorizontalWallTile();
                     Tile tunnelEnd = new Tile(13, 31);
-                    Tunnel tunnel = new Tunnel("A", "C", tunnelStart, tunnelEnd);} );
+                    new Tunnel("A", "C", tunnelStart, tunnelEnd);});
     }
 
 

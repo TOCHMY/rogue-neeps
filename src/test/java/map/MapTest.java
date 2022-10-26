@@ -93,7 +93,7 @@ class MapTest {
         player.moveTo(playerStartingPosition);
         assertEquals(playerStartingPosition, map.getPlayerPosition());
         player.move(Direction.RIGHT);
-        assertEquals(expectedPosition , map.getPlayerPosition());
+        assertEquals(expectedPosition, map.getPlayerPosition());
     }
 
     @Test
@@ -177,6 +177,29 @@ class MapTest {
 
         assertEquals(5,map.getTunnels().size());
 
+    }
+
+    @Test
+    void When_2x2RoomIsCreated_Expect_WallTilesCorrectlyCreatedAroundRoom(){
+        Map map = new Map();
+        Room roomA = new Room("A", 2,2, new Tile(2,2), map);
+        map.addRoom(roomA);
+        // walls above
+        assertTrue(map.getMap()[1][1].isWallTile());
+        assertTrue(map.getMap()[1][2].isWallTile());
+        assertTrue(map.getMap()[1][3].isWallTile());
+        assertTrue(map.getMap()[1][4].isWallTile());
+        // walls below
+        assertTrue(map.getMap()[4][1].isWallTile());
+        assertTrue(map.getMap()[4][2].isWallTile());
+        assertTrue(map.getMap()[4][3].isWallTile());
+        assertTrue(map.getMap()[4][4].isWallTile());
+        // walls leftside
+        assertTrue(map.getMap()[2][1].isWallTile());
+        assertTrue(map.getMap()[3][1].isWallTile());
+        // walls rightside
+        assertTrue(map.getMap()[2][4].isWallTile());
+        assertTrue(map.getMap()[3][4].isWallTile());
     }
 }
 

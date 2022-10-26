@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTest {
 
+
     @Test
     void When_RoomIsCreated_Expect_getNameSuccess(){
         Map map = new Map();
@@ -47,7 +48,7 @@ class RoomTest {
 
         FriendlyNPC friendlyNPC = new FriendlyNPC("Trainer");
         friendlyNPC.setMap(map);
-        Position npcPos = new Position(3,15);
+        Position npcPos = new Position(5,10);
         roomA.addFriendlyNpc(friendlyNPC, npcPos);
 
         assertEquals(1, roomA.getFriendlyNpcs().size());
@@ -90,7 +91,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     FriendlyNPC friendlyNPC1 = new FriendlyNPC("Trainer");
                     EnemyNPC enemy = new Albatross();
@@ -107,7 +108,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     EnemyNPC enemy = new Albatross();
                     enemy.setMap(map);
@@ -121,7 +122,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     FriendlyNPC friendlyNPC = new FriendlyNPC("Trainer");
                     friendlyNPC.setMap(map);
@@ -135,7 +136,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     roomA.addSwampTile(new Position(3,8));
                     roomA.addWaterTile(new Position(3,8));
@@ -147,7 +148,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     roomA.addWaterTile(new Position(3,8));
                     roomA.addSwampTile(new Position(3,8));
@@ -159,7 +160,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     roomA.addWaterTile(new Position(1,6));
                 });
@@ -170,7 +171,7 @@ class RoomTest {
         assertThrows(IllegalArgumentException.class,
                 () -> {
                     Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
+                    Room roomA = new Room("A", 27,8, new Tile(2,7), map);
                     map.addRoom(roomA);
                     roomA.addSwampTile(new Position(1,6));
                 });

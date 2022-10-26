@@ -12,7 +12,7 @@ import player.Player;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class truthTableForPlayerMoveTile {
+public class TruthTableForPlayerMoveTile {
     Player human;
     EnemyNPC enemy;
     FriendlyNPC friendly;

@@ -15,6 +15,7 @@ public class Room {
     private final List<NPC> friendlyNpcList = new ArrayList<>();
     private final List<NPC> hostileNpcList = new ArrayList<>();
     private final List<Tile> waterTileList = new ArrayList<>();
+    private final List<Tile> swampTileList = new ArrayList<>();
     private final List<Tile> roomTilesList = new ArrayList<>();
     private final Map map;
 
@@ -44,7 +45,7 @@ public class Room {
         return startingTile;
     }
 
-    public void addHostileNpc(NPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
+    public void addHostileNpc(NPC npc, Position requestedPositionForNpc){
         for(NPC npcloop : map.npcs){
             if(npcloop.equals(npc)){
                 Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
@@ -58,14 +59,13 @@ public class Room {
                 hostileNpcList.add(npc);
             }
         }
-
     }
 
     public List<NPC> getHostileNpcList(){
         return hostileNpcList;
     }
 
-    public void addFriendlyNpc(FriendlyNPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
+    public void addFriendlyNpc(FriendlyNPC npc, Position requestedPositionForNpc){
         for(NPC npcloop : map.npcs){
             if(npcloop.equals(npc)) {
                 Tile requestedNpcTile = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
@@ -103,7 +103,7 @@ public class Room {
             throw new IllegalArgumentException("tile is already a swamp or a watertile");
         }
         requestedSwampTile.makeSwampTile();
-        waterTileList.add(requestedSwampTile);
+        swampTileList.add(requestedSwampTile);
     }
 
     public List<NPC> getFriendlyNpcs(){

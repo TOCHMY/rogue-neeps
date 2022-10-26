@@ -21,9 +21,9 @@ class TileTest {
     void When_TileIsSetToRoomTile_Expect_isRoomTileTrue(){
         Map map = new Map();
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isRoomTile());
+        assertFalse(tile.isRoomTile());
         tile.makeRoomTile(new Room("test", 5,5,tile, map));
-        assertEquals(true, tile.isRoomTile());
+        assertTrue(tile.isRoomTile());
 
     }
 
@@ -31,14 +31,14 @@ class TileTest {
     void When_TwoTilesWithSameRowAndColAreCompared_Expect_equalsToBeTrue(){
         Tile tile1 = new Tile(0,0);
         Tile tile2 = new Tile(0,0);
-        assertEquals(true, tile1.equals(tile2));
+        assertEquals(tile1, tile2);
     }
 
     @Test
     void When_TileIsSetToVerticalWallTile_Expect_isVerticalWallTileTrue(){
         Tile tile = new Tile(0,0);
         tile.makeVerticalWallTile();
-        assertEquals(true, tile.isVerticalWallTile());
+        assertTrue(tile.isVerticalWallTile());
     }
 
 
@@ -47,71 +47,71 @@ class TileTest {
     void When_TileIsSetToHorizontalWallTile_Expect_isHorizontalWallTileTrue(){
         Tile tile = new Tile(0,0);
         tile.makeHorizontalWallTile();
-        assertEquals(true, tile.isHorizontalWallTile());
+        assertTrue(tile.isHorizontalWallTile());
     }
 
     @Test
     void When_TileIsSetToWaterTile_Expect_isWaterTileToBeTrue(){
         Tile tile = new Tile(0,0);
         tile.makeWaterTile();
-        assertEquals(true, tile.isWaterTile());
+        assertTrue(tile.isWaterTile());
     }
 
     @Test
     void When_TileIsSetToSwampTile_Expect_isSwampTileToBeTrue(){
         Tile tile = new Tile(0,0);
         tile.makeSwampTile();
-        assertEquals(true, tile.isSwampTile());
+        assertTrue(tile.isSwampTile());
     }
 
     @Test
     void When_TileIsSetToHorizontalWallTile_Expect_isWallToBeTrue(){
         Tile tile = new Tile(0,0);
         tile.makeHorizontalWallTile();
-        assertEquals(true, tile.isWallTile());
+        assertTrue(tile.isWallTile());
     }
 
     @Test
     void When_TileIsSetToVerticalWallTile_Expect_isWallToBeTrue(){
         Tile tile = new Tile(0,0);
         tile.makeVerticalWallTile();
-        assertEquals(true, tile.isWallTile());
+        assertTrue(tile.isWallTile());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isRoomTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isRoomTile());
+        assertFalse(tile.isRoomTile());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isWaterTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isWaterTile());
+        assertFalse(tile.isWaterTile());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isSwampTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isSwampTile());
+        assertFalse(tile.isSwampTile());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isHorizontalWallTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isHorizontalWallTile());
+        assertFalse(tile.isHorizontalWallTile());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isVerticalWallTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isVerticalWallTile());
+        assertFalse(tile.isVerticalWallTile());
     }
 
     @Test
     void When_NewTileIsCreated_Expect_isWallTileFalse(){
         Tile tile = new Tile(0,0);
-        assertEquals(false, tile.isWallTile());
+        assertFalse(tile.isWallTile());
     }
 
     @Test
@@ -139,10 +139,10 @@ class TileTest {
         Tile tunnelEnd = map.getMap()[13][31];
         Tunnel tunnel1 = new Tunnel("A", "C",tunnelStart,tunnelEnd);
         map.addTunnel(tunnel1);
-        assertEquals(true,map.getMap()[10][31].isTunnelTile());
-        assertEquals(true,map.getMap()[11][31].isTunnelTile());
-        assertEquals(true,map.getMap()[12][31].isTunnelTile());
-        assertEquals(true,map.getMap()[13][31].isTunnelTile());
+        assertTrue(map.getMap()[10][31].isTunnelTile());
+        assertTrue(map.getMap()[11][31].isTunnelTile());
+        assertTrue(map.getMap()[12][31].isTunnelTile());
+        assertTrue(map.getMap()[13][31].isTunnelTile());
     }
 
     @Test
@@ -205,7 +205,6 @@ class TileTest {
 
     @Test
     void When_WaterTileIsPrinted_Expect_CorrectSymbol(){
-        Map map = new Map();
         Tile startTile = new Tile(0,0);
         startTile.makeWaterTile();
         assertEquals("~", startTile.symbolPrint());
@@ -213,7 +212,6 @@ class TileTest {
 
     @Test
     void When_SwampTileIsPrinted_Expect_CorrectSymbol(){
-        Map map = new Map();
         Tile startTile = new Tile(0,0);
         startTile.makeSwampTile();
         assertEquals("#", startTile.symbolPrint());
@@ -223,20 +221,20 @@ class TileTest {
     void When_NewTileIsCreated_And_tileIsSetToOccupied_Exepct_isOccupiedTrue(){
         Tile tile = new Tile(0,0);
         tile.setOccupied(true);
-        assertEquals(true, tile.isOccupied());
+        assertTrue(tile.isOccupied());
     }
     @Test
     void When_NewTileIsCreated_And_TileIsSetToRoomTile_Expect_isRoomTileTrue(){
         Tile tile = new Tile(0,0);
         tile.makeRoomTile();
-        assertEquals(true, tile.isRoomTile());
+        assertTrue(tile.isRoomTile());
     }
 
     @Test
     void When_NewTileIsCreated_And_TileIsSetToTunnelTile_Expect_isTunnelTileTrue(){
         Tile tile = new Tile(0,0);
         tile.makeTunnelTile();
-        assertEquals(true, tile.isTunnelTile());
+        assertTrue(tile.isTunnelTile());
     }
 
 
@@ -250,7 +248,7 @@ class TileTest {
         npc1.setMap(map);
         Position npcPos = new Position(3,15);
         roomA.addHostileNpc(npc1, npcPos);
-       assertEquals(true, map.getMap()[3][15].isOccupied());
+        assertTrue(map.getMap()[3][15].isOccupied());
     }
 
 
