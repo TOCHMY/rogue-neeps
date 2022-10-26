@@ -1,17 +1,14 @@
 package npc;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import map.Map;
-import npc.Pig;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.Human;
-import util.Direction;
 
 
 public class PigTest {
+
+    //Using this class to test EnemyNPC
 
     Pig pig;
 
@@ -70,7 +67,7 @@ public class PigTest {
     void pigDies_playerReceivesCorrectAmountOfExperiencePoints() {
         Human player = new Human();
         pig.takeDmg(player, 10);
-        assertEquals(20, player.getCurrentXp());
+        assertEquals(10, player.getCurrentXp());
     }
 
 
