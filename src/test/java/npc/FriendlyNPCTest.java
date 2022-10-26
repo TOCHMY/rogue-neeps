@@ -26,7 +26,7 @@ public class FriendlyNPCTest {
 
     //Return QuestDescription for particular quest
     @Test
-    void testQuestGiverFriendlyNPC_respondsToPlayerInteraction_ExpectPigQuestDescription() {
+    void testQuestGiverFriendlyNPC_respondsToPlayerInteraction_expectPigQuestDescription() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         String questDescription = qdb.getQuest(1).getQuestDescription();
         npc.getQuestFromDatabase(1, qdb);
@@ -60,7 +60,7 @@ public class FriendlyNPCTest {
     }
 
     @Test
-    void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectAccept() {
+    void testFriendlyNPC_asksPlayerToAcceptQuest_expectAccept() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         npc.getQuestFromDatabase(1, qdb);
@@ -68,7 +68,7 @@ public class FriendlyNPCTest {
         assertEquals("Thank you for helping me!", npc.askToAcceptQuest(userInputAsker, player));
     }
     @Test
-    void testFriendlyNPC_AsksPlayerToAcceptQuest_ExpectNotAccept() {
+    void testFriendlyNPC_asksPlayerToAcceptQuest_expectNotAccept() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         npc.getQuestFromDatabase(1, qdb);
@@ -76,7 +76,7 @@ public class FriendlyNPCTest {
         assertEquals("Oh, okay...", npc.askToAcceptQuest(userInputAsker, player));
     }
     @Test
-    void testFriendlyNPC_InvalidInput() {
+    void testFriendlyNPC_invalidInput() {
         FriendlyNPC npc = new FriendlyNPC("Kate", true);
         UserInputAsker userInputAsker = mock(UserInputAsker.class);
         npc.getQuestFromDatabase(1, qdb);

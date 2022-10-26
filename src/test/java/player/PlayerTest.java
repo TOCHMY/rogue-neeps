@@ -76,14 +76,14 @@ public class PlayerTest {
         assertThrows(IllegalStateException.class, () -> p.move(Direction.UP));
     }
 
-    @Test
+/*    @Test
     public void WhenMapExpectCanMove() {
         Player player = new Ogre();
         Map map = new Map();
         player.setMap(map);
         player.moveTo(new Position(0, 0));
         assertDoesNotThrow(() -> player.move(Direction.RIGHT));
-    }
+    }*/
 
     @Test
     void when_AttackWithWeapon_Expect_CorrectDamageOnPig() {
@@ -121,4 +121,9 @@ public class PlayerTest {
 
         assertEquals(17, player.getIntelligenceWithItems());
     }
+
+/*    @Test
+    void testKillTarget() {
+
+    }*/
 }
