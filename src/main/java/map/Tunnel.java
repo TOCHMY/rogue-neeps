@@ -10,7 +10,6 @@ public class Tunnel {
     private final Tile tunnelEnd;
     private final List<Tile> tileList = new ArrayList<>();
     private final int length;
-    private boolean horizontalTunnel;
     private boolean verticalTunnel;
 
     public Tunnel(String fromRoom, String toRoom, Tile tunnelStart, Tile tunnelEnd) {
@@ -23,7 +22,6 @@ public class Tunnel {
                 verticalTunnel = true;
                 length = tunnelEnd.getPosition().row()+1 - tunnelStart.getPosition().row();
             } else {
-                horizontalTunnel = true;
                 length = tunnelEnd.getPosition().col()+1 - tunnelStart.getPosition().col();
             }
         } else{

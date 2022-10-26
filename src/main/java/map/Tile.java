@@ -1,10 +1,7 @@
 package map;
 
-import npc.FriendlyNPC;
-import player.Player;
 import util.Position;
 
-import java.util.Objects;
 
 public class Tile {
 
@@ -17,7 +14,7 @@ public class Tile {
     private boolean waterTile = false;
     private Room room;
     private Tunnel tunnel;
-    private Position pos;
+    private final Position pos;
 
     public Tile(Position pos) {
         this.pos = pos;
