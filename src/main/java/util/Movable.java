@@ -4,6 +4,6 @@ import map.Tile;
 
 public interface Movable {
     void move(Direction d);
-    void move(Tile tile);
+    void move(Tile target, Tile current);
     void moveTo(Position pos);
 }

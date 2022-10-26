@@ -38,6 +38,7 @@ public abstract class NPC implements Movable {
         setFacingDirection(dir);
     }
 
+    @Override
     public void move(Tile target, Tile current) {
         if(map == null){
             throw new IllegalStateException("Cannot move without a map");
