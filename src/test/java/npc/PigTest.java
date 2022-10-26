@@ -13,8 +13,6 @@ import util.Direction;
 
 public class PigTest {
 
-    //Using this class to test abstract NPC class
-
     Pig pig;
 
     @BeforeEach
@@ -75,10 +73,6 @@ public class PigTest {
         assertEquals(20, player.getCurrentXp());
     }
 
-    @Test
-    void testMoveFromAbstractClassNPC_noMapThrowsException() {
-        assertThrows(IllegalStateException.class, ()
-                -> pig.move(Direction.UP));
-    }
+
 
 }

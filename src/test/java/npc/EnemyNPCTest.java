@@ -1,6 +1,7 @@
 package npc;
 
 import org.junit.jupiter.api.Test;
+import util.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,5 +22,12 @@ public class EnemyNPCTest {
     void testEnemyNPC_toStringFormat() {
         EnemyNPC npc = new EnemyNPC("Spöket Laban", 2, true);
         assertEquals("EnemyNPC:\nName: Spöket Laban\nLevel: 2\nHP: 20.0", npc.toString());
+    }
+
+    @Test
+    void testMoveFromAbstractClassNPC_noMapThrowsException() {
+        EnemyNPC npc = new EnemyNPC("Pig", 1, true);
+        assertThrows(IllegalStateException.class, ()
+                -> npc.move(Direction.UP));
     }
 }
