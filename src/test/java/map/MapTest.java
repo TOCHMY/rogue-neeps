@@ -51,6 +51,8 @@ class MapTest {
     @Test
     void When_newMapCreated_And_PlayerIsSet_Expect_correctPlayerPositionOnMap(){
         Map map = new Map();
+        Room roomA = new Room("A", 27,8, new Tile(2,7), map);
+        map.addRoom(roomA);
         Player player = new Ogre();
         player.setMap(map);
         player.moveTo(playerStartingPosition);

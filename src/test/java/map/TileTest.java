@@ -226,8 +226,18 @@ class TileTest {
     void When_SwampTileIsPrinted_Expect_CorrectSymbol(){
         Map map = new Map();
         Tile startTile = new Tile(0,0);
-        startTile.makeWaterTile();
-        assertEquals("~", startTile.symbolPrint());
+        startTile.makeSwampTile();
+        assertEquals("#", startTile.symbolPrint());
+    }
+
+    @Test
+    void When_newTileIsCreated_Exepct_isOccupiedTrue(){
+        // Enemy 1 map.Room A new version
+
+        Tile tile = new Tile(0,0);
+        tile.setOccupied(true);
+
+        assertEquals(true, tile.isOccupied());
     }
 
     @Test
