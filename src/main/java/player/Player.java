@@ -21,7 +21,7 @@ public abstract class Player implements Movable {
     protected Stats stats;
     private Direction playerFacingDirection;
     public Map map;
-    ItemCollection items;
+    private ItemCollection items;
     int hp;
     Position position;
 
@@ -40,7 +40,7 @@ public abstract class Player implements Movable {
     private double attackDamage() {
         int playerStrength = stats.getStrength();
         double attackFromItem = items.attackWithItems();
-        double dmg = playerStrength * (1 + attackFromItem / 100);  //playerStrength + (playerStrength * (.1 * attackFromItem));
+        double dmg = playerStrength * (1 + attackFromItem / 100);
         return dmg;
     }
 
@@ -269,4 +269,7 @@ public abstract class Player implements Movable {
         return xp.getCurrentXp();
     }
 
+    public ItemCollection getItems() {
+        return items;
+    }
 }
