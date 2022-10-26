@@ -259,66 +259,9 @@ class MapTest {
         // Enemy 1 map.Room A new version
         EnemyNPC npc1 = new Albatross(); // nuvarande
         Position npcPos = new Position(3,15);
-        roomA.addHostileNpc(npc1, npcPos);
-
         npc1.setMap(map);
-        roomA.addHostileNpc(map.npcs.get(0), npcPos);
 
-
-        // HostileNPC 2 map.Room A NEW
-        EnemyNPC npc2 = new Albatross();
-        npcPos = new Position(4,28);
-        roomA.addHostileNpc(npc2, npcPos);
-
-        // HostileNPC 3 map.Room B NEW
-        EnemyNPC npc3 = new Albatross();
-        npcPos = new Position(4,65);
-        roomB.addHostileNpc(npc3,npcPos);
-
-        // HostileNPC 4 map.Room B NEW
-        EnemyNPC npc4 = new Albatross();
-        npcPos = new Position(7,66);
-        roomB.addHostileNpc(npc4, npcPos);
-
-        // HostileNPC 5 map.Room B NEW
-        EnemyNPC npc5 = new Albatross();
-        npcPos = new Position(9,70);
-        roomB.addHostileNpc(npc5, npcPos);
-
-        // HostileNPC 6 map.Room D NEW
-        EnemyNPC npc6 = new Albatross();
-        npcPos = new Position(16,70);
-        roomD.addHostileNpc(npc6, npcPos);
-
-        // HostileNPC 7 map.Room F NEW
-        EnemyNPC npc7 = new Albatross();
-        npcPos = new Position(30,75);
-        roomF.addHostileNpc(npc7, npcPos);
-
-        // HostileNPC 8 map.Room E NEW
-        EnemyNPC npc8 = new Albatross();
-        npcPos = new Position(34,70);
-        roomF.addHostileNpc(npc8, npcPos);
-
-        // HostileNPC 9 map.Room D NEW
-        EnemyNPC npc9 = new Albatross();
-        npcPos = new Position(19,70);
-        roomD.addHostileNpc(npc9, npcPos);
-
-
-        // Friendly 1 map.Room A NEW
-        FriendlyNPC npc15 = new FriendlyNPC("Friendly1"); // nuvarande
-        npcPos = new Position(9,8);
-        roomA.addFriendlyNpc(npc15,npcPos);
-
-        // Friendly 2 map.Room A NEW
-        FriendlyNPC npc16 = new FriendlyNPC("Friendly2"); // nuvarande
-        npcPos = new Position(9,10);
-        roomA.addFriendlyNpc(npc16,npcPos);
-
-        FriendlyNPC npc17 = new FriendlyNPC("Friendly3"); // nuvarande
-        npcPos = new Position(4,80);
-        roomB.addFriendlyNpc(npc17,npcPos);
+        roomA.addHostileNpc(npc1, npcPos);
 
 
         // map.Tunnel A till C

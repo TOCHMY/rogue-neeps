@@ -46,17 +46,23 @@ public class Room {
     }
 
     public void addHostileNpc(NPC npc, Position requestedPositionForNpc) throws IllegalArgumentException{
-        Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
+        for(NPC npcloop : map.npcs){
+            if(npcloop.equals(npc)){
+                Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];
 
 
-        if(!roomTilesList.contains(requestedTileForNpc)){
-            throw new IllegalArgumentException("tile is not a room tile");
+                if(!roomTilesList.contains(requestedTileForNpc)){
+                    throw new IllegalArgumentException("tile is not a room tile");
+                }
+                if(requestedTileForNpc.isOccupied()){
+                    throw new IllegalArgumentException("tile is already occupied");
+                }
+                npc.moveTo(requestedPositionForNpc);
+                hostileNpcList.add(npc);
+                break;
+            }
         }
-        if(requestedTileForNpc.isOccupied()){
-            throw new IllegalArgumentException("tile is already occupied");
-        }
-        npc.moveTo(requestedPositionForNpc);
-        hostileNpcList.add(npc);
+
     }
 
     public List<NPC> getHostileNpcList(){
