@@ -11,7 +11,7 @@ public class Armor extends Item {
     public Armor(double strength, List<MagicSocket> sockets){
         super(strength, sockets);
         if(anySocketOfWrongColor(sockets)) {
-            throw new IllegalArgumentException("Defence items can only have red sockets");
+            throw new IllegalArgumentException("Defence items can only have red or green sockets");
         }
     }
 
@@ -22,7 +22,9 @@ public class Armor extends Item {
 
     @Override
     public boolean anySocketOfWrongColor(List<MagicSocket> sockets) {
-        return sockets.size() - countSocketsOfColor(sockets, MagicColor.RED) > 0;
+        return sockets.size()
+                - countSocketsOfColor(sockets, MagicColor.RED)
+                - countSocketsOfColor(sockets, MagicColor.GREEN) > 0;
     }
 
 }
