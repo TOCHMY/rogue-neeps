@@ -15,7 +15,7 @@ public class Map {
     private final ArrayList<Room> rooms = new ArrayList<>();
     private final ArrayList<Tunnel> tunnels = new ArrayList<>();
     private Player player;
-    private ArrayList<NPC> npcs;
+    private ArrayList<NPC> npcs = new ArrayList<>();
 
     public Map(){
         fillMapWithTiles();
