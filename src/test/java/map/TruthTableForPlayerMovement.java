@@ -4,10 +4,12 @@ import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import npc.NPC;
 import npc.Pig;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.testng.annotations.BeforeClass;
 import player.Human;
 import player.Ogre;
 import player.Player;
@@ -20,18 +22,13 @@ public class TruthTableForPlayerMovement {
     EnemyNPC enemy;
     FriendlyNPC friendly;
     Player ogre;
-    Tile room;
-    Tile tunnel;
-    Tile water;
-    Tile swamp;
+    static Tile room;
+    static Tile tunnel;
+    static Tile water;
+    static Tile swamp;
 
-    @BeforeEach
-    public void initEach(){
-        enemy = new Pig();
-        friendly = new FriendlyNPC("Friendly NPC");
-        human = new Human();
-        ogre = new Ogre();
-
+    @BeforeAll
+    public static void setUpTiles(){
         room = new Tile(0,0);
         room.makeRoomTile();
 
@@ -43,7 +40,14 @@ public class TruthTableForPlayerMovement {
 
         swamp = new Tile(0,0);
         swamp.makeSwampTile();
+    }
 
+    @BeforeEach
+    public void setUpEntities(){
+        enemy = new Pig();
+        friendly = new FriendlyNPC("Friendly NPC");
+        human = new Human();
+        ogre = new Ogre();
     }
 
     @Test
