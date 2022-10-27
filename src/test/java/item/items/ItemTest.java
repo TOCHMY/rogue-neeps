@@ -27,12 +27,17 @@ public class ItemTest {
     }
 
     @Test
-    public void testItemCreatedWithParameters() {
+    public void testItemCreatedWithParametersCorrectSockets() {
         List<MagicSocket> magicSockets = List.of(new MagicSocket(MagicColor.BLUE));
         Weapon weapon = new Weapon(50, magicSockets);
-        assertNotNull(weapon);
-        assertEquals(50, weapon.getBaseStrength());
         assertEquals(magicSockets, weapon.getSockets());
+    }
+
+    @Test
+    public void testItemCreatedWithParametersCorrectStrength() {
+        List<MagicSocket> magicSockets = List.of(new MagicSocket(MagicColor.BLUE));
+        Weapon weapon = new Weapon(50, magicSockets);
+        assertEquals(50, weapon.getBaseStrength());
     }
 
     @Test
@@ -61,10 +66,11 @@ public class ItemTest {
 
     @Test
     public void testAddOneGemStoneToItem() {
-        WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
-        assertEquals(1, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
+        GemStone gemStone = new GemStone(MagicColor.BLUE, 5, 5);
+        WEAPON_WITH_THREE_SOCKETS.addStone(gemStone);
+        assertTrue( WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
                 .filter(magicSocket -> magicSocket.getGemStone() != null)
-                .filter(magicSocket -> magicSocket.getGemStone().color().equals(MagicColor.BLUE)).count());
+                .anyMatch(magicSocket -> magicSocket.getGemStone().equals(gemStone)));
     }
 
     @Test
@@ -81,9 +87,8 @@ public class ItemTest {
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 5, 5));
         WEAPON_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.BLUE, 5, 5));
-        assertEquals(1, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
-                .filter(magicSocket -> magicSocket.getGemStone() != null)
-                .filter(magicSocket -> magicSocket.getGemStone().color().equals(MagicColor.RED)).count());
+        assertEquals(3, WEAPON_WITH_THREE_SOCKETS.getSockets().stream()
+                .filter(magicSocket -> magicSocket.getGemStone() != null).count());
     }
 
     @Test

@@ -21,7 +21,7 @@ public class ShieldTest {
     List<MagicSocket> TWO_DEFENCE_SOCKETS;
 
     @BeforeEach
-    public void createSockets(){
+    public void createSockets() {
         TWO_DEFENCE_SOCKETS = List.of
                 (new MagicSocket(MagicColor.RED),
                         new MagicSocket(MagicColor.RED));
@@ -30,9 +30,16 @@ public class ShieldTest {
     }
 
     @Test
-    public void testCreateShield(){
+    public void testCreateShieldCorrectStrength() {
         Shield shield = new Shield(50, TWO_DEFENCE_SOCKETS);
+
         assertEquals(50, shield.getBaseStrength());
+    }
+
+    @Test
+    public void testCreateShieldCorrectSockets() {
+        Shield shield = new Shield(50, TWO_DEFENCE_SOCKETS);
+
         assertEquals(TWO_DEFENCE_SOCKETS, shield.getSockets());
     }
 
@@ -45,23 +52,51 @@ public class ShieldTest {
     }
 
     @Test
-    void testDefendWithoutStones() {
+    void testDefendWithoutStonesCorrectStrength() {
         assertEquals(50, SHIELD.accept(DEFENCEVISITOR));
+    }
+
+    @Test
+    void testDefendWithoutStonesCorrectCost() {
+        SHIELD.accept(DEFENCEVISITOR);
+
         assertEquals(49.5, SHIELD.getBaseStrength());
     }
+
     @Test
-    void testDefendOnceWithStones() {
+    void testDefendOnceWithStonesCorrectStrength() {
         SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
+
         assertEquals(60, SHIELD.accept(DEFENCEVISITOR));
+    }
+
+    @Test
+    void testDefendOnceWithStonesCorrectCost() {
+        SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
+
+        SHIELD.accept(DEFENCEVISITOR);
+
         assertEquals(47.5, SHIELD.getBaseStrength());
     }
 
     @Test
-    void testDefendTwiceWithStones() {
+    void testDefendTwiceWithStonesCorrectStrength() {
         SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
         SHIELD.accept(DEFENCEVISITOR);
         SHIELD.addStone(new GemStone(MagicColor.RED, 30, 20));
+
         assertEquals(71.25, SHIELD.accept(DEFENCEVISITOR));
+    }
+
+
+    @Test
+    void testDefendTwiceWithStonesCorrectCost() {
+        SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
+        SHIELD.accept(DEFENCEVISITOR);
+        SHIELD.addStone(new GemStone(MagicColor.RED, 30, 20));
+
+        SHIELD.accept(DEFENCEVISITOR);
+
         assertEquals(25, SHIELD.getBaseStrength());
     }
 }
