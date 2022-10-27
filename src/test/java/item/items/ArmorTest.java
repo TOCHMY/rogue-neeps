@@ -39,26 +39,48 @@ public class ArmorTest {
     }
 
     @Test
-    void testDefendWithoutStones() {
+    void testDefendWithoutStonesCorrectStrength() {
         assertEquals(50, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
+    }
+
+    @Test
+    void testDefendWithoutStonesCorrectCost() {
+        ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
         assertEquals(49.5, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
-    void testDefendOnceWithRedStones() {
+    void testDefendOnceWithRedStonesCorrectStrength() {
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
         assertEquals(60, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
         assertEquals(47.5, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
-        ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 30, 20));
-        assertEquals(71.25, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
-        assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
     }
     @Test
-    void testDefendTwiceWithRedStones() {
+    void testDefendOnceWithRedStonesCorrectCost() {
+        ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
+
+        ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+
+        assertEquals(47.5, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
+    }
+
+    @Test
+    void testDefendTwiceWithRedStonesCorrectStrength() {
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
         ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 30, 20));
+
         assertEquals(71.25, ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
+    }
+
+    @Test
+    void testDefendTwiceWithRedStonesCorrectCost() {
+        ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 20, 2));
+        ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+        ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.RED, 30, 20));
+
+        ARMOR_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+
         assertEquals(25, ARMOR_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
@@ -79,5 +101,17 @@ public class ArmorTest {
     void testGetIntelligenceFromGreenStone() {
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.GREEN, 10,0));
         assertEquals(5, ARMOR_WITH_THREE_SOCKETS.accept(INTELLIGENCE_VISITOR));
+    }
+
+    @Test
+    void testGetIntelligenceFromMultipleGreenStones() {
+        Armor armor = new Armor(50,
+                List.of(new MagicSocket(MagicColor.GREEN),new MagicSocket(MagicColor.GREEN)));
+
+        armor.addStone(new GemStone(MagicColor.GREEN, 10,0));
+        armor.addStone(new GemStone(MagicColor.GREEN, 20,0));
+
+        double expectedIntelligence = 50 * (10 + 20) / 100.0;
+        assertEquals(expectedIntelligence, armor.accept(INTELLIGENCE_VISITOR));
     }
 }

@@ -8,7 +8,6 @@ import util.Position;
 import java.util.ArrayList;
 
 public class Map {
-    public static Position STARTING_POS = new Position(1,1);
     private final Tile[][] map = new Tile[40][100];
     private final ArrayList<Room> rooms = new ArrayList<>();
     private final ArrayList<Tunnel> tunnels = new ArrayList<>();
@@ -111,7 +110,6 @@ public class Map {
                 tunnel.addTile(map[i][start.getPosition().col()]);
             }
         } else {
-            // en horisontell tunnel
             for (int i = start.getPosition().col(); i < end.getPosition().col()+1; i++) {
                 map[start.getPosition().row()][i].makeTunnelTile(tunnel);
                 tunnel.addTile(map[start.getPosition().row()][i]);
@@ -153,12 +151,10 @@ public class Map {
         int startOfRow = sT.getPosition().row();
         int endOfRow = sT.getPosition().row() + height;
         for (int i = startOfCol - 1; i < endOfCol + 1; i++) {
-            // om det är första raden nedåt
             if(i == startOfCol - 1){
                 for (int j = startOfRow - 1; j < endOfRow + 1; j++) {
                     map[j][i].makeVerticalWallTile();
                 }
-                // om det är sista raden nedåt
             } else if(i == endOfCol){
                 for (int j = startOfRow - 1; j < endOfRow + 1; j++) {
                     map[j][i].makeVerticalWallTile();
@@ -169,7 +165,6 @@ public class Map {
             }
         }
     }
-
 
     public Tile[][] getMap() {
         return map;
@@ -183,27 +178,6 @@ public class Map {
         return tunnels;
     }
 
-
-    public void printDungeon(String roomTilesOnOrOff, String backroundOnOrOff, String numbered) {
-        Position playerPos = getPlayerPosition();
-
-        for (int col = 0; col < map.length; col++) {
-            for (int row = 0; row < map[col].length-1; row++) {
-
-                if(playerPos.row() == col && playerPos.col() == row) {
-                    System.out.print("P");
-                } else {
-                    System.out.print(map[col][row].symbolPrint());;
-                }
-            }
-
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-    }
 
 
 }
