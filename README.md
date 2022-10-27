@@ -101,7 +101,7 @@ GemStones har:
 - Weapon
 	- Kan användas för attack och defence, kan därmed ha BLUE och RED sockets
 - Armor
-	- Kan användas för defence, kan därmed ha RED sockets 
+	- Kan användas för defence och intelligence, kan därmed ha RED och GREEN sockets 
 	- EV. TILLÄGG (Man blir klumpig och får mindre dexterity)
 - Shield
 	- Kan användas för defence, kan därmed ha RED sockets
@@ -117,16 +117,14 @@ ItemCollection kan vara tom eller innehålla
     - Max 1 sköld 
 - 1 Armor
 - 1 Shield
-- EVENTUELLT. 1 Helmet
-- I nuläget 1 MagicBag, den ska bort härifrån
-Man kan lägga till och ta bort Items från ItemCollection
-
+- 
 Items strength påverkas av de stenar man samlat
 Alla stenars strength summeras och Itemets strength ökar procentuellt med stenarnas styrka. 
 - Blåa stenar påverkar enbart vapnets styrka i attack
 - Röda stenar påverkar enbart vapnets styrka i defence 
 osv.
 - När Weapon används för defence används bara halva vapnets styrka
+- När Shield används för defence används bara 1.5X sköldens styrka styrka
 - Om armors strength faller under 15 är den dålig och ItemCollections totala attackstyrka halveras och EVENTUELLT påverkas dexterity
 
 Items strength blir svagare varje gång de används

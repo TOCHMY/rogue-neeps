@@ -67,7 +67,7 @@ public class ShieldTest {
     void testDefendOnceWithStonesCorrectStrength() {
         SHIELD.addStone(new GemStone(MagicColor.RED, 20, 2));
 
-        assertEquals(60, SHIELD.accept(DEFENCEVISITOR));
+        assertEquals(90, SHIELD.accept(DEFENCEVISITOR));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ShieldTest {
         SHIELD.accept(DEFENCEVISITOR);
         SHIELD.addStone(new GemStone(MagicColor.RED, 30, 20));
 
-        assertEquals(71.25, SHIELD.accept(DEFENCEVISITOR));
+        assertEquals(106.875, SHIELD.accept(DEFENCEVISITOR), 0.05);
     }
 
 

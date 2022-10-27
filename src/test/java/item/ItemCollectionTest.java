@@ -46,6 +46,7 @@ public class ItemCollectionTest {
     @Test
     void testInitializeItemCollection() {
         ItemCollection items = new ItemCollection();
+
         assertNotNull(items);
     }
 
@@ -61,6 +62,7 @@ public class ItemCollectionTest {
     void testAddTooManyArmors() {
         Armor armor = new Armor(50, ARMOR_SOCKETS);
         ITEM_COLLECTION.addArmor(armor);
+
         assertThrows(IllegalStateException.class, () -> ITEM_COLLECTION.addArmor(armor));
     }
 
@@ -68,8 +70,18 @@ public class ItemCollectionTest {
     void testRemoveArmor() {
         Armor armor = new Armor(50, ARMOR_SOCKETS);
         ITEM_COLLECTION.addArmor(armor);
-        assertEquals(armor, ITEM_COLLECTION.removeArmor().orElseThrow(NullPointerException::new));
+
+        ITEM_COLLECTION.removeArmor();
+
         assertNull(ITEM_COLLECTION.getArmor());
+    }
+
+    @Test
+    void testRemoveArmorReturnsArmor() {
+        Armor armor = new Armor(50, ARMOR_SOCKETS);
+        ITEM_COLLECTION.addArmor(armor);
+
+        assertEquals(armor, ITEM_COLLECTION.removeArmor().orElseThrow(NullPointerException::new));
     }
 
     @Test
@@ -84,8 +96,8 @@ public class ItemCollectionTest {
         assertTrue(ITEM_COLLECTION.getHandItems().contains(weapon1));
         Weapon weapon2 = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
         ITEM_COLLECTION.addLeftHandItem(weapon2);
-        assertTrue(ITEM_COLLECTION.getHandItems().contains(weapon1));
-        assertTrue(ITEM_COLLECTION.getHandItems().contains(weapon2));
+
+        assertTrue(ITEM_COLLECTION.getHandItems().containsAll(List.of(weapon1, weapon2)));
     }
 
     @Test
@@ -106,9 +118,9 @@ public class ItemCollectionTest {
         Weapon weapon = new Weapon(50, ATTACK_DEFENCE_SOCKETS);
 
         ITEM_COLLECTION.addRightHandItem(weapon);
+        ITEM_COLLECTION.removeRightHandItem();
 
-        assertEquals(weapon, ITEM_COLLECTION.removeRightHandItem().orElseThrow(NullPointerException::new));
-        assertNotEquals(ITEM_COLLECTION.getRightHandItem(), weapon);
+        assertNull(ITEM_COLLECTION.getRightHandItem());
     }
 
     @Test
@@ -116,42 +128,79 @@ public class ItemCollectionTest {
         Weapon weapon = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
 
         ITEM_COLLECTION.addLeftHandItem(weapon);
+        ITEM_COLLECTION.removeLeftHandItem();
+
+        assertNull(ITEM_COLLECTION.getLeftHandItem());
+    }
+
+    @Test
+    void testRemoveRightHandItemReturnsItem() {
+        Weapon weapon = new Weapon(50, ATTACK_DEFENCE_SOCKETS);
+
+        ITEM_COLLECTION.addRightHandItem(weapon);
+
+        assertEquals(weapon, ITEM_COLLECTION.removeRightHandItem().orElseThrow(NullPointerException::new));
+    }
+
+    @Test
+    void testRemoveLeftHandItemReturnsItem() {
+        Weapon weapon = new Weapon(60, ATTACK_DEFENCE_SOCKETS);
+
+        ITEM_COLLECTION.addLeftHandItem(weapon);
 
         assertEquals(weapon, ITEM_COLLECTION.removeLeftHandItem().orElseThrow(NullPointerException::new));
-        assertNotEquals(ITEM_COLLECTION.getLeftHandItem(), weapon);
+    }
+
+    @Test
+    void testGetHandItemsContainsShield() {
+        Shield shield = new Shield(32, SHIELD_SOCKETS);
+        ITEM_COLLECTION.addRightHandItem(shield);
+
+        assertTrue(ITEM_COLLECTION.getHandItems().contains(shield));
+    }
+
+    @Test
+    void testGetHandItemsContainsWeapon() {
+        Weapon weapon = new Weapon(100, SHIELD_SOCKETS);
+        ITEM_COLLECTION.addRightHandItem(weapon);
+
+        assertTrue(ITEM_COLLECTION.getHandItems().contains(weapon));
+    }
+
+    @Test
+    void testAddShieldToRightHand() {
+        Shield shield = new Shield(32, SHIELD_SOCKETS);
+        ITEM_COLLECTION.addRightHandItem(shield);
+
+        assertEquals(shield, ITEM_COLLECTION.getRightHandItem());
     }
 
     @Test
     void testAddShieldToLeftHand() {
         Shield shield = new Shield(32, SHIELD_SOCKETS);
-        ITEM_COLLECTION.addRightHandItem(shield);
-        assertTrue(ITEM_COLLECTION.getHandItems().contains(shield));
-    }
-
-    @Test
-    void testAddShieldToHand() {
-        Shield shield = new Shield(32, SHIELD_SOCKETS);
-        ITEM_COLLECTION.addRightHandItem(shield);
-        assertTrue(ITEM_COLLECTION.getHandItems().contains(shield));
-        assertEquals(shield, ITEM_COLLECTION.getRightHandItem());
-        ITEM_COLLECTION.removeRightHandItem();
         ITEM_COLLECTION.addLeftHandItem(shield);
-        assertTrue(ITEM_COLLECTION.getHandItems().contains(shield));
+
         assertEquals(shield, ITEM_COLLECTION.getLeftHandItem());
     }
 
     @Test
-    void testMoreThanOneShield() {
+    void testMoreThanOneShieldRightHand() {
         Shield shield = new Shield(32, SHIELD_SOCKETS);
-        ITEM_COLLECTION.addRightHandItem(shield);
-        assertThrows(IllegalStateException.class, () -> {
-            ITEM_COLLECTION.addLeftHandItem(shield);
-        });
-        ITEM_COLLECTION.removeRightHandItem();
         ITEM_COLLECTION.addLeftHandItem(shield);
+
         assertThrows(IllegalStateException.class, () -> {
             ITEM_COLLECTION.addRightHandItem(shield);
         });
+    }
+    @Test
+    void testMoreThanOneShieldLeftHand() {
+        Shield shield = new Shield(32, SHIELD_SOCKETS);
+        ITEM_COLLECTION.addRightHandItem(shield);
+
+        assertThrows(IllegalStateException.class, () -> {
+            ITEM_COLLECTION.addLeftHandItem(shield);
+        });
+
     }
 
     @Test
@@ -176,8 +225,8 @@ public class ItemCollectionTest {
     void testGetAllItemsTwoItems() {
         ITEM_COLLECTION.addRightHandItem(WEAPON);
         ITEM_COLLECTION.addLeftHandItem(SHIELD);
-        assertTrue(ITEM_COLLECTION.getAllItems().containsAll(List.of(WEAPON, SHIELD)));
 
+        assertTrue(ITEM_COLLECTION.getAllItems().containsAll(List.of(WEAPON, SHIELD)));
     }
 
     @Test
@@ -185,8 +234,8 @@ public class ItemCollectionTest {
         ITEM_COLLECTION.addRightHandItem(WEAPON);
         ITEM_COLLECTION.addLeftHandItem(SHIELD);
         ITEM_COLLECTION.addArmor(ARMOR);
-        assertTrue(ITEM_COLLECTION.getAllItems().containsAll(List.of(WEAPON, ARMOR, SHIELD)));
 
+        assertTrue(ITEM_COLLECTION.getAllItems().containsAll(List.of(WEAPON, ARMOR, SHIELD)));
     }
 
     @Test
@@ -230,7 +279,7 @@ public class ItemCollectionTest {
         ITEM_COLLECTION.getLeftHandItem().addStone(new GemStone(MagicColor.RED, 20, 2));
         ITEM_COLLECTION.addArmor(ARMOR);
 
-        double expectedStrength = 135;
+        double expectedStrength = 165;
 
         assertEquals(expectedStrength, ITEM_COLLECTION.defendWithItems());
     }

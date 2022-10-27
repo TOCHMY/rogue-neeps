@@ -9,10 +9,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GemStoneTest {
 
     @Test
-    public void testCreateGemstoneWithColorStrengthAndCost(){
+    public void testCreateGemstoneCorrectColor(){
         GemStone gemStone = new GemStone(MagicColor.BLUE,5,2);
+
         assertEquals(MagicColor.BLUE, gemStone.color());
+    }
+    @Test
+    public void testCreateGemstoneCorrectStrength(){
+        GemStone gemStone = new GemStone(MagicColor.BLUE,5,2);
+
         assertEquals(5, gemStone.strength());
+    }
+    @Test
+    public void testCreateGemstoneCorrectCost(){
+        GemStone gemStone = new GemStone(MagicColor.BLUE,5,2);
+
         assertEquals(2, gemStone.cost());
     }
 

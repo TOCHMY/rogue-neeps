@@ -13,6 +13,7 @@ public class MagicSocketTest {
     @Test
     public void testCreateSocketWithValidColor(){
         MagicSocket socket = new MagicSocket(MagicColor.BLUE);
+
         assertEquals(MagicColor.BLUE, socket.getColor());
     }
 
@@ -21,6 +22,7 @@ public class MagicSocketTest {
         MagicSocket socket = new MagicSocket(MagicColor.BLUE);
         GemStone gemStone = new GemStone(MagicColor.BLUE, 5 ,5);
         socket.addStone(gemStone);
+
         assertEquals(gemStone, socket.getGemStone());
     }
 
@@ -28,6 +30,7 @@ public class MagicSocketTest {
     public void testAddGemstoneOfIncorrectColor(){
         MagicSocket socket = new MagicSocket(MagicColor.RED);
         GemStone gemStone = new GemStone(MagicColor.BLUE, 5 ,5);
+
         assertThrows(IllegalArgumentException.class, () -> socket.addStone(gemStone));
     }
 
