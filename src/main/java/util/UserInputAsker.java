@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-//userInputAsker Source = https://stackoverflow.com/questions/6415728/junit-testing-with-simulated-user-input
 public class UserInputAsker {
     private final Scanner scanner;
     private final PrintStream out;
