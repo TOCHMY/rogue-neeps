@@ -30,7 +30,6 @@ public class ItemTest {
     public void testItemCreatedWithParametersCorrectSockets() {
         List<MagicSocket> magicSockets = List.of(new MagicSocket(MagicColor.BLUE));
         Weapon weapon = new Weapon(50, magicSockets);
-        assertNotNull(weapon);
         assertEquals(magicSockets, weapon.getSockets());
     }
 
@@ -38,7 +37,6 @@ public class ItemTest {
     public void testItemCreatedWithParametersCorrectStrength() {
         List<MagicSocket> magicSockets = List.of(new MagicSocket(MagicColor.BLUE));
         Weapon weapon = new Weapon(50, magicSockets);
-        assertNotNull(weapon);
         assertEquals(50, weapon.getBaseStrength());
     }
 
