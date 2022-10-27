@@ -55,10 +55,6 @@ public class FriendlyNPC extends NPC {
         System.out.println(questToGive.getQuestDescription());
     }
 
-    public String nonQuestGiverResponse() {
-        return "Hello adventurer.";
-    }
-
     public String respondWithQuest() {
         return questToGive.getQuestDescription();
     }

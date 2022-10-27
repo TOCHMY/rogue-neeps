@@ -1,9 +1,6 @@
 package player;
 
-import item.items.Shield;
-import item.items.Weapon;
 import map.Tile;
-import java.util.List;
 
 public class Ogre extends Player{
     public Ogre() {

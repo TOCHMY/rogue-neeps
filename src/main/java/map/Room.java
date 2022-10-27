@@ -1,5 +1,6 @@
 package map;
 
+import npc.EnemyNPC;
 import npc.FriendlyNPC;
 import npc.NPC;
 import util.Position;
@@ -45,7 +46,7 @@ public class Room {
         return startingTile;
     }
 
-    public void addHostileNpc(NPC npc, Position requestedPositionForNpc){
+    public void addHostileNpc(EnemyNPC npc, Position requestedPositionForNpc){
         for(NPC npcloop : map.npcs){
             if(npcloop.equals(npc)){
                 Tile requestedTileForNpc = map.getMap()[requestedPositionForNpc.row()][requestedPositionForNpc.col()];

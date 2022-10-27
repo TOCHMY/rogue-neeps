@@ -16,7 +16,7 @@ public abstract class Player {
     private final ArrayList<Quest> finishedQuestsLog = new ArrayList<>();
     private final ItemCollection items;
     private final Player.Experience xp;
-    protected Stats stats;
+    protected final Stats stats;
     private Direction playerFacingDirection;
     private Map map;
     protected int hp;
