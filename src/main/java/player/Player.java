@@ -8,11 +8,8 @@ import npc.FriendlyNPC;
 import quest.Quest;
 import util.*;
 import item.ItemCollection;
-import item.items.Shield;
-import item.items.Weapon;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public abstract class Player {
     private final ArrayList<Quest> questLog = new ArrayList<>();
@@ -50,12 +47,6 @@ public abstract class Player {
     }
 
     public abstract boolean canMove(Tile tile);
-
-    abstract void equip(Weapon weapon);
-
-    abstract void equip(Shield shield);
-
-    abstract List<Weapon> canEquip();
 
     public Stats getStats() {
         return stats;

@@ -21,17 +21,5 @@ public class Ogre extends Player{
         return false;
     }
 
-    @Override
-    void equip(Weapon weapon){
-
-    }
-    @Override
-    void equip(Shield shield) {
-
-    }
-    @Override
-    List<Weapon> canEquip() {
-        return null;
-    }
 }
 
