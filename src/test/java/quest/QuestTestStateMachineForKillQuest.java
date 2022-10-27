@@ -44,6 +44,7 @@ public class QuestTestStateMachineForKillQuest {
         // Edge 2 - Player kills enemy, quest goal not achieved
         player.killTarget(pig);
         assertNotEquals(quest.getKillQuestCurrentKilled(), quest.getAmountOfEnemiesToKill());
+        assertFalse(quest.isCompleted());
 
         // Edge 3 - Player kills enemy, quest goal is achieved
         player.killTarget(pig);

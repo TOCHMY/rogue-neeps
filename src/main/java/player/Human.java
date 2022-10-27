@@ -1,16 +1,10 @@
 package player;
 
-
-import item.items.Shield;
-import item.items.Weapon;
 import map.Tile;
-
-
-import java.util.List;
 
 public class Human extends Player{
     public Human() {
-        super(1,1,5, 50);
+        super(1,2,5, 50);
     }
 
     @Override

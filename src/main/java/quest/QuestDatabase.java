@@ -8,7 +8,7 @@ import npc.Pig;
 import java.util.ArrayList;
 public class QuestDatabase {
 
-    ArrayList<Quest> questList = new ArrayList<>();
+    private final ArrayList<Quest> questList = new ArrayList<>();
 
     //Flag existerar endast för att fylla plats 0 i arrayen i syfte att kunna hämta quest från questList genom questID
     // där questID alltid == questList index.

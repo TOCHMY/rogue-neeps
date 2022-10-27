@@ -2,6 +2,8 @@ package map;
 
 import util.Position;
 
+import java.util.Objects;
+
 
 public class Tile {
 

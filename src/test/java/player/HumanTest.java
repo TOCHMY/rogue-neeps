@@ -14,7 +14,7 @@ public class HumanTest {
         Stats playerStats = player.stats;
 
         assertEquals(1, playerStats.getStrength());
-        assertEquals(1, playerStats.getDexterity());
+        assertEquals(2, playerStats.getDexterity());
         assertEquals(5, playerStats.getIntelligence());
     }
 

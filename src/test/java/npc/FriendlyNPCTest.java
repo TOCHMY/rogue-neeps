@@ -18,12 +18,6 @@ public class FriendlyNPCTest {
     private final QuestDatabase qdb = new QuestDatabase();
     Player player = new Human();
 
-    @Test
-    void testNonQuestGiverFriendlyNPC_respondsToPlayerInteraction() {
-        FriendlyNPC npc = new FriendlyNPC("Brian");
-        assertEquals("Hello adventurer.", npc.nonQuestGiverResponse());
-    }
-
     //Return QuestDescription for particular quest
     @Test
     void testQuestGiverFriendlyNPC_respondsToPlayerInteraction_expectPigQuestDescription() {
