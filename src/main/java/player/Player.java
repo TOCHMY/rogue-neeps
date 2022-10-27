@@ -21,7 +21,7 @@ public abstract class Player {
     private final Player.Experience xp;
     protected Stats stats;
     private Direction playerFacingDirection;
-    public Map map;
+    private Map map;
     protected int hp;
     private Position position;
 
@@ -118,7 +118,7 @@ public abstract class Player {
             position = target.getPosition();
             target.setOccupied(true);
         }
-        else throw new IllegalStateException("Cannot move there");
+
     }
 
 

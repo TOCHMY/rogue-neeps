@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PlayerTest {
 
-    private static int STARTING_XP = 100;
+    private static final int STARTING_XP = 100;
 
 
     @Test
@@ -116,8 +116,5 @@ public class PlayerTest {
         assertEquals(17, player.getIntelligenceWithItems());
     }
 
-/*    @Test
-    void testKillTarget() {
 
-    }*/
 }

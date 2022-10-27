@@ -30,7 +30,6 @@ public class PositionTest {
 
         assertEquals(2, position.row());
         assertEquals(5, position.col());
-
     }
 
     @Test void WhenPositionNegativeExpectThrows(){
