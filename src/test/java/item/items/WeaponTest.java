@@ -33,15 +33,29 @@ public class WeaponTest {
     }
 
     @Test
-    public void testDefenceOnceWithoutStones() {
+    public void testDefenceOnceWithoutStonesCorrectStrength() {
         assertEquals(25, WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
+    }
+
+    @Test
+    public void testDefenceOnceWithoutStonesCorrectCost() {
+        WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+
         assertEquals(49.5, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
     @Test
-    void testDefenceTwiceWithoutStones() {
+    void testDefenceTwiceWithoutStonesCorrectStrength() {
         WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+
         assertEquals(24.75, WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR));
+    }
+
+    @Test
+    void testDefenceTwiceWithoutStonesCorrectCost() {
+        WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+        WEAPON_WITH_THREE_SOCKETS.accept(DEFENCE_VISITOR);
+
         assertEquals(49, WEAPON_WITH_THREE_SOCKETS.getBaseStrength());
     }
 
