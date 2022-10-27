@@ -53,6 +53,20 @@ public class PlayerMovementTest {
             player.moveTo(new Position(2,5));
         });
     }
+    @Test
+    public void WhenMapAndCurrentPositionAndMoveToNewPos(){
+        Position roomPos = new Position(1,1);
+        Position roomPos2 = new Position(1,2);
+        player.setMap(map);
+        map.getTile(roomPos).makeRoomTile();
+        map.getTile(roomPos2).makeRoomTile();
+
+        player.moveTo(roomPos);
+        player.moveTo(roomPos2);
+
+        assertEquals(roomPos2, player.getPosition());
+
+    }
 
     @Test
     public void TestFacingDirection(){
