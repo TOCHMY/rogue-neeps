@@ -117,9 +117,4 @@ public class PlayerTest {
     }
 
 
-
-/*    @Test
-    void testKillTarget() {
-
-    }*/
 }
