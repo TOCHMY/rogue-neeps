@@ -80,4 +80,16 @@ public class ArmorTest {
         ARMOR_WITH_THREE_SOCKETS.addStone(new GemStone(MagicColor.GREEN, 10,0));
         assertEquals(5, ARMOR_WITH_THREE_SOCKETS.accept(INTELLIGENCE_VISITOR));
     }
+
+    @Test
+    void testGetIntelligenceFromMultipleGreenStones() {
+        Armor armor = new Armor(50,
+                List.of(new MagicSocket(MagicColor.GREEN),new MagicSocket(MagicColor.GREEN)));
+
+        armor.addStone(new GemStone(MagicColor.GREEN, 10,0));
+        armor.addStone(new GemStone(MagicColor.GREEN, 20,0));
+
+        double expectedIntelligence = 50 * (10 + 20) / 100.0;
+        assertEquals(expectedIntelligence, armor.accept(INTELLIGENCE_VISITOR));
+    }
 }
