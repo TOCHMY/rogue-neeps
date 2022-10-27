@@ -279,7 +279,7 @@ public class ItemCollectionTest {
         ITEM_COLLECTION.getLeftHandItem().addStone(new GemStone(MagicColor.RED, 20, 2));
         ITEM_COLLECTION.addArmor(ARMOR);
 
-        double expectedStrength = 135;
+        double expectedStrength = 165;
 
         assertEquals(expectedStrength, ITEM_COLLECTION.defendWithItems());
     }
