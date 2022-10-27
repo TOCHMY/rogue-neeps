@@ -121,6 +121,14 @@ class TileTest {
     }
 
     @Test
+    void When_twoObjectsAreEqual_Expect_HashCodeEqual(){
+        Tile tile1 = new Tile(0,0);
+        Tile tile2 = new Tile(0,0);
+        assertEquals(tile1.hashCode(), tile2.hashCode());
+    }
+
+
+    @Test
     void When_NewRoomIsCreated_Expect_firstRoomTileToBelongToRoom(){
         Map map = new Map();
         Room roomA = new Room("A", 27,8, new Tile(2,7), map);
