@@ -18,6 +18,8 @@ public abstract class Player {
     private final Player.Experience xp;
     protected final Stats stats;
     private Direction playerFacingDirection;
+
+
     private Map map;
     protected int hp;
     private Position position;
@@ -45,6 +47,10 @@ public abstract class Player {
         double intelligenceFromItems = items.useItemIntelligence();
         return playerIntelligence + intelligenceFromItems;
     }
+    public Map getMap() {
+        return map;
+    }
+
 
     public abstract boolean canMove(Tile tile);
 

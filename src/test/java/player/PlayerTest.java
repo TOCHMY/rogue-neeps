@@ -6,10 +6,15 @@ import item.stonesystem.GemStone;
 import item.stonesystem.MagicColor;
 import item.stonesystem.MagicSocket;
 import map.Map;
+import map.Tile;
 import npc.Pig;
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static player.PlayerTest.PlayerMatcher.occupiesTile;
 
 import org.junit.jupiter.api.Assertions;
 import util.Direction;
@@ -21,6 +26,41 @@ public class PlayerTest {
 
     private static final int STARTING_XP = 100;
 
+    public class PlayerMatcher {
+
+        public static TypeSafeMatcher<Player> occupiesTile(Tile tile) {
+            return new TypeSafeMatcher<Player>() {
+                @Override
+                protected boolean matchesSafely(Player player) {
+
+                    if (player.getPosition() == tile.getPosition() && tile.isOccupied()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                @Override
+                public void describeTo(Description description) {
+                    description.appendText("Player should occupy its Map's position");
+                }
+            };
+        }
+    }
+
+    @Test
+    public void WhenPlayerHasPositionExpectTileIsOccupied(){
+        Player player = new Ogre();
+        Map map = new Map();
+        Position roomPos = new Position(1,1);
+
+        player.setMap(map);
+        map.getTile(roomPos).makeRoomTile();
+
+        player.moveTo(roomPos);
+
+        Tile playerTile = map.getTile(player.getPosition());
+        assertThat(player, occupiesTile(playerTile));
+    }
 
     @Test
     public void When_Concrete_Expect_ExperienceExists() {
