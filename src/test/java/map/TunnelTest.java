@@ -1,9 +1,15 @@
 package map;
 
+import npc.Albatross;
+import org.hamcrest.Description;
+import org.hamcrest.Matchers;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.jupiter.api.Test;
 import util.Position;
 
 
+import static map.TunnelMatcher.hasFromRoom;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TunnelTest {
@@ -92,13 +98,31 @@ class TunnelTest {
 
     @Test
     void When_TunnelIsCreated_Expect_IllegalArgument_If_endingTileIsNotWallTile() {
+        Tile tunnelStart = new Tile(1, 1);
+        tunnelStart.makeHorizontalWallTile();
+        Tile tunnelEnd = new Tile(4, 1);
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                    Tile tunnelStart = new Tile(10, 31);
-                    tunnelStart.makeHorizontalWallTile();
-                    Tile tunnelEnd = new Tile(13, 31);
                     new Tunnel("A", "C", tunnelStart, tunnelEnd);});
     }
+
+    @Test
+    void When_newTunnelIsCreated_Expect_tunnelHasFromRoom(){
+        Map map = new Map();
+        Room roomA = new Room("A",4,4, new Tile(4,4), map);
+        Room roomB = new Room("B",4,4, new Tile(12,4), map);
+        map.addRoom(roomA);
+        map.addRoom(roomB);
+
+        Tile tunnelStart = map.getMap()[8][5];
+        Tile tunnelEnd = map.getMap()[11][5];
+
+        Tunnel tunnel = new Tunnel("A", "B", tunnelStart, tunnelEnd);
+        assertThat(tunnel, hasFromRoom());
+    }
+
+
+
 
 
     @Test

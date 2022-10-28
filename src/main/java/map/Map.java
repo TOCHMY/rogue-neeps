@@ -29,7 +29,6 @@ public class Map {
         return map[pos.row()][pos.col()];
     }
 
-    //för player eller för npcs
     public Tile getTile(Direction direction, Position pos){
         Position targetTile = pos.newPosition(direction);
         return map[targetTile.row()][targetTile.col()];

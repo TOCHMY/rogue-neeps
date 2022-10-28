@@ -3,9 +3,11 @@ package map;
 import npc.Albatross;
 import npc.EnemyNPC;
 import npc.FriendlyNPC;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import util.Position;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTest {
@@ -56,17 +58,17 @@ class RoomTest {
 
     @Test
     void When_FriendlyNPCisPlacedOnOccupiedTile_Expect_addFriendlyNPCThrowsIllegalArgumentException() {
+        Map map = new Map();
+        Room roomA = new Room("A", 2, 2, new Tile(2, 2), map);
+        map.addRoom(roomA);
+        FriendlyNPC friendlyNPC1 = new FriendlyNPC("Trainer1");
+        FriendlyNPC friendlyNPC2 = new FriendlyNPC("Trainer2");
+        friendlyNPC1.setMap(map);
+        friendlyNPC2.setMap(map);
+        Position npcPos = new Position(2, 2);
+        roomA.addFriendlyNpc(friendlyNPC1, npcPos);
         assertThrows(IllegalArgumentException.class,
                 () -> {
-                    Map map = new Map();
-                    Room roomA = new Room("A", 27, 8, new Tile(2, 7), map);
-                    map.addRoom(roomA);
-                    FriendlyNPC friendlyNPC1 = new FriendlyNPC("Trainer");
-                    FriendlyNPC friendlyNPC2 = new FriendlyNPC("Trainer");
-                    friendlyNPC1.setMap(map);
-                    friendlyNPC2.setMap(map);
-                    Position npcPos = new Position(3, 15);
-                    roomA.addFriendlyNpc(friendlyNPC1, npcPos);
                     roomA.addFriendlyNpc(friendlyNPC2, npcPos);
                 });
     }
@@ -184,6 +186,18 @@ class RoomTest {
         map.addRoom(roomA);
         assertEquals(100, roomA.getRoomTilesList().size());
     }
+
+    @Test
+    void When_newRoomIsCreated_Expect_correctRoomSize(){
+        Map map = new Map();
+        Room roomA = new Room("A", 10,10, new Tile(1,1), map);
+        map.addRoom(roomA);
+        assertThat(roomA.getRoomTilesList(), Matchers.hasSize(100));
+    }
+
+
+
+
 
 
 

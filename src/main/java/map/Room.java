@@ -83,16 +83,16 @@ public class Room {
     }
 
     public void addWaterTile(Position requestedWaterPosition){
-        Tile requesteWaterTile = map.getMap()[requestedWaterPosition.row()][requestedWaterPosition.col()];
-        if(!roomTilesList.contains(requesteWaterTile)){
+        Tile requestedWaterTile = map.getMap()[requestedWaterPosition.row()][requestedWaterPosition.col()];
+        if(!roomTilesList.contains(requestedWaterTile)){
             throw new IllegalArgumentException("tile is not a room tile");
         }
-        if(requesteWaterTile.isWaterTile() || requesteWaterTile.isSwampTile()){
-            throw new IllegalArgumentException("tile is already a swamp or a watertile");
+        if(requestedWaterTile.isWaterTile() || requestedWaterTile.isSwampTile()){
+            throw new IllegalArgumentException("tile is already a swamp or a waterTile");
         }
 
-        requesteWaterTile.makeWaterTile();
-        waterTileList.add(requesteWaterTile);
+        requestedWaterTile.makeWaterTile();
+        waterTileList.add(requestedWaterTile);
     }
 
     public void addSwampTile(Position requestedSwampPosition){
@@ -101,7 +101,7 @@ public class Room {
             throw new IllegalArgumentException("tile is not a room tile");
         }
         if(requestedSwampTile.isWaterTile() || requestedSwampTile.isSwampTile()){
-            throw new IllegalArgumentException("tile is already a swamp or a watertile");
+            throw new IllegalArgumentException("tile is already a swamp or a waterTile");
         }
         requestedSwampTile.makeSwampTile();
         swampTileList.add(requestedSwampTile);

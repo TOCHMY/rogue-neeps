@@ -25,7 +25,7 @@ public class Tunnel {
                 length = tunnelEnd.getPosition().col()+1 - tunnelStart.getPosition().col();
             }
         } else{
-            throw new IllegalArgumentException("A tunnel must be initiated from a walltile & end on a walltile");
+            throw new IllegalArgumentException("A tunnel must be initiated from a wallTile & end on a wallTile");
         }
 
     }
